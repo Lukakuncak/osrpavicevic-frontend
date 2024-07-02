@@ -1,0 +1,25 @@
+.navbar{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: rgba(0,0,0,0.8);
+    border-top: 3px solid rgba(255,255,255,.3);
+    border-bottom: 3px solid rgba(255,255,255,.3);
+}
+.navbar-item{
+    padding-top: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-bottom: 10px;
+}
+
+.navbar-item a{
+    color: azure;
+    text-decoration: none;
+    font-size: 1em;
+}
+
+.logo img{
+    height: 100px;
+}

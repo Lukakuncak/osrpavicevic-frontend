@@ -1,12 +1,11 @@
-<h1>Основна школа ''Рајак Павићевић''</h1>
-<nav>
-  <ul>
-    <li><a routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">Почетна</a></li>
-    <li><a routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">Обавештења</a></li>
-    <li><a routerLink="/istorija" routerLinkActive="active" ariaCurrentWhenActive="page">Историја</a></li>
-    <li><a routerLink="/raspored-casova" routerLinkActive="active" ariaCurrentWhenActive="page">Распоред часова</a></li>
-    <li><a routerLink="/bitna-dokumenta" routerLinkActive="active" ariaCurrentWhenActive="page">Битна документа</a></li>
-  </ul>
-</nav>
-<!-- The routed views render in the <router-outlet>-->
-<router-outlet></router-outlet>
+<div class="fullpage">
+  <div class="header">
+    <app-header-component></app-header-component>
+  </div>
+  <div class="body">
+    <router-outlet></router-outlet>
+  </div>
+  <div class="footer">
+    <app-footer-component></app-footer-component>
+  </div>
+</div>

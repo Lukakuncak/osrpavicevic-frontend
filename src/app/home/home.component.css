@@ -1,0 +1,11 @@
+.home-page{
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+}
+
+.home-image img{
+    background: url("/header.jpg");
+    height: 90hv;
+}
