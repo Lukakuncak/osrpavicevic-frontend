@@ -1,9 +1,10 @@
-<header>
-    <div class="navbar">
-      <div class="navbar-item"><a routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">Почетна</a></div>
-      <div class="navbar-item"><a routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">Обавештења</a></div>
-      <div class="navbar-item"><a routerLink="/istorija" routerLinkActive="active" ariaCurrentWhenActive="page">Историја</a></div>
-      <div class="navbar-item"><a routerLink="/raspored-casova" routerLinkActive="active" ariaCurrentWhenActive="page">Распоред часова</a></div>
-      <div class="navbar-item"><a routerLink="/bitna-dokumenta" routerLinkActive="active" ariaCurrentWhenActive="page">Битна документа</a></div>
-    </div>
-  </header>
+<mat-toolbar color="primary">
+  <span><img src = "logo.png"></span>
+  <div class="spacer"></div>
+  <a mat-button routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">Почетна</a>
+  <a mat-button routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">Обавештења</a>
+  <a mat-button routerLink="/istorija" routerLinkActive="active" ariaCurrentWhenActive="page">Историја</a>
+  <a mat-button routerLink="/raspored-casova" routerLinkActive="active" ariaCurrentWhenActive="page">Распоред часова</a>
+  <a mat-button routerLink="/bitna-dokumenta" routerLinkActive="active" ariaCurrentWhenActive="page">Битна документа</a>
+  <a mat-raised-button routerLink="/prijavi-se" routerLinkActive="active" ariaCurrentWhenActive="page">Пријави се</a>
+</mat-toolbar>

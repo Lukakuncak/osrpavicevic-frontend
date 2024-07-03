@@ -7,7 +7,12 @@ import { FooterComponentComponent } from './footer-component/footer-component.co
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, RouterLink, RouterLinkActive,HeaderComponentComponent, FooterComponentComponent],
+  imports: [RouterOutlet,
+     CommonModule, 
+     RouterLink, 
+     RouterLinkActive,
+     HeaderComponentComponent, 
+     FooterComponentComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })

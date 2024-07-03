@@ -14,11 +14,13 @@
 
 .body{
     margin: 0;
+    padding: 0;
     background-color: rgb(250, 214, 166);
     flex-grow: 1;
 }
 
 .footer{
     margin: 0;
+    padding: 0;
     background-color: rgb(78, 45, 1);
 }

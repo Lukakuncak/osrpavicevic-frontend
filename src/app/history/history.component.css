@@ -1,0 +1,53 @@
+.history-body{
+    display: flex;
+    flex-direction: column;
+    padding-left: 10%;
+    padding-top: 50px;
+    padding-right: 10%;
+    background-color: white;
+}
+
+.history-image-old{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.history-image-old img{
+    padding-left: 37%;
+    width: 50%;
+}
+
+.history-image-rajak{
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.history-image-rajak img{
+    padding-left: 13%;
+    width: 50%;
+}
+
+@media screen and (max-width: 800px) {
+    .h2{
+        font-size: 12px;
+    }
+
+    .history-body {
+      font-size: 10px;
+      padding: 0;
+    }
+    .history-image-old{
+        padding: 0;
+    }
+    .history-image-old img{
+        padding: 0;
+        width: 100%;
+    }
+    .history-image-rajak{
+        padding: 0;
+    }
+    .history-image-rajak img{
+        padding: 0;
+        width: 100%;
+    }
+  }
