@@ -5,8 +5,18 @@
     padding: 0;
 }
 
-.home-image img{
-    background: url("/header.jpg");
+.home-slider{
+    z-index: 0;
+    width: 80%;
+}
+
+.image-slide img{
     width: 100%;
-    height: 90hv;
+    max-height: 70hv;
+}
+
+@media screen and (max-width: 800px) {
+    .home-slider{
+        width: 100%;
+    }
 }
