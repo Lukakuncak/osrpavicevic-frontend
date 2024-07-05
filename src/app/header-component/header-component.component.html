@@ -1,8 +1,10 @@
 <div class="container">
-  <div class="row"> 
+  <div class="row">
     <div class="col-md-3 col-sm-3 col-3">
       <div class="logo-container">
-        <img src="logo.png" alt="logo skole" class="logo">
+        <a routerLink="/pocetna">
+          <img src="logo.png" alt="logo skole" class="logo">
+        </a>
       </div>
     </div>
     <div class="col-md-9 col-sm-9 col-9 text-end">
@@ -11,12 +13,25 @@
       </div>
       <div class="desktop-menu" [class.mobile-menu]="menuValue">
         <ul>
-          <li><a routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">Почетна</a></li>
-          <li><a routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">Обавештења</a></li>
-          <li><a routerLink="/istorija" routerLinkActive="active" ariaCurrentWhenActive="page">Историја</a></li>
-          <li><a routerLink="/raspored-casova" routerLinkActive="active" ariaCurrentWhenActive="page">Настава</a></li>
-          <li><a routerLink="/bitna-dokumenta" routerLinkActive="active" ariaCurrentWhenActive="page">Битна документа</a></li>
-          <li><a routerLink="/prijavi-se" routerLinkActive="active" ariaCurrentWhenActive="page">Пријави се</a></li>
+          <a routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <li>Почетна</li>
+          </a>
+          <a routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <li>Обавештења</li>
+          </a>
+          <a routerLink="/istorija" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <li>Историја</li>
+          </a>
+          <a routerLink="/raspored-casova" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <li>Настава</li>
+          </a>
+          <a routerLink="/bitna-dokumenta" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <li>Битна
+              документа</li>
+          </a>
+          <a routerLink="/prijavi-se" routerLinkActive="active" ariaCurrentWhenActive="page">
+            <li>Пријави се</li>
+          </a>
         </ul>
       </div>
     </div>
