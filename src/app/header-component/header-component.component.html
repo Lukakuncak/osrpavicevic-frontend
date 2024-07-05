@@ -1,10 +1,24 @@
-<mat-toolbar color="primary">
-  <span><img src = "logo.png"></span>
-  <div class="spacer"></div>
-  <a mat-button routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">Почетна</a>
-  <a mat-button routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">Обавештења</a>
-  <a mat-button routerLink="/istorija" routerLinkActive="active" ariaCurrentWhenActive="page">Историја</a>
-  <a mat-button routerLink="/raspored-casova" routerLinkActive="active" ariaCurrentWhenActive="page">Распоред часова</a>
-  <a mat-button routerLink="/bitna-dokumenta" routerLinkActive="active" ariaCurrentWhenActive="page">Битна документа</a>
-  <a mat-raised-button routerLink="/prijavi-se" routerLinkActive="active" ariaCurrentWhenActive="page">Пријави се</a>
-</mat-toolbar>
+<div class="container">
+  <div class="row"> 
+    <div class="col-md-3 col-sm-3 col-3">
+      <div class="logo-container">
+        <img src="logo.png" alt="logo skole" class="logo">
+      </div>
+    </div>
+    <div class="col-md-9 col-sm-9 col-9 text-end">
+      <div class="menu-icon" (click)="openMenu()">
+        <i class="{{menuIcon}}" style="color: rgb(109, 57, 9);"></i>
+      </div>
+      <div class="desktop-menu" [class.mobile-menu]="menuValue">
+        <ul>
+          <li><a routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">Почетна</a></li>
+          <li><a routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">Обавештења</a></li>
+          <li><a routerLink="/istorija" routerLinkActive="active" ariaCurrentWhenActive="page">Историја</a></li>
+          <li><a routerLink="/raspored-casova" routerLinkActive="active" ariaCurrentWhenActive="page">Настава</a></li>
+          <li><a routerLink="/bitna-dokumenta" routerLinkActive="active" ariaCurrentWhenActive="page">Битна документа</a></li>
+          <li><a routerLink="/prijavi-se" routerLinkActive="active" ariaCurrentWhenActive="page">Пријави се</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

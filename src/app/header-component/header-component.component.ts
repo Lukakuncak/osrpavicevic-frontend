@@ -1,22 +1,23 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatButtonModule } from '@angular/material/button';
-import { RouterLink, RouterLinkActive, RouterOutlet,  } from '@angular/router';
+import { RouterLink, RouterLinkActive, RouterOutlet, } from '@angular/router';
 
 @Component({
   selector: 'app-header-component',
   standalone: true,
   imports: [RouterOutlet,
-    CommonModule, 
+    CommonModule,
     RouterLink,
-    RouterLinkActive, 
-    MatToolbarModule,
-    MatButtonModule],
+    RouterLinkActive
+  ],
   templateUrl: './header-component.component.html',
   styleUrls: ['./header-component.component.css'] // Corrected to 'styleUrls'
 })
 export class HeaderComponentComponent {
-
-
+  menuValue: boolean = true;
+  menuIcon:string='bi bi-list';
+  openMenu(){
+    this.menuValue = !this.menuValue;
+    this.menuIcon = this.menuValue? 'bi bi-x': 'bi bi-list';
+  }
 }

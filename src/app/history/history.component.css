@@ -14,7 +14,7 @@
 
 .history-image-old img{
     padding-left: 37%;
-    width: 50%;
+    width: 80%;
 }
 
 .history-image-rajak{
@@ -27,7 +27,7 @@
     width: 50%;
 }
 
-@media screen and (max-width: 800px) {
+@media screen and (max-width: 900px) {
     .h2{
         font-size: 12px;
     }
