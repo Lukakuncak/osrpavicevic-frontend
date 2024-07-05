@@ -14,7 +14,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet, } from '@angular/router';
   styleUrls: ['./header-component.component.css'] // Corrected to 'styleUrls'
 })
 export class HeaderComponentComponent {
-  menuValue: boolean = true;
+  menuValue: boolean = false;
   menuIcon:string='bi bi-list';
   openMenu(){
     this.menuValue = !this.menuValue;

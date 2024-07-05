@@ -13,8 +13,8 @@
 }
 
 .history-image-old img{
-    padding-left: 37%;
-    width: 80%;
+    margin-left: 40%;
+    width: 45%;
 }
 
 .history-image-rajak{
@@ -23,8 +23,8 @@
 }
 
 .history-image-rajak img{
-    padding-left: 13%;
-    width: 50%;
+    margin-left: 12%;
+    width: 45%;
 }
 
 @media screen and (max-width: 900px) {
@@ -41,6 +41,7 @@
     }
     .history-image-old img{
         padding: 0;
+        margin: 0;
         width: 100%;
     }
     .history-image-rajak{
@@ -48,6 +49,7 @@
     }
     .history-image-rajak img{
         padding: 0;
+        margin: 0;
         width: 100%;
     }
   }
