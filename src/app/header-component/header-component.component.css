@@ -24,19 +24,20 @@
     color: black;
     display: inline-block;
     font-size: 17px;
-    margin-left: 10px;
+    padding-left: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    padding-right: 10px;
 }
 
 .desktop-menu ul li a {
     color: rgb(109, 57, 9);
     text-decoration: none;
-    padding-left: 7px;
-    padding-right: 7px;
 }
 
 .desktop-menu ul li:hover {
-    font-weight: bold;
-    transition: 0.1s ease-in-out;
+    background-color: rgb(252, 221, 142);
+    transition: 0.25s ease-in-out;
 }
 
 .menu-icon{
