@@ -1,45 +1,57 @@
 <div class="container mt-5">
-    <div class="row justify-content-center">
-      <div class="col-md-6">
-        <div class="card">
-          <div class="card-header">
-            <h3>Регистрација</h3>
-          </div>
-          <div class="card-body">
-            <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
-              <div class="form-group">
-                <label for="firstName">Име</label>
-                <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Унесите име">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h3>Регистрација</h3>
+        </div>
+        <div class="card-body">
+          <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+              <label for="firstName">Име</label>
+              <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Унесите име">
+              <div *ngIf="registrationForm.get('firstName').invalid && registrationForm.get('firstName').touched" class="text-danger">
+                Име је обавезно.
               </div>
-              <div class="form-group">
-                <label for="lastName">Презиме</label>
-                <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Унесите презиме">
+            </div>
+            <div class="form-group">
+              <label for="lastName">Презиме</label>
+              <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Унесите презиме">
+              <div *ngIf="registrationForm.get('lastName').invalid && registrationForm.get('lastName').touched" class="text-danger">
+                Презиме је обавезно.
               </div>
-              <div class="form-group">
-                <label for="username">Корисничко име</label>
-                <input type="text" class="form-control" id="username" formControlName="username" placeholder="Унесите корисничко име">
+            </div>
+            <div class="form-group">
+              <label for="username">Корисничко име</label>
+              <input type="text" class="form-control" id="username" formControlName="username" placeholder="Унесите корисничко име">
+              <div *ngIf="registrationForm.get('username').invalid && registrationForm.get('username').touched" class="text-danger">
+                Корисничко име је обавезно.
               </div>
-              <div class="form-group">
-                <label for="password">Лозинка</label>
-                <input type="password" class="form-control" id="password" formControlName="password" placeholder="Унесите лозинку">
+            </div>
+            <div class="form-group">
+              <label for="password">Лозинка</label>
+              <input type="password" class="form-control" id="password" formControlName="password" placeholder="Унесите лозинку">
+              <div *ngIf="registrationForm.get('password').invalid && registrationForm.get('password').touched" class="text-danger">
+                Лозинка мора бити најмање 8 карактера.
               </div>
-              <div class="form-group">
-                <label for="repeatPassword">Поновите лозинку</label>
-                <input type="password" class="form-control" id="repeatPassword" formControlName="repeatPassword" placeholder="Поновите лозинку">
+            </div>
+            <div class="form-group">
+              <label for="repeatPassword">Поновите лозинку</label>
+              <input type="password" class="form-control" id="repeatPassword" formControlName="repeatPassword" placeholder="Поновите лозинку">
+              <div *ngIf="registrationForm.get('repeatPassword').invalid && registrationForm.get('repeatPassword').touched" class="text-danger">
+                <div *ngIf="registrationForm.get('repeatPassword').errors?.['passwordMismatch']">
+                  Лозинке се не подударају.
+                </div>
+                <div *ngIf="registrationForm.get('repeatPassword').errors?.['required']">
+                  Поновите лозинку је обавезно.
+                </div>
               </div>
-              <div class="form-group form-check">
-                <input type="checkbox" class="form-check-input" id="isStudent" formControlName="isStudent">
-                <label class="form-check-label" for="isStudent">Ученик?</label>
-              </div>
-              <div class="form-group">
-                <label for="grade">Разред</label>
-                <input type="number" class="form-control" id="grade" formControlName="grade" placeholder="Унесите разред">
-              </div>
-              <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Креирај налог</button>
-            </form>
-          </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3" [disabled]="registrationForm.invalid">Креирај налог</button>
+          </form>
         </div>
       </div>
     </div>
   </div>
-  
+</div>
