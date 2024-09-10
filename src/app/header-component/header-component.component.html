@@ -1,46 +1,48 @@
 <nav class="navbar navbar-expand-lg bg-body-white">
   <div class="container-fluid" >
     <a class="navbar-brand" routerLink="/pocetna"><img src="logo.png" alt="logo skole" class="logo"></a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/pocetna" routerLinkActive="active" ariaCurrentWhenActive="page">Почетна</a>
+          <a class="nav-link" aria-current="page" routerLink="/pocetna" routerLinkActive="active">Почетна</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/obavestenja" routerLinkActive="active" ariaCurrentWhenActive="page">Обавештења</a>
+          <a class="nav-link" aria-current="page" routerLink="/obavestenja" routerLinkActive="active">Обавештења</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/nastava" routerLinkActive="active" ariaCurrentWhenActive="page">Настава</a>
+          <a class="nav-link" aria-current="page" routerLink="/nastava" routerLinkActive="active">Настава</a>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
             О нама
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/istorija" ariaCurrentWhenActive="page">Наши а успешни</a></li>
-            <li><a class="dropdown-item" routerLink="/istorija" ariaCurrentWhenActive="page">Носиоци вукове дипломе</a></li>
-            <li><a class="dropdown-item" routerLink="/istorija" ariaCurrentWhenActive="page">Запослени</a></li>
-            <li><a class="dropdown-item" routerLink="/istorija" ariaCurrentWhenActive="page">Савет родитеља</a></li>
-            <li><a class="dropdown-item" routerLink="/istorija" ariaCurrentWhenActive="page">Школски одбор</a></li>
-            <li><a class="dropdown-item" routerLink="/istorija" ariaCurrentWhenActive="page">Историја школе</a></li>
+            <li><a class="dropdown-item" routerLink="/istorija">Наши а успешни</a></li>
+            <li><a class="dropdown-item" routerLink="/istorija">Носиоци вукове дипломе</a></li>
+            <li><a class="dropdown-item" routerLink="/istorija">Запослени</a></li>
+            <li><a class="dropdown-item" routerLink="/istorija">Савет родитеља</a></li>
+            <li><a class="dropdown-item" routerLink="/istorija">Школски одбор</a></li>
+            <li><a class="dropdown-item" routerLink="/istorija">Историја школе</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
             Нормативна акта
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/normativna-akta" ariaCurrentWhenActive="page">Годишњи план рада школе</a></li>
-            <li><a class="dropdown-item" routerLink="/normativna-akta" ariaCurrentWhenActive="page">Правилници</a></li>
-            <li><a class="dropdown-item" routerLink="/normativna-akta" ariaCurrentWhenActive="page">Пословници</a></li>
-            <li><a class="dropdown-item" routerLink="/normativna-akta" ariaCurrentWhenActive="page">Јавне набавке</a></li>
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Годишњи план рада школе</a></li>
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Правилници</a></li>
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Пословници</a></li>
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Јавне набавке</a></li>
           </ul>
         </li>
       </ul>
-      <button class="btn btn-outline-success" type="button" routerLink="/prijavi-se" ariaCurrentWhenActive="page">Пријави се</button>
+      <button *ngIf = "isAdmin" class="btn btn-outline-warning" type="button" style="margin-right: 10px;" routerLink="/upravljanje-korisnicima">Управљање корисницима</button>
+      <button *ngIf = "!isAuthenticated" class="btn btn-outline-success" type="button" routerLink="/prijavi-se">Пријави се</button>
+      <button *ngIf = "isAuthenticated" class="btn btn-outline-danger" type="button" (click)="logOut()">Одјави се</button>
     </div>
   </div>
 </nav>

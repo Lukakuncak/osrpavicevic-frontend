@@ -7,6 +7,8 @@ import { ImportantDocumentsComponent } from './important-documents/important-doc
 import { NewsComponent } from './news/news.component';
 import { SignUpComponent } from './sing-up/sing-up.component';
 import { RegisterComponent } from './register/register.component';
+import { UserManagementComponent } from './user-management/user-management.component';
+import { AdminGuard } from './admin.guard';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent},
@@ -16,6 +18,7 @@ export const routes: Routes = [
     { path: 'obavestenja', component: NewsComponent},
     { path: 'prijavi-se', component: SignUpComponent},
     { path: 'registruj-se', component: RegisterComponent},
+    { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate:[AdminGuard]},
     { path: '', redirectTo: '/pocetna', pathMatch: 'full'},
     { path: '**', component: NotFoundComponent},
 ];

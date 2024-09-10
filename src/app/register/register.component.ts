@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -11,34 +13,48 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
+  errorMessage: string;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    this.registrationForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      username: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(8)]],
-      repeatPassword: ['', Validators.required]
-    }, { validator: this.passwordMatchValidator });
+    this.registrationForm = new FormGroup({
+      firstname: new FormControl('', Validators.required),
+      lastname: new FormControl('', Validators.required),
+      username: new FormControl('', Validators.required),
+      password: new FormControl('', [Validators.required, Validators.minLength(8)]),
+      repeatPassword:new FormControl('', Validators.required)
+    }, {
+      validators: this.passwordMatchValidator
+    });
   }
 
-  passwordMatchValidator(form: FormGroup) {
-    const password = form.get('password');
-    const repeatPassword = form.get('repeatPassword');
-    if (password && repeatPassword && password.value !== repeatPassword.value) {
-      repeatPassword.setErrors({ passwordMismatch: true });
-    } else {
-      repeatPassword.setErrors(null);
+  passwordMatchValidator(control: AbstractControl): { [key: string]: boolean } | null {
+    const password = control.get('password');
+    const repeatPassword = control.get('repeatPassword');
+
+    if (!password || !repeatPassword) {
+      return null;
     }
-    return null;
+
+    return password.value === repeatPassword.value ? null : { mismatch: true };
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.registrationForm.valid) {
-      // Handle form submission
-      console.log('Form Submitted', this.registrationForm.value);
+      const { firstname, lastname, username, password } = this.registrationForm.value;
+      const userdata = { firstname, lastname, username, password };
+      try {
+        const response = await this.userService.register(userdata);
+        if(response.statusCode === 200){
+          this.userService.saveToLocalStorageAndUpdateFlags(response.token, response.role)
+          this.router.navigate(['/pocetna'])
+        } else {
+          this.errorMessage = response.error
+        }
+      } catch (error) {
+        console.error('Registration failed', error);
+      }
     }
   }
 }

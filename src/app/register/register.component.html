@@ -8,16 +8,16 @@
         <div class="card-body">
           <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
             <div class="form-group">
-              <label for="firstName">Име</label>
-              <input type="text" class="form-control" id="firstName" formControlName="firstName" placeholder="Унесите име">
-              <div *ngIf="registrationForm.get('firstName').invalid && registrationForm.get('firstName').touched" class="text-danger">
+              <label for="firstname">Име</label>
+              <input type="text" class="form-control" id="firstname" formControlName="firstname" placeholder="Унесите име">
+              <div *ngIf="registrationForm.get('firstname').invalid && registrationForm.get('firstname').touched" class="text-danger">
                 Име је обавезно.
               </div>
             </div>
             <div class="form-group">
-              <label for="lastName">Презиме</label>
-              <input type="text" class="form-control" id="lastName" formControlName="lastName" placeholder="Унесите презиме">
-              <div *ngIf="registrationForm.get('lastName').invalid && registrationForm.get('lastName').touched" class="text-danger">
+              <label for="lastname">Презиме</label>
+              <input type="text" class="form-control" id="lastname" formControlName="lastname" placeholder="Унесите презиме">
+              <div *ngIf="registrationForm.get('lastname').invalid && registrationForm.get('lastname').touched" class="text-danger">
                 Презиме је обавезно.
               </div>
             </div>
@@ -47,7 +47,9 @@
                 </div>
               </div>
             </div>
-
+            <div *ngIf="errorMessage">
+              {{errorMessage}}
+            </div>
             <button type="submit" class="btn btn-primary mt-3" [disabled]="registrationForm.invalid">Креирај налог</button>
           </form>
         </div>

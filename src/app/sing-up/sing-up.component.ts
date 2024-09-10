@@ -1,7 +1,8 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-sing-up',
@@ -11,18 +12,34 @@ import { RouterLink } from '@angular/router';
   styleUrl: './sing-up.component.css'
 })
 export class SignUpComponent {
-  signUpForm: FormGroup;
 
-  constructor(private fb: FormBuilder) {
+  signUpForm: FormGroup;
+  errorMessage: string;
+
+  constructor(private fb: FormBuilder,private readonly userService: UserService, private router:Router,
+    private location: Location
+  ) {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.signUpForm.valid) {
-      console.log(this.signUpForm.value);
+      const { username, password } = this.signUpForm.value;
+      try {
+        const response = await this.userService.login(username, password);
+        if(response.statusCode === 200){
+          this.userService.saveToLocalStorageAndUpdateFlags(response.token, response.role)
+          this.router.navigate(['/pocetna'])
+        } else {
+          this.errorMessage = response.error
+        }
+      } catch (error) {
+        console.error('Login error:', error);
+        // Handle error, show error message to user, etc.
+      }
     }
   }
 }
