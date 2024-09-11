@@ -38,8 +38,8 @@ export class UserService {
     }
   }
 
-  async getAllUsers(token: string): Promise<any> {
-    const url = `${this.BASE_URL}/admin/user-management/get-all`;
+  async getAllUsers(token: string, page: number = 0, size: number = 10, searchTerm: string = ''): Promise<any> {
+    const url = `${this.BASE_URL}/user-management/get-all?page=${page}&size=${size}&search=${searchTerm}`;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -53,7 +53,7 @@ export class UserService {
   }
 
   async getYourProfileStandard(token: string): Promise<any> {
-    const url = `${this.BASE_URL}/standard/user-management/get-my-info`;
+    const url = `${this.BASE_URL}/user-management/get-my-info`;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -67,7 +67,7 @@ export class UserService {
   }
 
   async getYourProfileAdmin(token: string): Promise<any> {
-    const url = `${this.BASE_URL}/admin/user-management/get-my-info`;
+    const url = `${this.BASE_URL}/user-management/get-my-info`;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -81,7 +81,7 @@ export class UserService {
   }
 
   async getUsersById(userId: string, token: string): Promise<any> {
-    const url = `${this.BASE_URL}/admin/user-management/get/${userId}`;
+    const url = `${this.BASE_URL}/user-management/get/${userId}`;
     try {
       const response = await axios.get(url, {
         headers: {
@@ -95,7 +95,7 @@ export class UserService {
   }
 
   async deleteUserById(userId: string, token: string): Promise<any> {
-    const url = `${this.BASE_URL}/admin/user-management/delete/${userId}`;
+    const url = `${this.BASE_URL}/user-management/delete/${userId}`;
     try {
       const response = await axios.delete(url, {
         headers: {
@@ -109,7 +109,7 @@ export class UserService {
   }
 
   async updateUserById(userId: string, userData: string, token: string): Promise<any> {
-    const url = `${this.BASE_URL}/admin/user-management/update/${userId}`;
+    const url = `${this.BASE_URL}/user-management/update/${userId}`;
     try {
       const response = await axios.put(url, { userData }, {
         headers: {
