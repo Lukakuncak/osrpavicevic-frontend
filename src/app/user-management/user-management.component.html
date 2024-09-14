@@ -1,14 +1,16 @@
 <div class="container mt-3">
   <h2>Сви корисници</h2>
-  
-  <!-- Search Bar -->
-  <div class="mb-3">
-    <input type="text" [(ngModel)]="searchTerm" placeholder="Pretraži korisnike" class="form-control" />
-    <button (click)="searchUsers()" class="btn btn-primary mt-2">Pretraži</button>
+
+  <div class="mb-3 d-flex justify-content-between align-items-center">
+    <div class="d-flex align-items-center flex-grow-1">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Претражи кориснике корисничком имену" class="form-control me-2" (keydown.enter)="searchUsers()" />
+      <button (click)="searchUsers()" class="btn btn-primary me-2">Претражи</button>
+      <button (click)="showAll()" class="btn btn-secondary">Прикажи све</button>
+    </div>
   </div>
   
-  <!-- Users Table -->
-  <div class="table-responsive">
+
+  <div *ngIf="usersPage && usersPage.content.length > 0" class="table-responsive">
     <table class="table table-striped table-hover">
       <thead class="thead-dark">
         <tr>
@@ -20,11 +22,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let user of users">
-          <td><input type="text" [(ngModel)]="user.editableFirstName" class="form-control" /></td>
-          <td><input type="text" [(ngModel)]="user.editableLastName" class="form-control" /></td>
+        <tr *ngFor="let user of usersPage.content">
+          <td><input type="text" [(ngModel)]="user.firstname" class="form-control" /></td>
+          <td><input type="text" [(ngModel)]="user.lastname" class="form-control" /></td>
           <td>{{ user.username }}</td>
-          <td><input type="text" [(ngModel)]="user.editableRole" class="form-control" /></td>
+          <td><input type="text" [(ngModel)]="user.role" class="form-control" /></td>
           <td>
             <button (click)="editUser(user)" class="btn btn-sm btn-primary mr-2">Измени</button>
             <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger">Избриши</button>
@@ -33,19 +35,28 @@
       </tbody>
     </table>
   </div>
-  
-  <!-- Pagination Controls -->
-  <nav *ngIf="totalPages > 1">
-    <ul class="pagination">
-      <li class="page-item" [class.disabled]="currentPage === 0">
-        <a class="page-link" (click)="changePage(currentPage - 1)">Previous</a>
+  <div *ngIf="usersPage && usersPage.content.length === 0">
+    <p>Ниједан корисник није пронађен.</p>
+  </div>
+
+  <nav class="d-flex justify-content-between align-items-center">
+    <ul class="pagination mb-0">
+      <li class="page-item" [class.disabled]="usersPage.first">
+        <a class="page-link" (click)="changePage(currentPage - 1)">Претходна</a>
       </li>
-      <li class="page-item" *ngFor="let page of pages">
-        <a class="page-link" (click)="changePage(page)">{{ page + 1 }}</a>
+      <li class="page-item" *ngFor="let page of [].constructor(usersPage.totalPages); let i = index">
+        <a class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
       </li>
-      <li class="page-item" [class.disabled]="currentPage === totalPages - 1">
-        <a class="page-link" (click)="changePage(currentPage + 1)">Next</a>
+      <li class="page-item" [class.disabled]="usersPage.last">
+        <a class="page-link" (click)="changePage(currentPage + 1)">Следећа</a>
       </li>
     </ul>
+
+    <div class="d-flex align-items-center">
+      <label for="pageSizeSelect" class="me-2 mb-0">Величина странице:</label>
+      <select id="pageSizeSelect" class="form-select" [(ngModel)]="pageSize" (change)="updatePageSize($event)">
+        <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+      </select>
+    </div>
   </nav>
 </div>

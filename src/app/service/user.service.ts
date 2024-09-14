@@ -1,7 +1,8 @@
 
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { UsersPage } from '../model/user';
 
 @Injectable({
   providedIn: 'root'
@@ -38,35 +39,26 @@ export class UserService {
     }
   }
 
-  async getAllUsers(token: string, page: number = 0, size: number = 10, searchTerm: string = ''): Promise<any> {
-    const url = `${this.BASE_URL}/user-management/get-all?page=${page}&size=${size}&search=${searchTerm}`;
-    try {
-      const response = await axios.get(url, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
-  }
 
-  async getYourProfileStandard(token: string): Promise<any> {
-    const url = `${this.BASE_URL}/user-management/get-my-info`;
-    try {
-      const response = await axios.get(url, {
+  getAllUsers(token: string, page: number = 0, size: number = 10, searchTerm: string = ''): Observable<UsersPage> {
+    const url = `${this.BASE_URL}/user-management/get-all?page=${page}&size=${size}&search=${searchTerm}`;
+    return new Observable<UsersPage>((observer) => {
+      axios.get(url, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
       })
-      return response.data;
-    } catch (error) {
-      throw error;
-    }
+        .then((response) => {
+          observer.next(response.data.usersPage);
+          observer.complete();
+        })
+        .catch((error) => {
+          observer.error(error);
+        });
+    });
   }
 
-  async getYourProfileAdmin(token: string): Promise<any> {
+  async getYourProfile(token: string): Promise<any> {
     const url = `${this.BASE_URL}/user-management/get-my-info`;
     try {
       const response = await axios.get(url, {
@@ -94,7 +86,7 @@ export class UserService {
     }
   }
 
-  async deleteUserById(userId: string, token: string): Promise<any> {
+  async deleteUserById(userId: number, token: string): Promise<any> {
     const url = `${this.BASE_URL}/user-management/delete/${userId}`;
     try {
       const response = await axios.delete(url, {
@@ -138,7 +130,7 @@ export class UserService {
     localStorage.setItem('token', token)
     localStorage.setItem('role', role)
     this.isAuthenticatedSubject.next(true)
-    if(role==='ADMIN'){
+    if (role === 'ADMIN') {
       this.isAdminSubject.next(true);
       this.isStandardSubject.next(false);
     } else {

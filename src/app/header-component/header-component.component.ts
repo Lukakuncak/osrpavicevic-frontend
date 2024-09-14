@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { RouterLink, RouterLinkActive, RouterOutlet, } from '@angular/router';
-import { UserService } from '../user.service';
+import { Router, RouterLink, RouterLinkActive, RouterOutlet, } from '@angular/router';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-header-component',
@@ -19,7 +19,7 @@ export class HeaderComponentComponent implements OnInit {
   isAdmin: boolean;
   isStandard: boolean;
 
-  constructor(private readonly userService: UserService) {
+  constructor(private readonly userService: UserService, private router: Router) {
 
   }
   ngOnInit(): void {
@@ -39,6 +39,7 @@ export class HeaderComponentComponent implements OnInit {
 
   logOut(): void {
     this.userService.logOut();
+    this.router.navigate(['/pocetna']); 
   }
 
 }

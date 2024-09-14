@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
+import { UserService } from '../service/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { UsersPage } from '../model/user';
 
 @Component({
   selector: 'app-user-management',
@@ -11,56 +12,65 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./user-management.component.css']
 })
 export class UserManagementComponent implements OnInit {
-  users: any[] = [];
+  usersPage!: UsersPage;
   token: string;
   errorMessage: string;
   searchTerm: string = '';
   currentPage: number = 0;
-  totalPages: number = 0;
   pageSize: number = 10;
-  pages: number[] = [];
+  pageSizes: number[] = [10, 25, 50, 100];
 
-  constructor(private userService: UserService) {}
+  constructor(private userService: UserService) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
     this.loadAllUsers();
   }
 
-  async loadAllUsers(): Promise<void> {
-    try {
-      const data = await this.userService.getAllUsers(this.token, this.currentPage, this.pageSize, this.searchTerm);
-      this.users = data.users.map(user => ({
-        ...user,
-        editableFirstName: user.firstname,
-        editableLastName: user.lastname,
-        editableRole: user.role
-      }));
-      this.totalPages = data.totalPages;
-      this.pages = Array.from({ length: this.totalPages }, (_, i) => i);
-    } catch (error) {
-      console.error("Error while fetching users: ", error);
-    }
+  loadAllUsers(): void {
+    this.userService.getAllUsers(this.token, this.currentPage, this.pageSize, this.searchTerm).subscribe(
+      (data) => {
+        this.usersPage = data;
+        if (this.usersPage) {
+          this.currentPage = this.usersPage.number;
+        }
+      },
+      (error) => {
+        console.error('Error fetching users:', error)
+      }
+    );
   }
 
-  async searchUsers(): Promise<void> {
+  searchUsers(): void {
     this.currentPage = 0;
-    await this.loadAllUsers();
+    this.loadAllUsers();
   }
 
-  async changePage(page: number): Promise<void> {
-    if (page >= 0 && page < this.totalPages) {
+  showAll(): void {
+    this.searchTerm = '';
+    this.currentPage = 0;
+    this.loadAllUsers();
+  }
+
+  changePage(page: number): void {
+    if (page >= 0 && page < this.usersPage.totalPages) {
       this.currentPage = page;
-      await this.loadAllUsers();
+      this.loadAllUsers();
     }
+  }
+
+  updatePageSize(event: any): void {
+    this.pageSize = +event.target.value;
+    this.currentPage = 0;
+    this.loadAllUsers();
   }
 
   async editUser(user: any): Promise<void> {
     const { id, editableFirstName, editableLastName, editableRole } = user;
-    // Add your update logic here
+
   }
 
-  async deleteUser(userId: string): Promise<void> {
+  async deleteUser(userId: number): Promise<void> {
     try {
       const response = await this.userService.deleteUserById(userId, this.token);
       if (response.statusCode === 200) {

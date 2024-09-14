@@ -1,0 +1,15 @@
+.d-flex {
+    flex-wrap: nowrap; 
+  }
+  
+  .btn {
+    white-space: nowrap; 
+    font-size: 0.875rem; 
+    padding: 0.375rem 0.75rem; 
+    border-radius: 0.375rem; 
+  }
+  
+  .btn-primary {
+    margin-right: 0.5rem; 
+  }
+  
