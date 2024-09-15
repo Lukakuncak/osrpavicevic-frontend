@@ -10,6 +10,7 @@ import { RegisterComponent } from './register/register.component';
 import { UserManagementComponent } from './user-management/user-management.component';
 import { AdminGuard } from './admin.guard';
 import { MyProfileComponent } from './my-profile/my-profile.component';
+import { PasswordChangeComponent } from './password-change/password-change.component';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent},
@@ -21,6 +22,7 @@ export const routes: Routes = [
     { path: 'registruj-se', component: RegisterComponent},
     { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate:[AdminGuard]},
     { path: 'upravljanje-profilom', component: MyProfileComponent},
+    { path: 'promena-lozinke', component: PasswordChangeComponent},
     { path: '', redirectTo: '/pocetna', pathMatch: 'full'},
     { path: '**', component: NotFoundComponent},
 ];

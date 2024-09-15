@@ -42,7 +42,7 @@
       </ul>
       <button *ngIf = "isAdmin" class="btn btn-outline-warning" type="button" style="margin-right: 10px;" routerLink="/upravljanje-korisnicima">Управљање корисницима</button>
       <button *ngIf = "!isAuthenticated" class="btn btn-outline-success" type="button" routerLink="/prijavi-se">Пријави се</button>
-      <button *ngIf = "isAuthenticated" class="btn btn-outline-info" type="button" style="margin-right: 10px;" routerLink="/prijavi-se">Мој профил</button>
+      <button *ngIf = "isAuthenticated" class="btn btn-outline-info" type="button" style="margin-right: 10px;" routerLink="/upravljanje-profilom">Мој профил</button>
       <button *ngIf = "isAuthenticated" class="btn btn-outline-danger" type="button" (click)="logOut()">Одјави се</button>
     </div>
   </div>

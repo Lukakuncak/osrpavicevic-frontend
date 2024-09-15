@@ -2,12 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { UsersPage } from '../model/user';
+import { User, UsersPage } from '../model/user';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-user-management',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule,
+    FormsModule
+  ],
   templateUrl: './user-management.component.html',
   styleUrls: ['./user-management.component.css']
 })
@@ -20,7 +23,7 @@ export class UserManagementComponent implements OnInit {
   pageSize: number = 10;
   pageSizes: number[] = [10, 25, 50, 100];
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
@@ -65,9 +68,23 @@ export class UserManagementComponent implements OnInit {
     this.loadAllUsers();
   }
 
-  async editUser(user: any): Promise<void> {
-    const { id, editableFirstName, editableLastName, editableRole } = user;
-
+  updateUser(user: User) {
+    this.userService.updateUserById(user, this.token).subscribe(
+      (updatedUser) => {
+        user = updatedUser;
+        if (updatedUser.statusCode === 200) {
+          this.snackBar.open('Успешно ажуриран корисник са корисничким именом ' + updatedUser.schoolUser.username, 'Затвори', {
+            duration: 3000,
+          });
+        }
+      },
+      (error) => {
+        console.error("Error updating user info.", error);
+        this.snackBar.open('Дошло је до грешке приликом ажурирања', 'Затвори', {
+          duration: 3000,
+        });
+      }
+    );
   }
 
   async deleteUser(userId: number): Promise<void> {
@@ -82,4 +99,6 @@ export class UserManagementComponent implements OnInit {
       console.error("Error while deleting user: ", error);
     }
   }
+
+
 }
