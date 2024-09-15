@@ -22,12 +22,25 @@ export class UserManagementComponent implements OnInit {
   currentPage: number = 0;
   pageSize: number = 10;
   pageSizes: number[] = [10, 25, 50, 100];
+  currentUserId: number;
 
   constructor(private userService: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
+    this.loadMyInfo();
     this.loadAllUsers();
+  }
+
+  loadMyInfo(): void {
+    this.userService.getYourProfile(this.token).subscribe(
+      (data) => {
+        this.currentUserId = data.id;
+      },
+      (error) => {
+        console.error('Error fetching current user info:', error);
+      }
+    );
   }
 
   loadAllUsers(): void {

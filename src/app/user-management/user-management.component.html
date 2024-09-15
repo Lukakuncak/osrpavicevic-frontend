@@ -19,7 +19,7 @@
           <th scope="col">Презиме</th>
           <th scope="col">Корисничко име</th>
           <th scope="col">Рола</th>
-          <th scope="col">Акција</th>
+          <th scope="col" class="text-center">Акција</th> 
         </tr>
       </thead>
       <tbody>
@@ -28,17 +28,22 @@
           <td>{{user.lastname}}</td>
           <td>{{ user.username }}</td>
           <td>
-            <select [(ngModel)]="user.role" class="form-select">
+            <span *ngIf="user.id === currentUserId" style="margin-left: 12px;">{{ user.role }}</span>
+            <select *ngIf="user.id !== currentUserId" [(ngModel)]="user.role" class="form-select">
               <option value="ADMIN">ADMIN</option>
               <option value="STANDARD">STANDARD</option>
             </select>
           </td>
-          <td>
-            <button (click)="updateUser(user)" class="btn btn-sm btn-primary mr-2">Измени</button>
-            <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger">Избриши</button>
+          
+          <td class="text-center">
+            <div class="btn-group" role="group">
+              <button (click)="updateUser(user)" class="btn btn-sm btn-primary me-2" [attr.disabled]="user.id === currentUserId? true :null">Измени</button>
+              <button (click)="deleteUser(user.id)" class="btn btn-sm btn-danger" [attr.disabled]="user.id === currentUserId? true :null">Избриши</button>
+            </div>
           </td>
         </tr>
       </tbody>
+      
     </table>
   </div>
   <div *ngIf="usersPage && usersPage.content.length === 0">
