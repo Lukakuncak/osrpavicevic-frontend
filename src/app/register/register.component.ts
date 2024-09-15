@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { UserService } from '../service/user.service';
 import { Router } from '@angular/router';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ export class RegisterComponent implements OnInit {
   registrationForm: FormGroup;
   errorMessage: string;
 
-  constructor(private userService: UserService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
     this.registrationForm = new FormGroup({
@@ -45,9 +46,9 @@ export class RegisterComponent implements OnInit {
       const { firstname, lastname, username, password } = this.registrationForm.value;
       const userdata = { firstname, lastname, username, password };
       try {
-        const response = await this.userService.register(userdata);
+        const response = await this.authService.register(userdata);
         if(response.statusCode === 200){
-          this.userService.saveToLocalStorageAndUpdateFlags(response.token, response.role)
+          this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role)
           this.router.navigate(['/pocetna'])
         } else {
           this.errorMessage = response.error

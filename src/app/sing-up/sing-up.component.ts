@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { UserService } from '../service/user.service';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-sing-up',
@@ -16,9 +17,7 @@ export class SignUpComponent {
   signUpForm: FormGroup;
   errorMessage: string;
 
-  constructor(private fb: FormBuilder,private readonly userService: UserService, private router:Router,
-    private location: Location
-  ) {
+  constructor(private fb: FormBuilder,private readonly authService: AuthService, private router:Router) {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -29,16 +28,15 @@ export class SignUpComponent {
     if (this.signUpForm.valid) {
       const { username, password } = this.signUpForm.value;
       try {
-        const response = await this.userService.login(username, password);
+        const response = await this.authService.login(username, password);
         if(response.statusCode === 200){
-          this.userService.saveToLocalStorageAndUpdateFlags(response.token, response.role)
+          this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role)
           this.router.navigate(['/pocetna'])
         } else {
           this.errorMessage = response.error
         }
       } catch (error) {
         console.error('Login error:', error);
-        // Handle error, show error message to user, etc.
       }
     }
   }
