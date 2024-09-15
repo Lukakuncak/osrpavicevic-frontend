@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../model/user';
 import { UserService } from '../service/user.service';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink, RouterLinkActive } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
 
 @Component({
   selector: 'app-my-profile',
@@ -23,7 +25,7 @@ export class MyProfileComponent implements OnInit {
   };
   token: string;
 
-  constructor(private userService: UserService, private routerLink: Router) { }
+  constructor(private userService: UserService, private snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
@@ -43,7 +45,22 @@ export class MyProfileComponent implements OnInit {
     )
   }
 
-  updateUser() {
-
+  updateUser(user: User) {
+    this.userService.updateUserById(user, this.token).subscribe(
+      (updatedUser) => {
+        user = updatedUser;
+        if (updatedUser.statusCode === 200) {
+          this.snackBar.open('Успешно сте ажурирали ваше податке' , 'Затвори', {
+            duration: 3000,
+          });
+        }
+      },
+      (error) => {
+        console.error("Error updating user info.", error);
+        this.snackBar.open('Дошло је до грешке приликом ажурирања', 'Затвори', {
+          duration: 3000,
+        });
+      }
+    );
   }
 }

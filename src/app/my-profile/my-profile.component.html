@@ -1,6 +1,6 @@
 <div class="container mt-5">
     <h1>Моји подаци</h1>
-    <form (ngSubmit)="updateUser()" #userForm="ngForm">
+    <form (ngSubmit)="updateUser(user)" #userForm="ngForm">
         <div class="form-group">
             <label for="firstname">Име:</label>
             <input type="text" class="form-control" id="firstname" [(ngModel)]="user.firstname" name="firstname" required>
