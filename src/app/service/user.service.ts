@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User, UsersPage } from '../model/user';
+import { response } from 'express';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root'
@@ -98,5 +100,25 @@ export class UserService {
           observer.error(error);
         });
     })
+  }
+
+  changePassword(oldPassword: string, newPassword: string, token: string): Observable<any> {
+    const url = `${this.BASE_URL}/change-password`;
+    return new Observable<any>((observer) => {
+      axios.post(url, null, {
+        params: {
+          oldPassword: oldPassword,
+          newPassword: newPassword
+        },
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      }).then((response => {
+        observer.next(response.data);
+        observer.complete();
+      })).catch((error) => {
+        observer.error(error);
+      })
+    });
   }
 }
