@@ -2,3 +2,61 @@
     height: 90px;
     border-radius: 50%;
 }
+
+.icon-button {
+  display: inline-block;
+  position: relative;
+  margin-right: 10px;
+}
+
+.icon-button i {
+  font-size: 20px; 
+  color: #000; 
+  cursor: pointer;
+  transition: color 0.3s ease; 
+}
+
+.icon-tooltip {
+  opacity: 0; 
+  visibility: hidden;
+  position: absolute;
+  bottom: -30px; 
+  left: 50%;
+  transform: translateX(-50%);
+  color: #fff;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  z-index: 1;
+  transition: opacity 0.3s ease, visibility 0.3s ease, background-color 0.3s ease; /* Smooth transition */
+}
+
+.tooltip-yellowish {
+  background-color: rgba(196, 166, 0, 0.8); 
+}
+
+.tooltip-blue {
+  background-color: rgba(0, 123, 255, 0.8); 
+}
+
+.tooltip-red {
+  background-color: rgba(220, 53, 69, 0.8); 
+}
+
+.icon-button:hover .tooltip-yellowish {
+  opacity: 0.6; 
+  visibility: visible; 
+}
+
+.icon-button:hover .tooltip-blue {
+  opacity: 0.6; 
+  visibility: visible;
+}
+
+.icon-button:hover .tooltip-red {
+  opacity: 0.6; 
+  visibility: visible; 
+}
+
+

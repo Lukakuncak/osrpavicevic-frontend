@@ -5,16 +5,8 @@
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <!-- LEFT SIDE -->
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/pocetna" routerLinkActive="active">Почетна</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/obavestenja" routerLinkActive="active">Обавештења</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" aria-current="page" routerLink="/nastava" routerLinkActive="active">Настава</a>
-        </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
             О нама
@@ -23,27 +15,67 @@
             <li><a class="dropdown-item" routerLink="/istorija">Наши а успешни</a></li>
             <li><a class="dropdown-item" routerLink="/istorija">Носиоци вукове дипломе</a></li>
             <li><a class="dropdown-item" routerLink="/istorija">Запослени</a></li>
-            <li><a class="dropdown-item" routerLink="/istorija">Савет родитеља</a></li>
             <li><a class="dropdown-item" routerLink="/istorija">Школски одбор</a></li>
+            <li><a class="dropdown-item" routerLink="/istorija">Савет родитеља</a></li>
             <li><a class="dropdown-item" routerLink="/istorija">Историја школе</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/obavestenja" routerLinkActive="active">Обавештења</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Распоред часова
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/raspored-casova-rajak">Рајак Павићевић - матична школа</a></li>
+            <li><a class="dropdown-item" routerLink="/raspored-casova-pilica">ИО Пилица</a></li>
           </ul>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-            Нормативна акта
+            Документа
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="/normativna-akta">Годишњи план рада школе</a></li>
-            <li><a class="dropdown-item" routerLink="/normativna-akta">Правилници</a></li>
-            <li><a class="dropdown-item" routerLink="/normativna-akta">Пословници</a></li>
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Документа школе</a></li>
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Нормативна акта</a></li>
             <li><a class="dropdown-item" routerLink="/normativna-akta">Јавне набавке</a></li>
           </ul>
         </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+            Педагошко-психолошки кутак
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Ученици</a></li>
+            <li><a class="dropdown-item" routerLink="/normativna-akta">Родитељи</a></li>
+          </ul>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" routerLink="/obavestenja" routerLinkActive="active">Закажите састанак</a>
+        </li>
       </ul>
-      <button *ngIf = "isAdmin" class="btn btn-outline-warning" type="button" style="margin-right: 10px;" routerLink="/upravljanje-korisnicima">Управљање корисницима</button>
-      <button *ngIf = "!isAuthenticated" class="btn btn-outline-success" type="button" routerLink="/prijavi-se">Пријави се</button>
-      <button *ngIf = "isAuthenticated" class="btn btn-outline-info" type="button" style="margin-right: 10px;" routerLink="/upravljanje-profilom">Мој профил</button>
-      <button *ngIf = "isAuthenticated" class="btn btn-outline-danger" type="button" (click)="logOut()">Одјави се</button>
+
+
+      <!-- RIGHT SIDE -->
+      <div *ngIf="!isAuthenticated" class="icon-button">
+        <button class="btn btn-outline-success" type="button" routerLink="/prijavi-se">Пријави се</button>
+      </div>
+
+      <div class="icon-button" *ngIf="isAdmin" routerLink="/upravljanje-korisnicima">
+        <i class="fa-solid fa-user-group"></i>
+        <span class="icon-tooltip tooltip-yellowish">Управљање корисницима</span>
+      </div>
+      
+      <div class="icon-button" *ngIf="isAuthenticated" routerLink="/upravljanje-profilom">
+        <i class="fa-solid fa-user"></i>
+        <span class="icon-tooltip tooltip-blue">Профил</span>
+      </div>
+      
+      <div class="icon-button" *ngIf="isAuthenticated" (click)="logOut()" title="Одјави се">
+        <i class="fa-solid fa-circle-xmark"></i>
+        <span class="icon-tooltip tooltip-red">Одјави се</span>
+      </div>
     </div>
   </div>
 </nav>

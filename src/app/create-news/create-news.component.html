@@ -1,0 +1,43 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Create New News</h2>
+  
+    <form [formGroup]="newsForm" (ngSubmit)="createNews()">
+      <div class="form-group mb-3">
+        <label for="title">Title</label>
+        <input id="title" formControlName="title" type="text" class="form-control" placeholder="Enter news title">
+        <div *ngIf="newsForm.get('title').invalid && newsForm.get('title').touched" class="text-danger">
+          Title is required.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="content">Content</label>
+        <textarea id="content" formControlName="content" rows="5" class="form-control" placeholder="Enter news content"></textarea>
+        <div *ngIf="newsForm.get('content').invalid && newsForm.get('content').touched" class="text-danger">
+          Content is required.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="type">Type</label>
+        <select id="type" formControlName="type" class="form-control">
+          <option value="">Select a type</option>
+          <option *ngFor="let type of newsTypes" [value]="type">{{ type }}</option>
+        </select>
+        <div *ngIf="newsForm.get('type').invalid && newsForm.get('type').touched" class="text-danger">
+          Type is required.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="dateTime">Date and Time</label>
+        <input id="dateTime" formControlName="dateTime" type="datetime-local" class="form-control">
+        <div *ngIf="newsForm.get('dateTime').invalid && newsForm.get('dateTime').touched" class="text-danger">
+          Date and Time are required.
+        </div>
+      </div>
+  
+      <button type="submit" class="btn btn-primary" [disabled]="newsForm.invalid">Create News</button>
+    </form>
+  </div>
+  
