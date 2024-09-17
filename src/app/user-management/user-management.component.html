@@ -46,7 +46,7 @@
       
     </table>
   </div>
-  <div *ngIf="usersPage && usersPage.content.length === 0">
+  <div *ngIf="usersPage && usersPage.content.length === 0" class="min-vh-100">
     <p>Ниједан корисник није пронађен.</p>
   </div>
 
@@ -63,7 +63,7 @@
       </li>
     </ul>
 
-    <div class="d-flex align-items-center">
+    <div class="d-flex align-items-center " style="margin-bottom: 20px;">
       <label for="pageSizeSelect" class="me-2 mb-0">Величина странице:</label>
       <select id="pageSizeSelect" class="form-select" [(ngModel)]="pageSize" (change)="updatePageSize($event)">
         <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>

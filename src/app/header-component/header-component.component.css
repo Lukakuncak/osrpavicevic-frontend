@@ -3,6 +3,15 @@
     border-radius: 50%;
 }
 
+.nav-item{
+  display: flex;
+  flex-direction: column; /* Align items vertically */
+  justify-content: center; /* Center items vertically */
+}
+.nav-link {
+  text-align: center;
+}
+
 .icon-button {
   display: inline-block;
   position: relative;

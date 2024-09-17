@@ -1,69 +1,77 @@
-<!-- News Component Template -->
 <div class="container mt-4">
-    <!-- Search and Filters -->
-    <div class="row mb-4">
-      <div class="col-md-4">
-        <input type="text" class="form-control" placeholder="Search by title" [(ngModel)]="searchTerm" (input)="searchNews()">
-      </div>
-      <div class="col-md-4">
-        <select class="form-select" [(ngModel)]="selectedType" (change)="searchNews()">
-          <option value="">All Types</option>
-          <option *ngFor="let type of newsTypes" [value]="type">{{ type }}</option>
-        </select>
-      </div>
-      <div class="col-md-4 text-end">
-        <button class="btn btn-primary" *ngIf="isAdmin$ | async" (click)="createNews()">Create News</button>
-      </div>
+  <div class="row mb-4">
+    <div class="col-md-4">
+      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm"
+        (input)="searchNews()">
     </div>
-  
-    <!-- News Grid -->
-    <div class="row">
-      <div class="col-md-12">
-        <div *ngIf="newsPage?.content?.length > 0" class="row">
-          <div *ngFor="let news of newsPage.content" class="col-md-4 mb-3">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">{{ news.title }}</h5>
-                <p class="card-text">{{ news.content | slice:0:255 }}...</p>
-                <a [routerLink]="['/news', news.id]" class="btn btn-primary">Read More</a>
-              </div>
-              <div class="card-footer text-muted">
-                <small>{{ news.dateTime | date: 'short' }}</small>
+    <div class="col-md-2">
+      <select class="form-select" [(ngModel)]="selectedType" (change)="searchNews()">
+        <option value="">Изаберите тип</option>
+        <option *ngFor="let type of mappedNewsTypes" [value]="cyrilicToLatin(type)">{{ type }}</option>
+      </select>
+    </div>
+    <div *ngIf="!isAdmin$" class="col-md-6 text-end">
+      <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success">Креирај ново обавештење</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div *ngIf="newsPage?.content?.length > 0" class="row">
+        <div *ngFor="let news of newsPage.content" class="col-md-4 mb-4">
+          <div class="card h-100">
+            <div class="card-body d-flex flex-column">
+              <h5 class="card-title">{{ news.title }}</h5>
+              <p class="card-text flex-grow-1">{{ news.content | slice:0:150 }}...</p>
+              <a [routerLink]="['/news', news.id]" class="btn btn-light">Прочитајте још</a>
+            </div>
+            <div class="card-footer text-muted d-flex justify-content-between">
+              <small>{{ news.dateTime | date: 'short' }}</small>
+              <div>
+                <small><i class="bi bi-chat"></i></small>
+                &nbsp;|&nbsp;
+                <small><i class="bi bi-eye"></i> {{ news.clicks }} </small>
               </div>
             </div>
+
           </div>
         </div>
-        <div *ngIf="newsPage?.empty" class="alert alert-info">No news available.</div>
       </div>
+      <div *ngIf="newsPage?.empty" class="d-flex justify-content-center align-items-center min-vh-100"><span class=" alert alert-info">Није пронађено ниједно обавештење.</span></div>
     </div>
-  
-    <!-- Pagination -->
-    <nav aria-label="Page navigation">
-      <ul class="pagination">
-        <li class="page-item" [ngClass]="{ 'disabled': newsPage?.first }">
-          <a class="page-link" (click)="loadPreviousPage()" aria-label="Previous">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
+  </div>
+
+
+  <nav class="d-flex justify-content-between align-items-center mb-3">
+    <div class="d-flex align-items-center">
+      <div class="d-flex align-items-center ms-3">
+        <label for="pageSizeSelect" class="me-1 mb-0">Величина странице:</label>
+        <select id="pageSizeSelect" class="form-select-sm me-3" [(ngModel)]="pageSize" (change)="updatePageSize($event)">
+          <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+        </select>
+      </div>
+      <ul class="pagination mb-0">
+        <li class="page-item" [class.disabled]="newsPage?.first">
+          <a class="page-link" (click)="changePage(currentPage - 1)">Претходна</a>
         </li>
-        <li class="page-item disabled">
-          <span class="page-link">Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+        <li class="page-item" *ngFor="let page of [].constructor(newsPage?.totalPages); let i = index"
+          [class.active]="i === currentPage">
+          <a class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
         </li>
-        <li class="page-item" [ngClass]="{ 'disabled': newsPage?.last }">
-          <a class="page-link" (click)="loadNextPage()" aria-label="Next">
-            <span aria-hidden="true">&raquo;</span>
-          </a>
+        <li class="page-item" [class.disabled]="newsPage?.last">
+          <a class="page-link" (click)="changePage(currentPage + 1)">Следећа</a>
         </li>
       </ul>
-    </nav>
-    
-    <!-- Sort by Date -->
-    <div class="text-end mt-3">
+    </div>
+
+    <div class="text-end">
       <button class="btn btn-light" (click)="sortNewsByDate()">
-        Sort by Date
+        Сортирајте по датуму
         <span [ngClass]="{ 'text-success': sortDir === 'asc', 'text-danger': sortDir === 'desc' }">
           <i class="bi" [ngClass]="sortDir === 'asc' ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
         </span>
       </button>
     </div>
-  </div>
-  
+  </nav>
+
+</div>

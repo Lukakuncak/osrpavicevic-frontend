@@ -26,10 +26,26 @@ export class NewsService {
     );
   }
 
-  getAllNews(page: number = 0, size: number = 20, sortBy: string = 'dateTime', sortDir: string = 'desc'): Observable<NewsPage> {
+  getAllNews(page: number, size: number, sortBy: string, sortDir: string, searchTerm: string): Observable<NewsPage> {
     return from(
       axios.get(`${this.baseUrl}/public/news/get-all`, {
         params: {
+          page: page.toString(),
+          size: size.toString(),
+          search: searchTerm,
+          sortBy: sortBy,
+          sortDir: sortDir
+        }
+      }).then(response => response.data.newsPage)
+    );
+  }
+
+  getAllNewsByType(type: string, page: number, size: number, sortBy: string, sortDir: string, searchTerm: string): Observable<NewsPage> {
+    return from(
+      axios.get(`${this.baseUrl}/public/news/get-all-by-type`, {
+        params: {
+          type: type,
+          search: searchTerm,
           page: page.toString(),
           size: size.toString(),
           sortBy: sortBy,
@@ -39,19 +55,6 @@ export class NewsService {
     );
   }
 
-  getAllNewsByType(type: string, page: number = 0, size: number = 10, sortBy: string = 'dateTime', sortDir: string = 'desc'): Observable<NewsPage> {
-    return from(
-      axios.get(`${this.baseUrl}/public/news/get-all-by-type`, {
-        params: {
-          type: type,
-          page: page.toString(),
-          size: size.toString(),
-          sortBy: sortBy,
-          sortDir: sortDir
-        }
-      }).then(response => response.data.newsPage)
-    );
-  }
   getAllNewsTypes(): Observable<string[]> {
     return from(axios.get(`${this.baseUrl}/public/news/get-all-types`).then(response => response.data));
   }
