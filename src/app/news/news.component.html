@@ -10,7 +10,7 @@
         <option *ngFor="let type of mappedNewsTypes" [value]="cyrilicToLatin(type)">{{ type }}</option>
       </select>
     </div>
-    <div *ngIf="isAdmin$" class="col-md-6 text-end">
+    <div *ngIf="isAdmin" class="col-md-6 text-end">
       <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success">Креирај ново обавештење</a>
     </div>
   </div>

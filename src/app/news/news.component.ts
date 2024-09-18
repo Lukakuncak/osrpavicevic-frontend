@@ -27,7 +27,7 @@ export class NewsComponent implements OnInit {
     numberOfElements: 0,
     empty: true
   };
-  isAdmin$: Observable<boolean> = this.authService.isAdmin();
+  isAdmin: boolean
   currentPage: number = 0;
   pageSize: number = 9;
   pageSizes: number[] = [9, 18, 36, 72];
@@ -42,6 +42,9 @@ export class NewsComponent implements OnInit {
   constructor(private newsService: NewsService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    this.authService.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
+    });
     this.loadNews();
     this.loadNewsTypes();
   }
