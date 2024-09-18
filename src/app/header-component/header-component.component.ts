@@ -20,6 +20,12 @@ export class HeaderComponentComponent implements OnInit {
   isAdmin: boolean;
   isStandard: boolean;
 
+  private clickCount = 0;
+  private clickTimeout: any;
+  private readonly maxClicks = 6;
+  private readonly clickInterval = 500;
+  showFlyBy: boolean;
+
   constructor(private readonly authService: AuthService, private router: Router) {
 
   }
@@ -31,7 +37,7 @@ export class HeaderComponentComponent implements OnInit {
     this.authService.isAdmin().subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     }
-    )    
+    )
     this.authService.isStandard().subscribe(isStandard => {
       this.isStandard = isStandard;
     }
@@ -40,7 +46,43 @@ export class HeaderComponentComponent implements OnInit {
 
   logOut(): void {
     this.authService.logOut();
-    this.router.navigate(['/pocetna']); 
+    this.router.navigate(['/pocetna']);
+  }
+
+
+  onLogoClick(event: MouseEvent) {
+    this.clickCount++;
+
+    event.preventDefault();
+
+    if (this.clickTimeout) {
+      clearTimeout(this.clickTimeout);
+    }
+
+    if (this.clickCount === this.maxClicks) {
+      this.triggerEasterEgg();
+      this.resetClickCount();
+    } else {
+      this.clickTimeout = setTimeout(() => {
+        this.resetClickCount();
+      }, this.clickInterval);
+    }
+  }
+
+  private resetClickCount() {
+    this.clickCount = 0;
+    clearTimeout(this.clickTimeout);
+  }
+
+  private triggerEasterEgg() {
+
+    // Trigger the Easter egg (e.g., show the fly-by animation)
+    this.showFlyBy = true;
+
+    // Hide the fly-by after the animation completes (2 seconds)
+    setTimeout(() => {
+      this.showFlyBy = false;
+    }, 5000);
   }
 
 }
