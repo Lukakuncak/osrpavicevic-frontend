@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { HeaderComponentComponent } from './header-component/header-component.component';
 import { FooterComponentComponent } from './footer-component/footer-component.component';
+import { ClassScheduleService } from './service/class-schedule.service';
 
 @Component({
   selector: 'app-root',
@@ -16,7 +17,14 @@ import { FooterComponentComponent } from './footer-component/footer-component.co
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent {
-  
+export class AppComponent implements OnInit{
   title = 'osrpavicevic';
+
+  constructor (private classScheduleService: ClassScheduleService){ }
+  ngOnInit(): void {    
+    this.classScheduleService.loadUrls().then(() => {
+    console.log('Class schedules loaded');
+  });
+  }
+  
 }

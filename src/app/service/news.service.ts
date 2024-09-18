@@ -8,9 +8,8 @@ import { NewsPage } from '../model/news';
 })
 export class NewsService {
 
-  private baseUrl = 'http://localhost:8080'; // Adjust this to your backend URL
+  private baseUrl = 'http://localhost:8080'; 
 
-  // Create a new news post (admin only)
   createNews(title: string, content: string, type: string, dateTime: string, token: string): Observable<any> {
     const newsCreateRequest = {
       title: title,
