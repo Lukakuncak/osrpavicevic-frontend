@@ -1,0 +1,28 @@
+<div class="container mt-5" *ngIf="filenames.length">
+    <h2 class="text-center mb-4">Нормативна акта</h2>
+    <div class="row">
+      <div class="col-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let file of filenames">
+        <div class="card text-center mb-4 shadow-sm pdf-card">
+          <div class="card-body">
+            <i class="fas fa-file-pdf fa-3x text-danger mb-3"></i>
+            <h5 class="card-title">{{ file }}</h5>
+            <div class="btn-group mt-3" role="group" aria-label="File actions">
+              <button class="btn btn-primary btn-sm" (click)="downloadFile(file)">Преузмите</button>
+              <button class="btn btn-secondary btn-sm" (click)="previewFile(file)">Погледајте</button>
+              <button *ngIf="isAdmin" class="btn btn-danger btn-sm" (click)="deleteFile(file)">Обришите</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="container mt-5 text-center" *ngIf="!filenames.length">
+    <p class="text-muted">Тренутно не постоји ниједан фајл.</p>
+  </div>
+
+  <div class="admin-section mt-4 text-center" *ngIf="isAdmin">
+    <h3>Додајте нови фајл:</h3>
+    <input type="file" (change)="onFileSelected($event)" class="form-control mb-2 w-50 mx-auto">
+    <button class="btn btn-success" [disabled]="!selectedFile" (click)="uploadFile()">Додајте</button>
+  </div>
+  

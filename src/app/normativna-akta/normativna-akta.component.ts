@@ -1,20 +1,20 @@
-import { Component, OnInit } from '@angular/core';
-import { FilesService } from '../service/files.service';
 import { CommonModule } from '@angular/common';
+import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../service/auth.service';
+import { FilesService } from '../service/files.service';
 
 @Component({
-  selector: 'app-important-documents',
+  selector: 'app-normativna-akta',
   standalone: true,
   imports: [CommonModule],
-  templateUrl: './important-documents.component.html',
-  styleUrl: './important-documents.component.css'
+  templateUrl: './normativna-akta.component.html',
+  styleUrl: './normativna-akta.component.css'
 })
-export class ImportantDocumentsComponent implements OnInit {
+export class NormativnaAktaComponent implements OnInit {
   filenames: string[] = [];
   selectedFile: File | null = null;
   isAdmin: boolean = false;
-  rootFile: string = "javne-nabavke";
+  rootFile: string = "normativna-akta";
   token: string;
 
   constructor(private pdfService: FilesService, private authService: AuthService) { }
