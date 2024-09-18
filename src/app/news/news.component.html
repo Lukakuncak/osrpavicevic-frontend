@@ -46,7 +46,7 @@
     <div class="d-flex align-items-center">
       <div class="d-flex align-items-center ms-3">
         <label for="pageSizeSelect" class="me-1 mb-0">
-          <span class="text-label">Величина странице:</span>
+          <span class="text-label">Величина <br>странице:</span>
         </label>
         <select id="pageSizeSelect" class="form-select-sm me-3" [(ngModel)]="pageSize" (change)="updatePageSize($event)">
           <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
@@ -58,9 +58,12 @@
             <i class="fa-solid fa-arrow-left"></i>
           </a>
         </li>
-        <li class="page-item" *ngFor="let page of [].constructor(newsPage?.totalPages); let i = index"
+        <li class="page-item number-of-pages-big" *ngFor="let page of [].constructor(newsPage?.totalPages); let i = index"
           [class.active]="i === currentPage">
           <a class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
+        </li>
+        <li class="page-item number-of-pages-small" [class.active]="true">
+          <a class="page-link">{{currentPage}}</a>
         </li>
         <li class="page-item" [class.disabled]="newsPage?.last">
           <a class="page-link" (click)="changePage(currentPage + 1)">

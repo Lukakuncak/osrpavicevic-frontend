@@ -73,8 +73,6 @@ export class NewsComponent implements OnInit {
   }
 
   changePage(page: number): void {
-    console.log(this.newsPage)
-    console.log(page)
     if (page >= 0 && page < this.newsPage.totalPages) {
       this.currentPage = page;
       this.loadNews();

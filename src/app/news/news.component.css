@@ -1,28 +1,39 @@
 .card {
-    border: 1px solid #e0e0e0;
-    border-radius: 0.5rem;
+  border: 1px solid #e0e0e0;
+  border-radius: 0.5rem;
+}
+
+.card-body {
+  padding: 1.25rem;
+}
+
+.card-title {
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+.card-text {
+  font-size: 0.875rem;
+}
+
+.card-footer {
+  background-color: #f8f9fa;
+}
+
+.number-of-pages-small {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .text-label {
+    display: none;
   }
-  
-  .card-body {
-    padding: 1.25rem;
+
+  .number-of-pages-big {
+    display: none;
   }
-  
-  .card-title {
-    font-size: 1.25rem;
-    font-weight: 500;
+
+  .number-of-pages-small {
+    display: contents;
   }
-  
-  .card-text {
-    font-size: 0.875rem;
-  }
-  
-  .card-footer {
-    background-color: #f8f9fa;
-  }
-  
-  @media (max-width: 768px) {
-    .text-label {
-      display: none; /* Hide text labels on mobile */
-    }
-  }
-  
+}
