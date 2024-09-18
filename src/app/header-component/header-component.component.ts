@@ -22,7 +22,7 @@ export class HeaderComponentComponent implements OnInit {
 
   private clickCount = 0;
   private clickTimeout: any;
-  private readonly maxClicks = 6;
+  private readonly maxClicks = 5;
   private readonly clickInterval = 500;
   showFlyBy: boolean;
 
@@ -75,14 +75,12 @@ export class HeaderComponentComponent implements OnInit {
   }
 
   private triggerEasterEgg() {
+    this.router.navigate(['/prestolonaslednikovica'])
 
-    // Trigger the Easter egg (e.g., show the fly-by animation)
-    this.showFlyBy = true;
-
-    // Hide the fly-by after the animation completes (2 seconds)
-    setTimeout(() => {
-      this.showFlyBy = false;
-    }, 5000);
+    // this.showFlyBy = true;
+    // setTimeout(() => {
+    //   this.showFlyBy = false;
+    // }, 5000);
   }
 
 }

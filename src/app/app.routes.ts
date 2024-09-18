@@ -15,6 +15,7 @@ import { CreateNewsComponent } from './create-news/create-news.component';
 import { ClassSchedulePilicaComponent } from './class-schedule-pilica/class-schedule-pilica.component';
 import { NormativnaAktaComponent } from './normativna-akta/normativna-akta.component';
 import { SchoolDocumentsComponent } from './school-documents/school-documents.component';
+import { TicTacToeComponent } from './tic-tac-top/tic-tac-toe.component';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent},
@@ -31,6 +32,7 @@ export const routes: Routes = [
     { path: 'upravljanje-profilom', component: MyProfileComponent},
     { path: 'promena-lozinke', component: PasswordChangeComponent},
     { path: 'kreiraj-obavestenje', component: CreateNewsComponent},
+    { path: 'prestolonaslednikovica', component: TicTacToeComponent},
     { path: '', redirectTo: '/pocetna', pathMatch: 'full'},
     { path: '**', component: NotFoundComponent},
 ];

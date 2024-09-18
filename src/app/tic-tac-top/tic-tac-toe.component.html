@@ -1,0 +1,11 @@
+<div class="container">
+    <h1 id="playerText">{{ winner ? winner === 'Tie' ? 'Нерешено' : winner + ' је Победио!' : 'Икс-окс' }}</h1>
+    <button id="restartBtn" (click)="restartGame()">Рестарт</button>
+  
+    <div id="gameboard">
+      <div class="box" *ngFor="let value of board; let i = index" (click)="handleMove(i)">
+        {{ value }}
+      </div>
+    </div>
+  </div>
+  
