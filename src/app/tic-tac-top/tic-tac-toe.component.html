@@ -1,5 +1,5 @@
 <div class="container">
-    <h1 id="playerText">{{ winner ? winner === 'Tie' ? 'Нерешено' : winner + ' је Победио!' : 'Икс-окс' }}</h1>
+    <h1 id="playerText">{{ winner ? winner === 'Tie' ? 'Нерешено' : winner==='O'?'изгубили сте':'немогуће' : 'Икс-окс' }}</h1>
     <button id="restartBtn" (click)="restartGame()">Рестарт</button>
   
     <div id="gameboard">

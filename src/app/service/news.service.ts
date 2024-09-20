@@ -10,12 +10,11 @@ export class NewsService {
 
   private baseUrl = 'http://localhost:8080'; 
 
-  createNews(title: string, content: string, type: string, dateTime: string, token: string): Observable<any> {
+  createNews(title: string, content: string, type: string, token: string): Observable<any> {
     const newsCreateRequest = {
       title: title,
       content: content,
-      type: type,
-      dateTime: dateTime
+      type: type
     };
     return from(axios.post(`${this.baseUrl}/news/create`, newsCreateRequest, {
       headers: {

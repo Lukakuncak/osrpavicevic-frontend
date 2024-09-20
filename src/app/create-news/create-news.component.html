@@ -28,15 +28,7 @@
           Type is required.
         </div>
       </div>
-  
-      <div class="form-group mb-3">
-        <label for="dateTime">Date and Time</label>
-        <input id="dateTime" formControlName="dateTime" type="datetime-local" class="form-control">
-        <div *ngIf="newsForm.get('dateTime').invalid && newsForm.get('dateTime').touched" class="text-danger">
-          Date and Time are required.
-        </div>
-      </div>
-  
+      
       <button type="submit" class="btn btn-primary" [disabled]="newsForm.invalid">Create News</button>
     </form>
   </div>

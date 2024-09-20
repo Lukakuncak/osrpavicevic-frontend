@@ -25,8 +25,7 @@ export class CreateNewsComponent implements OnInit {
     this.newsForm = this.fb.group({
       title: ['', Validators.required],
       content: ['', Validators.required],
-      type: ['', Validators.required],
-      dateTime: ['', Validators.required]
+      type: ['', Validators.required]
     });
   }
   ngOnInit(): void {
@@ -49,8 +48,8 @@ export class CreateNewsComponent implements OnInit {
 
   createNews(): void {
     if (this.newsForm.valid) {
-      const { title, content, type, dateTime } = this.newsForm.value;
-      this.newsService.createNews(title, content, type, dateTime, this.token).subscribe(
+      const { title, content, type} = this.newsForm.value;
+      this.newsService.createNews(title, content, type, this.token).subscribe(
         response => {
           console.log('News created successfully', response);
           this.newsForm.reset();

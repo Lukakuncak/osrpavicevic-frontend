@@ -23,7 +23,7 @@
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ news.title }}</h5>
               <p class="card-text flex-grow-1">{{ news.content | slice:0:150 }}...</p>
-              <a [routerLink]="['/news', news.id]" class="btn btn-light">Прочитајте још</a>
+              <a [routerLink]="['/obavestenje/', news.id]" class="btn btn-light">Прочитајте још</a>
             </div>
             <div class="card-footer text-muted d-flex justify-content-between">
               <small>{{ news.dateTime | date: 'short' }}</small>

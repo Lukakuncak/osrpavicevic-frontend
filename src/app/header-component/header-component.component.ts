@@ -13,7 +13,7 @@ import { AuthService } from '../service/auth.service';
     RouterLinkActive
   ],
   templateUrl: './header-component.component.html',
-  styleUrls: ['./header-component.component.css'] // Corrected to 'styleUrls'
+  styleUrls: ['./header-component.component.css']
 })
 export class HeaderComponentComponent implements OnInit {
   isAuthenticated: boolean;

@@ -16,6 +16,7 @@ import { ClassSchedulePilicaComponent } from './class-schedule-pilica/class-sche
 import { NormativnaAktaComponent } from './normativna-akta/normativna-akta.component';
 import { SchoolDocumentsComponent } from './school-documents/school-documents.component';
 import { TicTacToeComponent } from './tic-tac-top/tic-tac-toe.component';
+import { OneNewsComponent } from './one-news/one-news.component';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent},
@@ -26,6 +27,7 @@ export const routes: Routes = [
     { path: 'normativna-akta', component: NormativnaAktaComponent},
     { path: 'dokumenta-skole', component: SchoolDocumentsComponent},
     { path: 'obavestenja', component: NewsComponent},
+    { path: 'obavestenje/:id', component: OneNewsComponent},
     { path: 'prijavi-se', component: SignUpComponent},
     { path: 'registruj-se', component: RegisterComponent},
     { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate:[AdminGuard]},

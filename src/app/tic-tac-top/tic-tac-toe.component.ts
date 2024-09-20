@@ -10,7 +10,7 @@ import { Component } from '@angular/core';
 })
 export class TicTacToeComponent {
   board: string[] = Array(9).fill('');
-  currentPlayer: string = 'X'; // 'X' is the human player, 'O' is the AI
+  currentPlayer: string = 'X';
   winner: string | null = null;
   gameActive: boolean = true;
 
@@ -35,7 +35,7 @@ export class TicTacToeComponent {
         this.switchPlayer();
         setTimeout(() => {
           this.computerMove();
-        }, 500); // Let computer move after a short delay
+        }, 500);
       }
     }
   }
@@ -51,17 +51,15 @@ export class TicTacToeComponent {
     }
   }
 
-  // Minimax algorithm to calculate the best move for the AI
   getBestMove(): number | null {
     let bestScore = -Infinity;
     let move = null;
 
     for (let i = 0; i < this.board.length; i++) {
-      // If the spot is available
       if (this.board[i] === '') {
-        this.board[i] = 'O'; // AI is 'O'
+        this.board[i] = 'O';
         const score = this.minimax(this.board, 0, false);
-        this.board[i] = ''; // Undo move
+        this.board[i] = ''; 
 
         if (score > bestScore) {
           bestScore = score;
@@ -73,7 +71,6 @@ export class TicTacToeComponent {
     return move;
   }
 
-  // Minimax algorithm
   minimax(board: string[], depth: number, isMaximizing: boolean): number {
     const scores = { X: -1, O: 1, Tie: 0 };
     const result = this.checkWinnerMinimax(board);
@@ -106,7 +103,6 @@ export class TicTacToeComponent {
     }
   }
 
-  // Check winner for the minimax function
   checkWinnerMinimax(board: string[]): string | null {
     for (let combo of this.winningCombinations) {
       const [a, b, c] = combo;
