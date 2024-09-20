@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { Observable, from } from 'rxjs';
-import { NewsPage } from '../model/news';
+import { News, NewsPage } from '../model/news';
+import { error } from 'console';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NewsService {
 
-  private baseUrl = 'http://localhost:8080'; 
+  private baseUrl = 'http://localhost:8080';
 
   createNews(title: string, content: string, type: string, token: string): Observable<any> {
     const newsCreateRequest = {
@@ -55,5 +56,26 @@ export class NewsService {
 
   getAllNewsTypes(): Observable<string[]> {
     return from(axios.get(`${this.baseUrl}/public/news/get-all-types`).then(response => response.data));
+  }
+
+  getNewsWithComment(id: number): Observable<News> {
+    return from(
+      axios.get(`${this.baseUrl}/public/news/${id}`)
+        .then(response => {
+          if (response.status === 200) {
+            return response.data.news;
+          } else {
+            console.error(response.data.error)
+          }
+        })
+        .catch(error => {
+          console.error("Happened and error during the news fetching ", error)
+        })
+    );
+  }
+
+  updateClickCounter(id:number){
+    axios.put(`${this.baseUrl}/public/news/update-click/${id}`)
+    .catch(error=> console.error("Error happened while updating click count",error));
   }
 }

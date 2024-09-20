@@ -38,6 +38,7 @@ export class NewsComponent implements OnInit {
   selectedType: string = '';
   newsTypes: string[] = [];
   mappedNewsTypes: string[] = [];
+  mostPopular: false;
 
   constructor(private newsService: NewsService, private authService: AuthService, private router: Router) { }
 
@@ -50,6 +51,11 @@ export class NewsComponent implements OnInit {
   }
 
   loadNews(): void {
+    if(this.mostPopular){
+      this.sortBy = "clicks"
+    } else {
+      this.sortBy = "dateTime"
+    }
     if (this.selectedType !== "") {
       this.newsService.getAllNewsByType(this.selectedType, this.currentPage, this.pageSize, this.sortBy, this.sortDir, this.searchTerm).subscribe(newsPage => {
         this.newsPage = newsPage;
@@ -98,6 +104,11 @@ export class NewsComponent implements OnInit {
       },
       (error) => console.error('Error fetching news types', error)
     );
+  }
+
+  goToNewsAndUpdateClick(id: number):void{
+    this.newsService.updateClickCounter(id);
+    this.router.navigate([`obavestenje/${id}`])
   }
 
   private mapNewsTypes(types: string[]): string[] {

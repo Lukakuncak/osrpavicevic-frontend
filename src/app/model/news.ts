@@ -7,6 +7,7 @@ export interface News {
     dateTime: string;   
     clicks: number;
     pinned: boolean;
+    comments?: Comment[];
   }
   
   export interface NewsPage {
