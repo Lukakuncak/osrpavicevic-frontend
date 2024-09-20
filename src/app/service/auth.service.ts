@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import axios from 'axios';
-import { BehaviorSubject } from 'rxjs';
+import { error } from 'node:console';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -93,5 +94,10 @@ export class AuthService {
   isStandard() {
 
     return this.isStandardSubject.asObservable();
+  }
+
+  getAllRoles(): Promise<string[]> {
+    return axios.get(`${this.BASE_URL}/get-all-roles`).then(response => response.data)
+      .catch(error => console.error('Error fetching roles', error));
   }
 }

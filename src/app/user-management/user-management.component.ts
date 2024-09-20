@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { User, UsersPage } from '../model/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { AuthService } from '../service/auth.service';
 
 @Component({
   selector: 'app-user-management',
@@ -23,13 +24,15 @@ export class UserManagementComponent implements OnInit {
   pageSize: number = 10;
   pageSizes: number[] = [10, 25, 50, 100];
   currentUserId: number;
+  roles: string[]
 
-  constructor(private userService: UserService, private snackBar: MatSnackBar) { }
+  constructor(private userService: UserService, private snackBar: MatSnackBar, private authService: AuthService) { }
 
   ngOnInit(): void {
     this.token = localStorage.getItem('token');
     this.loadMyInfo();
     this.loadAllUsers();
+    this.loadAllRoles();
   }
 
   loadMyInfo(): void {
@@ -113,5 +116,8 @@ export class UserManagementComponent implements OnInit {
     }
   }
 
+  loadAllRoles() {
+    this.authService.getAllRoles().then((roles) => this.roles = roles);
+  }
 
 }
