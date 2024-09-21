@@ -39,6 +39,7 @@ export class NewsComponent implements OnInit {
   newsTypes: string[] = [];
   mappedNewsTypes: string[] = [];
   mostPopular: false;
+  filteredNews: News[] = [];
 
   constructor(private newsService: NewsService, private authService: AuthService, private router: Router) { }
 
@@ -62,12 +63,18 @@ export class NewsComponent implements OnInit {
         if (this.newsPage) {
           this.currentPage = this.newsPage.number;
         }
+        if(this.newsPage.content){
+          this.filteredNews = this.newsPage.content.filter(item => !item.deleted)
+        }
       });
     } else {
       this.newsService.getAllNews(this.currentPage, this.pageSize, this.sortBy, this.sortDir, this.searchTerm).subscribe(newsPage => {
         this.newsPage = newsPage;
         if (this.newsPage) {
           this.currentPage = this.newsPage.number;
+        }  
+        if(this.newsPage.content){
+          this.filteredNews = this.newsPage.content.filter(item => !item.deleted)
         }
       });
     }

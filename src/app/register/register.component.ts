@@ -48,7 +48,7 @@ export class RegisterComponent implements OnInit {
       try {
         const response = await this.authService.register(userdata);
         if(response.statusCode === 200){
-          this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role)
+          this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role, response.id)
           this.router.navigate(['/pocetna'])
         } else {
           this.errorMessage = response.error

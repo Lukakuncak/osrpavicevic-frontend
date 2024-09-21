@@ -1,12 +1,14 @@
+import { NewsType } from "../news/news-type.enum";
+
 export interface News {
     id: number;
     title: string;
     content: string;
-    type: string;     
-    author: string;
+    type: NewsType;     
     dateTime: string;   
     clicks: number;
     pinned: boolean;
+    deleted: boolean;
     comments?: Comment[];
   }
   

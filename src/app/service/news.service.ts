@@ -58,21 +58,22 @@ export class NewsService {
     return from(axios.get(`${this.baseUrl}/public/news/get-all-types`).then(response => response.data));
   }
 
-  getNewsWithComment(id: number): Observable<News> {
-    return from(
-      axios.get(`${this.baseUrl}/public/news/${id}`)
-        .then(response => {
-          if (response.status === 200) {
-            return response.data.news;
-          } else {
-            console.error(response.data.error)
-          }
-        })
-        .catch(error => {
-          console.error("Happened and error during the news fetching ", error)
-        })
-    );
+  getNewsWithComment(id: number): Promise<News> {
+    return axios.get(`${this.baseUrl}/public/news/${id}`)
+      .then(response => {
+        if (response.status === 200) {
+          return response.data.news;
+        } else {
+          console.error(response.data.error);
+          throw new Error(response.data.error);
+        }
+      })
+      .catch(error => {
+        console.error("Happened an error during the news fetching: ", error);
+        throw error;
+      });
   }
+  
 
   updateClickCounter(id:number){
     axios.put(`${this.baseUrl}/public/news/update-click/${id}`)

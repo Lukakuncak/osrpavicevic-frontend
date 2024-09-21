@@ -70,9 +70,10 @@ export class AuthService {
     }
   }
 
-  saveToLocalStorageAndUpdateFlags(token: string, role: string): void {
+  saveToLocalStorageAndUpdateFlags(token: string, role: string, id: number): void {
     localStorage.setItem('token', token)
     localStorage.setItem('role', role)
+    localStorage.setItem('id',id.toString());
     this.isAuthenticatedSubject.next(true)
     if (role === 'ADMIN') {
       this.isAdminSubject.next(true);

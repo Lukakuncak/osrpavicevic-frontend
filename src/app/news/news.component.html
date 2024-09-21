@@ -26,8 +26,8 @@
 
   <div class="row">
     <div class="col-md-12">
-      <div *ngIf="newsPage?.content?.length > 0" class="row">
-        <div *ngFor="let news of newsPage.content" class="col-md-4 mb-4">
+      <div *ngIf="filteredNews?.length > 0" class="row">
+        <div *ngFor="let news of filteredNews" class="col-md-4 mb-4">
           <div class="card h-100">
             <div class="card-body d-flex flex-column">
               <h5 class="card-title">{{ news.title }}</h5>
