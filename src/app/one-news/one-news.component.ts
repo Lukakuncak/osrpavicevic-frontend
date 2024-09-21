@@ -29,6 +29,7 @@ export class OneNewsComponent implements OnInit {
     pinned: false
   };
   comments?: Comment[] = [];
+  unapprovedComments?: Comment[] = [];
   isAuthenticated: boolean = false;
   newComment: string = '';
   private token: string;
@@ -60,6 +61,7 @@ export class OneNewsComponent implements OnInit {
       this.news = news;
       const tempComments = news?.comments as unknown as Comment[] || [];
       this.comments = tempComments.filter(item => item.approved);
+      this.comments = tempComments.filter(item => !item.approved);
     } catch (error) {
       console.error('Error fetching news with comments: ', error);
     }
@@ -68,7 +70,7 @@ export class OneNewsComponent implements OnInit {
   submitComment(): void {
     if (this.newComment.trim()) {
       this.commentService.createComment(this.userId,this.newsId,this.newComment,this.token);
-      alert('New Comment Submitted:');
+      alert('Успешно сте послали коментар, чека се одобрење администратора.');
       this.loadNews();
       this.newComment = '';
     } else {

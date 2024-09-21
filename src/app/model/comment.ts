@@ -1,4 +1,5 @@
 import { News } from "./news";
+import { User } from "./user";
 
 export interface Comment {
     id: number;
@@ -7,6 +8,6 @@ export interface Comment {
     reply?: string;  
     replyCreatedDate?: string;  
     approved: boolean;
-    username: string; 
+    user: User; 
     news?: News;
   }

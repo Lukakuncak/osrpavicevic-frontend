@@ -11,10 +11,10 @@
     </div>
   
     <div *ngIf="comments?.length > 0" class="mt-4">
-      <h4>Comments:</h4>
+      <h4>Коментари:</h4>
       <ul class="list-group">
         <li *ngFor="let comment of comments" class="list-group-item">
-          <p><strong>{{ comment.username }}</strong> <span class="text-muted">{{ comment.commentCreatedDate | date: 'short' }}</span></p>
+          <p>Од <strong>{{ comment.user.username }}:</strong> <span class="text-muted"><br>{{ comment.commentCreatedDate | date: 'short' }}</span></p>
           <p>{{ comment.content }}</p>
           <p *ngIf="comment.reply" class="text-muted"><em>Reply: {{ comment.reply }}</em></p>
         </li>
@@ -25,12 +25,15 @@
       <p>Још увек не постоји ниједан коментар за ову вест.</p>
     </div>
     <div *ngIf="isAuthenticated" class="mt-4 mb-4">
-      <h4>Оставите коментар или поставите питање</h4>
+      <h5>Оставите коментар или поставите питање</h5>
       <div class="mb-3">
         <label for="commentInput" class="form-label">Ваш коментар</label>
         <textarea [(ngModel)]="newComment" id="commentInput" class="form-control" rows="3" placeholder="Унесите ваш коментар овде..."></textarea>
       </div>
       <button (click)="submitComment()" class="btn btn-primary">Оставите коментар</button>
+    </div>
+    <div *ngIf="!isAuthenticated" class="mt-4 mb-4">
+      <strong>Да бисте оставили коментар морате бити регистровани</strong>
     </div>
   </div>
   

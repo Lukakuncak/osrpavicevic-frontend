@@ -17,6 +17,7 @@ import { NormativnaAktaComponent } from './normativna-akta/normativna-akta.compo
 import { SchoolDocumentsComponent } from './school-documents/school-documents.component';
 import { TicTacToeComponent } from './tic-tac-top/tic-tac-toe.component';
 import { OneNewsComponent } from './one-news/one-news.component';
+import { UnaprovedCommentsComponent } from './unaproved-comments/unaproved-comments.component';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent},
@@ -33,7 +34,8 @@ export const routes: Routes = [
     { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate:[AdminGuard]},
     { path: 'upravljanje-profilom', component: MyProfileComponent},
     { path: 'promena-lozinke', component: PasswordChangeComponent},
-    { path: 'kreiraj-obavestenje', component: CreateNewsComponent},
+    { path: 'kreiraj-obavestenje', component: CreateNewsComponent,  canActivate:[AdminGuard]},
+    { path: 'neodobreni-komentari', component: UnaprovedCommentsComponent,  canActivate:[AdminGuard]},
     { path: 'prestolonaslednikovica', component: TicTacToeComponent},
     { path: '', redirectTo: '/pocetna', pathMatch: 'full'},
     { path: '**', component: NotFoundComponent},

@@ -11,7 +11,8 @@
       </select>
     </div>
     <div *ngIf="isAdmin" class="col-md-6 text-end">
-      <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success">Креирај ново обавештење</a>
+      <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success" style="margin-right: 10px;">Ново обавештење</a>
+      <a [routerLink]="['/neodobreni-komentari']" class="btn btn-secondary">Неодобрени коментари</a>
     </div>
   </div>
 

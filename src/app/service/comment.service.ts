@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Comment } from '../model/comment';
 import axios from 'axios';
+import { throwIfEmpty } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class CommentService {
       content: '',
       commentCreatedDate: '',
       approved: false,
-      username: ''
+      user: null
   }
   constructor() { }
 
@@ -37,6 +38,25 @@ export class CommentService {
     } catch (error) {
       console.error("Error creating comment:", error);
       return this.emptyComment;
+    }
+  }
+
+  async getAllUnaproved(token: string):Promise<Comment[]>{
+    try{
+      const response =  await axios.get(`${this.BASE_URL}/get-all-unapproved`,{
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if(response.data.statusCode === 200){
+        return response.data.comments;
+      } else {
+        console.log("Error while fetching unapproved comments: ",response.data.error);
+        return [];
+      }
+    }catch (error) {
+      console.error("Error creating comment:", error);
+      return [];
     }
   }
 }
