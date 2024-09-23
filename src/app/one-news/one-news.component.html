@@ -13,13 +13,54 @@
     <div *ngIf="comments?.length > 0" class="mt-4">
       <h4>Коментари:</h4>
       <ul class="list-group">
-        <li *ngFor="let comment of comments" class="list-group-item">
-          <p>Од <strong>{{ comment.user.username }}:</strong> <span class="text-muted"><br>{{ comment.commentCreatedDate | date: 'short' }}</span></p>
-          <p>{{ comment.content }}</p>
-          <p *ngIf="comment.reply" class="text-muted"><em>Reply: {{ comment.reply }}</em></p>
+        <li *ngFor="let comment of comments" class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="me-auto">
+            <p>Од <strong>{{ comment.user.username }}:</strong> 
+              <span class="text-muted"><br>{{ comment.commentCreatedDate | date: 'short' }}</span>
+            </p>
+            <p>{{ comment.content }}</p>
+            <p *ngIf="comment.reply" class="text-muted">
+              <em>Reply: {{ comment.reply }}</em>
+            </p>
+          </div>
+  
+          <div *ngIf="isAdmin">
+            <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.id)">
+              Обриши
+            </button>
+          </div>
         </li>
       </ul>
     </div>
+    
+
+      
+    <div *ngIf="unapprovedComments?.length > 0 && isAdmin" class="mt-4">
+      <h4>Коментари на чекању:</h4>
+      <ul class="list-group">
+        <li *ngFor="let comment of unapprovedComments" class="list-group-item d-flex justify-content-between align-items-start">
+          <div class="me-auto">
+            <p>Од <strong>{{ comment.user.username }}:</strong> 
+              <span class="text-muted"><br>{{ comment.commentCreatedDate | date: 'short' }}</span>
+            </p>
+            <p>{{ comment.content }}</p>
+            <p *ngIf="comment.reply" class="text-muted">
+              <em>Reply: {{ comment.reply }}</em>
+            </p>
+          </div>
+  
+          <div>
+            <button class="btn btn-success btn-sm me-2" (click)="approveComment(comment.id)">
+              Одобри
+            </button>
+            <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.id)">
+              Обриши
+            </button>
+          </div>
+        </li>
+      </ul>
+    </div>
+    
   
     <div *ngIf="comments.length === 0" class="mt-4">
       <p>Још увек не постоји ниједан коментар за ову вест.</p>
@@ -33,7 +74,7 @@
       <button (click)="submitComment()" class="btn btn-primary">Оставите коментар</button>
     </div>
     <div *ngIf="!isAuthenticated" class="mt-4 mb-4">
-      <strong>Да бисте оставили коментар морате бити регистровани</strong>
+      <strong>Да бисте оставили коментар морате бити регистровани!</strong>
     </div>
   </div>
   

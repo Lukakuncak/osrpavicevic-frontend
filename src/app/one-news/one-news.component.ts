@@ -8,6 +8,7 @@ import { AuthService } from '../service/auth.service';
 import { NewsType } from '../news/news-type.enum';
 import { FormsModule } from '@angular/forms';
 import { CommentService } from '../service/comment.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-one-news',
@@ -31,12 +32,15 @@ export class OneNewsComponent implements OnInit {
   comments?: Comment[] = [];
   unapprovedComments?: Comment[] = [];
   isAuthenticated: boolean = false;
+  isAdmin: boolean = false;
   newComment: string = '';
   private token: string;
   private userId: number;
 
 
-  constructor(private route: ActivatedRoute, private newsService: NewsService, private authService: AuthService, private commentService: CommentService) { }
+  constructor(private route: ActivatedRoute, private newsService: NewsService, private authService: AuthService, private commentService: CommentService,
+    private snackBar: MatSnackBar
+  ) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
       const idParam = params.get('id');
@@ -47,6 +51,9 @@ export class OneNewsComponent implements OnInit {
     });
     this.authService.isAuthenticated().subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
+    });
+    this.authService.isAdmin().subscribe(isAdmin => {
+      this.isAdmin = isAdmin;
     });
 
     if (typeof localStorage !== 'undefined') {
@@ -61,7 +68,7 @@ export class OneNewsComponent implements OnInit {
       this.news = news;
       const tempComments = news?.comments as unknown as Comment[] || [];
       this.comments = tempComments.filter(item => item.approved);
-      this.comments = tempComments.filter(item => !item.approved);
+      this.unapprovedComments = tempComments.filter(item => !item.approved);
     } catch (error) {
       console.error('Error fetching news with comments: ', error);
     }
@@ -70,11 +77,23 @@ export class OneNewsComponent implements OnInit {
   submitComment(): void {
     if (this.newComment.trim()) {
       this.commentService.createComment(this.userId,this.newsId,this.newComment,this.token);
-      alert('Успешно сте послали коментар, чека се одобрење администратора.');
+      this.snackBar.open('Успешно сте послали коментар, чека се одобрење администратора.', 'Затвори', {
+        duration: 3000,
+      });
       this.loadNews();
       this.newComment = '';
     } else {
       console.error('Comment is empty');
     }
+  }
+
+  async approveComment(id: number) {
+    await this.commentService.approveComment(id, this.token);
+    this.loadNews();
+  }
+
+  async deleteComment(id: number) {
+    await this.commentService.deleteComment(id, this.token);
+    this.loadNews();
   }
 }

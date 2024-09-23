@@ -26,15 +26,17 @@ export class UnaprovedCommentsComponent implements OnInit {
   }
 
 
-  async loadUnapprovedComments() {
-    this.comments = await this.commentService.getAllUnaproved(this.token);
+  loadUnapprovedComments() {
+    this.commentService.getAllUnapproved(this.token).subscribe(response => this.comments = response);
   }
 
-  approveComment(id: number) {
-    
+  async approveComment(id: number) {
+    await this.commentService.approveComment(id, this.token);
+    this.loadUnapprovedComments();
   }
 
-  deleteComment(id: number) {
-
+  async deleteComment(id: number) {
+    await this.commentService.deleteComment(id, this.token);
+    this.loadUnapprovedComments();
   }
 }

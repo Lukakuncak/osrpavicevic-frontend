@@ -54,6 +54,7 @@ export class NewsComponent implements OnInit {
   loadNews(): void {
     if(this.mostPopular){
       this.sortBy = "clicks"
+      this.sortDir = "desc"
     } else {
       this.sortBy = "dateTime"
     }
