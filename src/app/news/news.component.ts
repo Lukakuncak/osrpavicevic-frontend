@@ -70,7 +70,6 @@ export class NewsComponent implements OnInit {
         }
         if (this.newsPage.content) {
           this.filteredNews = this.newsPage.content;
-          this.sortPinnedFirst();
         }
       });
       this.newsService.getAllPinnedNews().subscribe(newsList => {

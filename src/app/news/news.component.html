@@ -1,32 +1,5 @@
 <div class="container mt-4">
   <div class="row mb-2">
-    <div class="col-md-4">
-      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm"
-        (input)="searchNews()">
-    </div>
-    <div class="col-md-2">
-      <select class="form-select" [(ngModel)]="selectedType" (change)="searchNews()">
-        <option value="">Изаберите тип</option>
-        <option *ngFor="let type of mappedNewsTypes" [value]="cyrilicToLatin(type)">{{ type }}</option>
-      </select>
-    </div>
-    <div *ngIf="isAdmin" class="col-md-6 text-end">
-      <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success" style="margin-right: 10px;">Ново обавештење</a>
-      <a [routerLink]="['/neodobreni-komentari']" class="btn btn-secondary">Неодобрени коментари</a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-2 mb-2">
-      <div class="form-check">
-        <label class="form-check-label" for="popularCheckbox">Популарно</label>
-        <input type="checkbox" class="form-check-input" id="popularCheckbox" [(ngModel)]="mostPopular"
-          (change)="searchNews()">
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-2">
     <div class="col-md-12">
       <div *ngIf="pinnedNews?.length > 0" class="row">
         <div class="row mb-4">
@@ -64,16 +37,48 @@
   </div>
   
 
+  <div class="row mb-2">
+    <div *ngIf="isAdmin" class="col-md-4">
+      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm"
+        (input)="searchNews()">
+    </div>
+    <div *ngIf="!isAdmin" class="col-md-6">
+      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm"
+        (input)="searchNews()">
+    </div>
+    <div *ngIf="!isAdmin" class="col-md-4"></div>
+    <div class="col-md-2">
+      <select class="form-select" [(ngModel)]="selectedType" (change)="searchNews()">
+        <option value="">Изаберите тип</option>
+        <option *ngFor="let type of mappedNewsTypes" [value]="cyrilicToLatin(type)">{{ type }}</option>
+      </select>
+    </div>
+    <div *ngIf="isAdmin" class="col-md-6 text-end">
+      <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success" style="margin-right: 10px;">Ново обавештење</a>
+      <a [routerLink]="['/neodobreni-komentari']" class="btn btn-secondary">Неодобрени коментари</a>
+    </div>
+  </div>
+
 
   <div class="row">
     <div class="col-md-12">
       <div *ngIf="filteredNews?.length > 0" class="row">
-        <div class="row mb-4">
+        <div class="row mb-1">
           <div class="col-md-4"></div>
           <div class="col-md-4 text-center">
             <h4 class="fw-bold">Остале вести</h4>
           </div>
           <div class="col-md-4"></div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-2 mb-2">
+            <div class="form-check">
+              <label class="form-check-label" for="popularCheckbox">Популарно</label>
+              <input type="checkbox" class="form-check-input" id="popularCheckbox" [(ngModel)]="mostPopular"
+                (change)="searchNews()">
+            </div>
+          </div>
         </div>
 
         <div *ngFor="let news of filteredNews" class="col-md-4 mb-4">
