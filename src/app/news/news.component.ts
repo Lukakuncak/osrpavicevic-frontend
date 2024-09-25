@@ -39,6 +39,7 @@ export class NewsComponent implements OnInit {
   mappedNewsTypes: string[] = [];
   mostPopular: false;
   filteredNews: News[] = [];
+  pinnedNews: News[] = [];
   token: string
 
   constructor(private newsService: NewsService, private authService: AuthService, private router: Router) { }
@@ -68,7 +69,7 @@ export class NewsComponent implements OnInit {
           this.currentPage = this.newsPage.number;
         }
         if(this.newsPage.content){
-          this.filteredNews = this.newsPage.content.filter(item => !item.deleted);
+          this.filteredNews = this.newsPage.content;
           this.sortPinnedFirst();
         }
       });
@@ -79,9 +80,12 @@ export class NewsComponent implements OnInit {
           this.currentPage = this.newsPage.number;
         }  
         if(this.newsPage.content){
-          this.filteredNews = this.newsPage.content.filter(item => !item.deleted);
+          this.filteredNews = this.newsPage.content;
         }
       });
+      this.newsService.getAllPinnedNews().subscribe(newsList=>{
+        this.pinnedNews = newsList;
+      })
     }
   }
 

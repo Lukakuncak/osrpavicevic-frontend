@@ -39,6 +39,12 @@ export class NewsService {
     );
   }
 
+  getAllPinnedNews():Observable<News[]>{
+    return from(
+      axios.get(`${this.baseUrl}/public/news/get-all-pinned`).then(response => response.data.newsList)
+    );
+  }
+
   getAllNewsByType(type: string, page: number, size: number, sortBy: string, sortDir: string, searchTerm: string): Observable<NewsPage> {
     return from(
       axios.get(`${this.baseUrl}/public/news/get-all-by-type`, {
