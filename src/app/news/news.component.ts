@@ -56,7 +56,7 @@ export class NewsComponent implements OnInit {
   }
 
   loadNews(): void {
-    if(this.mostPopular){
+    if (this.mostPopular) {
       this.sortBy = "clicks"
       this.sortDir = "desc"
     } else {
@@ -68,22 +68,25 @@ export class NewsComponent implements OnInit {
         if (this.newsPage) {
           this.currentPage = this.newsPage.number;
         }
-        if(this.newsPage.content){
+        if (this.newsPage.content) {
           this.filteredNews = this.newsPage.content;
           this.sortPinnedFirst();
         }
       });
+      this.newsService.getAllPinnedNews().subscribe(newsList => {
+        this.pinnedNews = newsList;
+      })
     } else {
       this.newsService.getAllNews(this.currentPage, this.pageSize, this.sortBy, this.sortDir, this.searchTerm).subscribe(newsPage => {
         this.newsPage = newsPage;
         if (this.newsPage) {
           this.currentPage = this.newsPage.number;
-        }  
-        if(this.newsPage.content){
+        }
+        if (this.newsPage.content) {
           this.filteredNews = this.newsPage.content;
         }
       });
-      this.newsService.getAllPinnedNews().subscribe(newsList=>{
+      this.newsService.getAllPinnedNews().subscribe(newsList => {
         this.pinnedNews = newsList;
       })
     }
@@ -134,17 +137,17 @@ export class NewsComponent implements OnInit {
     );
   }
 
-  async togglePin(id:number){
-    await this.newsService.togglePin(id,this.token);
+  async togglePin(id: number) {
+    await this.newsService.togglePin(id, this.token);
     this.loadNews();
   }
 
-  goToNewsAndUpdateClick(id: number):void{
+  goToNewsAndUpdateClick(id: number): void {
     this.newsService.updateClickCounter(id);
     this.router.navigate([`obavestenje/${id}`])
   }
 
-  private mapNewsTypes(types: string[]): string[] {
+  mapNewsTypes(types: string[]): string[] {
     return types.map(type => {
       switch (type) {
         case 'TAKMICENJA':
