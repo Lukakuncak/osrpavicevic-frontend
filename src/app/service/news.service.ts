@@ -79,4 +79,13 @@ export class NewsService {
     axios.put(`${this.baseUrl}/public/news/update-click/${id}`)
     .catch(error=> console.error("Error happened while updating click count",error));
   }
+
+  async togglePin(id: number, token:string){
+    
+      await axios.put(`${this.baseUrl}/news/pin-unpin-news/${id}`, {},{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 }

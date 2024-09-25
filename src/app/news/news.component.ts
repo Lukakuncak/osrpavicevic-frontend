@@ -31,7 +31,6 @@ export class NewsComponent implements OnInit {
   currentPage: number = 0;
   pageSize: number = 9;
   pageSizes: number[] = [9, 18, 36, 72];
-  totalPages: number = 0;
   sortBy: string = 'dateTime';
   sortDir: string = 'desc';
   searchTerm: string = '';
@@ -40,10 +39,14 @@ export class NewsComponent implements OnInit {
   mappedNewsTypes: string[] = [];
   mostPopular: false;
   filteredNews: News[] = [];
+  token: string
 
   constructor(private newsService: NewsService, private authService: AuthService, private router: Router) { }
 
   ngOnInit(): void {
+    if (typeof localStorage !== 'undefined') {
+      this.token = localStorage.getItem('token');
+    }
     this.authService.isAdmin().subscribe(isAdmin => {
       this.isAdmin = isAdmin;
     });
@@ -65,7 +68,8 @@ export class NewsComponent implements OnInit {
           this.currentPage = this.newsPage.number;
         }
         if(this.newsPage.content){
-          this.filteredNews = this.newsPage.content.filter(item => !item.deleted)
+          this.filteredNews = this.newsPage.content.filter(item => !item.deleted);
+          this.sortPinnedFirst();
         }
       });
     } else {
@@ -75,10 +79,22 @@ export class NewsComponent implements OnInit {
           this.currentPage = this.newsPage.number;
         }  
         if(this.newsPage.content){
-          this.filteredNews = this.newsPage.content.filter(item => !item.deleted)
+          this.filteredNews = this.newsPage.content.filter(item => !item.deleted);
         }
       });
     }
+  }
+
+  sortPinnedFirst(): void {
+    this.filteredNews.sort((a, b) => {
+      if (a.pinned && !b.pinned) {
+        return -1;
+      } else if (!a.pinned && b.pinned) {
+        return 1;
+      } else {
+        return 0;
+      }
+    });
   }
 
   searchNews(): void {
@@ -112,6 +128,11 @@ export class NewsComponent implements OnInit {
       },
       (error) => console.error('Error fetching news types', error)
     );
+  }
+
+  async togglePin(id:number){
+    await this.newsService.togglePin(id,this.token);
+    this.loadNews();
   }
 
   goToNewsAndUpdateClick(id: number):void{
