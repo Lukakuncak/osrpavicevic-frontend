@@ -141,6 +141,13 @@ export class NewsComponent implements OnInit {
     this.loadNews();
   }
 
+  async deleteNews(id: number){
+    if (confirm(`Да ли сте сигурни да желите да обришете вест?`)) {
+      await this.newsService.deleteNews(id, this.token);
+      this.loadNews();
+    }
+  }
+
   goToNewsAndUpdateClick(id: number): void {
     this.newsService.updateClickCounter(id);
     this.router.navigate([`obavestenje/${id}`])

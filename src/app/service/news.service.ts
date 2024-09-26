@@ -94,4 +94,12 @@ export class NewsService {
       }
     });
   }
+
+  async deleteNews(id:number,token:string){
+    await axios.put(`${this.baseUrl}/news/delete/${id}`, {},{
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    });
+  }
 }
