@@ -17,9 +17,15 @@
                                 comment.news?.title }}</a>
                         </div>
                         <div>
-                            <button class="btn btn-success" style="margin-right: 10px;"
-                                (click)="approveComment(comment.id)">Одобри</button>
-                            <button class="btn btn-danger" (click)="deleteComment(comment.id)">Обриши</button>
+                            <button class="btn btn-success" style="margin-right: 10px;" (click)="approveComment(comment.id)">
+                                <i class="fa-solid fa-check"></i>
+                            </button>
+                            <button class="btn btn-danger" style="margin-right: 10px;" (click)="deleteComment(comment.id)">
+                                <i class="fa-solid fa-circle-xmark"></i>
+                            </button>
+                            <button class="btn btn-secondary btn-sm"(click)="replyToComment(comment.id)">
+                                Одговори
+                            </button>
                         </div>
                     </div>
                 </div>

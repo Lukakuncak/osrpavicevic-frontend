@@ -19,14 +19,23 @@
               <span class="text-muted"><br>{{ comment.commentCreatedDate | date: 'short' }}</span>
             </p>
             <p>{{ comment.content }}</p>
-            <p *ngIf="comment.reply" class="text-muted">
-              <em>Reply: {{ comment.reply }}</em>
-            </p>
+            <div *ngIf="comment.reply">
+              <hr>
+              <p class="text-muted"> 
+                <em>Одговор од школе: {{ comment.reply }}</em>
+              </p>
+              <p class="text-muted"> 
+                <em>Датум: {{ comment.replyCreatedDate | date: 'short' }}</em>
+              </p>
+            </div>
           </div>
   
           <div *ngIf="isAdmin">
-            <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.id)">
-              Обриши
+            <button class="btn btn-danger btn-sm me-2" (click)="deleteComment(comment.id)">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+            <button class="btn btn-secondary btn-sm" (click)="replyToComment(comment.id)">
+              Одговори
             </button>
           </div>
         </li>
@@ -44,17 +53,26 @@
               <span class="text-muted"><br>{{ comment.commentCreatedDate | date: 'short' }}</span>
             </p>
             <p>{{ comment.content }}</p>
-            <p *ngIf="comment.reply" class="text-muted">
-              <em>Reply: {{ comment.reply }}</em>
-            </p>
+            <div *ngIf="comment.reply">
+              <hr>
+              <p class="text-muted"> 
+                <em>Одговор од школе: {{ comment.reply }}</em>
+              </p>
+              <p class="text-muted"> 
+                <em>Датум: {{ comment.replyCreatedDate | date: 'short' }}</em>
+              </p>
+            </div>
           </div>
   
           <div>
             <button class="btn btn-success btn-sm me-2" (click)="approveComment(comment.id)">
-              Одобри
+              <i class="fa-solid fa-check"></i>
             </button>
-            <button class="btn btn-danger btn-sm" (click)="deleteComment(comment.id)">
-              Обриши
+            <button class="btn btn-danger btn-sm me-2" (click)="deleteComment(comment.id)">
+              <i class="fa-solid fa-circle-xmark"></i>
+            </button>
+            <button class="btn btn-secondary btn-sm" (click)="replyToComment(comment.id)">
+              Одговори
             </button>
           </div>
         </li>

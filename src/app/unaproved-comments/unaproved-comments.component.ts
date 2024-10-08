@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Comment } from '../model/comment';
 import { CommentService } from '../service/comment.service';
 import { CommonModule } from '@angular/common';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-unaproved-comments',
@@ -15,7 +15,7 @@ export class UnaprovedCommentsComponent implements OnInit {
   comments: Comment[];
   token: string;
 
-  constructor(private commentService: CommentService) { }
+  constructor(private commentService: CommentService,private router: Router) { }
 
 
   ngOnInit(): void {
@@ -38,5 +38,9 @@ export class UnaprovedCommentsComponent implements OnInit {
   async deleteComment(id: number) {
     await this.commentService.deleteComment(id, this.token);
     this.loadUnapprovedComments();
+  }
+
+  replyToComment(id: number){
+    this.router.navigate([`odgovori-na-komentar/${id}`])
   }
 }

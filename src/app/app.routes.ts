@@ -18,6 +18,7 @@ import { SchoolDocumentsComponent } from './school-documents/school-documents.co
 import { TicTacToeComponent } from './tic-tac-top/tic-tac-toe.component';
 import { OneNewsComponent } from './one-news/one-news.component';
 import { UnaprovedCommentsComponent } from './unaproved-comments/unaproved-comments.component';
+import { ReplyToCommentComponent } from './reply-to-comment/reply-to-comment.component';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent},
@@ -29,6 +30,7 @@ export const routes: Routes = [
     { path: 'dokumenta-skole', component: SchoolDocumentsComponent},
     { path: 'obavestenja', component: NewsComponent},
     { path: 'obavestenje/:id', component: OneNewsComponent},
+    { path: 'odgovori-na-komentar/:id', component: ReplyToCommentComponent, canActivate:[AdminGuard]},
     { path: 'prijavi-se', component: SignUpComponent},
     { path: 'registruj-se', component: RegisterComponent},
     { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate:[AdminGuard]},

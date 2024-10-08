@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NewsService } from '../service/news.service';
 import { News } from '../model/news';
 import { Comment } from '../model/comment';
@@ -39,8 +39,7 @@ export class OneNewsComponent implements OnInit {
 
 
   constructor(private route: ActivatedRoute, private newsService: NewsService, private authService: AuthService, private commentService: CommentService,
-    private snackBar: MatSnackBar
-  ) { }
+    private snackBar: MatSnackBar, private router: Router) { }
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
       const idParam = params.get('id');
@@ -95,5 +94,9 @@ export class OneNewsComponent implements OnInit {
   async deleteComment(id: number) {
     await this.commentService.deleteComment(id, this.token);
     this.loadNews();
+  }
+
+  async replyToComment(id:number) {
+    this.router.navigate([`odgovori-na-komentar/${id}`])
   }
 }
