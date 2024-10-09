@@ -3,8 +3,7 @@ import { Injectable } from '@angular/core';
 import axios from 'axios';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { User, UsersPage } from '../model/user';
-import { response } from 'express';
-import { error } from 'console';
+import { Notification } from '../model/notification';
 
 @Injectable({
   providedIn: 'root'
@@ -120,5 +119,24 @@ export class UserService {
         observer.error(error);
       })
     });
+  }
+
+  async getNotifications(token: string):Promise<Notification[]> {
+    try {
+      const response = await axios.get(`${this.BASE_URL}/get-notifications`, {
+        headers: {
+          Authorization: `Bearer ${token}` 
+        },
+      });
+      if(response.data.statusCode === 200){
+        return response.data.notifications; 
+      } else {
+        console.log("Error fetching notifications:",response.data.error)
+      }
+      return null;
+    } catch (error) {
+      console.error("Error fetching notifications:", error);
+      throw error;
+    }
   }
 }

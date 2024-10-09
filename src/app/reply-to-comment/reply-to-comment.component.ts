@@ -64,7 +64,7 @@ export class ReplyToCommentComponent implements OnInit {
     this.comment = await this.commentService.getCommentById(this.commentId, this.token);
   }
 
-  submitReply(): void {
+  async submitReply(): Promise<void> {
     if (!this.comment.reply || this.comment.reply.trim() === '') {
       this.snackBar.open('Одговор мора имати садржај', 'Затвори', {
         duration: 3000,
@@ -72,20 +72,23 @@ export class ReplyToCommentComponent implements OnInit {
       return;
     }
   
-    this.commentService.replyToComment(this.commentId, this.comment.reply, this.token)
-      .then(() => {
-        this.snackBar.open('Успешно сте одговорили на коментар!', 'Затвори', {
-          duration: 3000,
-        });
-        this.router.navigate([`obavestenje/${this.comment.news.id}`])
-      })
-      .catch(error => {
-        console.error('Грешка приликом остављања одговора:', error);
-        this.snackBar.open('Одговор мора имати садржај', 'Затвори', {
-          duration: 3000,
-        });
+    try {
+      await this.commentService.replyToComment(this.commentId, this.comment.reply, this.token);
+      
+      this.snackBar.open('Успешно сте одговорили на коментар!', 'Затвори', {
+        duration: 3000,
       });
+  
+      this.router.navigate([`obavestenje/${this.comment.news.id}`]);
+  
+    } catch (error) {
+      console.error('Грешка приликом остављања одговора:', error);
+      this.snackBar.open('Грешка приликом остављања одговора', 'Затвори', {
+        duration: 3000,
+      });
+    }
   }
+  
   
   visitNews(id: number){
     this.router.navigate([`obavestenje/${id}`])

@@ -124,3 +124,29 @@
     opacity: 0; 
   }
 }
+
+.notification-container {
+  position: relative;
+  display: inline-block;
+}
+
+.notification-badge {
+  background-color: #ff3b30; /* Softer red for the badge */
+  color: white; /* Text color */
+  border-radius: 50%; /* Circular badge */
+  padding: 0.5em; /* Adjust padding for a nice size */
+  font-size: 1em; /* Adjust font size for readability */
+  font-weight: bold; /* Bold text */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Subtle shadow for depth */
+  border: 2px solid white; /* White border for a clean look */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 2em; 
+  height: 2em;
+  text-align: center;
+}
+
+.notification-container {
+  font-size: 0.6em; 
+}

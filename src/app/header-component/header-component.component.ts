@@ -19,6 +19,8 @@ export class HeaderComponentComponent implements OnInit {
   isAuthenticated: boolean;
   isAdmin: boolean;
   isStandard: boolean;
+  token: string;
+  numberOfNotifications: number = 0;
 
   private clickCount = 0;
   private clickTimeout: any;
@@ -26,10 +28,10 @@ export class HeaderComponentComponent implements OnInit {
   private readonly clickInterval = 500;
   showFlyBy: boolean;
 
-  constructor(private readonly authService: AuthService, private router: Router) {
+  constructor(private readonly authService: AuthService, private router: Router, private userService: UserService) {
 
   }
-  ngOnInit(): void {
+  async ngOnInit() {
     this.authService.isAuthenticated().subscribe(isAuthenticated => {
       this.isAuthenticated = isAuthenticated;
     }
@@ -42,6 +44,11 @@ export class HeaderComponentComponent implements OnInit {
       this.isStandard = isStandard;
     }
     )
+    if (typeof localStorage !== 'undefined') {
+      this.token = localStorage.getItem('token');
+      const response = await this.userService.getNotifications(this.token);
+      this.numberOfNotifications = response.length;
+    }
   }
 
   logOut(): void {

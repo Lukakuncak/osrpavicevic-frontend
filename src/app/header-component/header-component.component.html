@@ -70,8 +70,12 @@
 
       <div class="icon-button" *ngIf="isAuthenticated" routerLink="/upravljanje-profilom">
         <i class="fa-solid fa-user"></i>
+        <div class="notification-container">
+          <span class="notification-badge">{{ numberOfNotifications }}</span>
+        </div>
         <span class="icon-tooltip tooltip-blue">Профил</span>
       </div>
+      
 
       <div class="icon-button" *ngIf="isAuthenticated" (click)="logOut()" title="Одјави се">
         <i class="fa-solid fa-circle-xmark"></i>

@@ -30,7 +30,9 @@ export class SignUpComponent {
         const response = await this.authService.login(username, password);
         if(response.statusCode === 200){
           this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role, response.id);
-          this.router.navigate(['/pocetna'])
+          this.router.navigate(['/pocetna']).then(()=>{
+            window.location.reload();
+        });
         } else {
           this.errorMessage = response.error
         }
