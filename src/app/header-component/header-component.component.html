@@ -70,7 +70,7 @@
 
       <div class="icon-button" *ngIf="isAuthenticated" routerLink="/upravljanje-profilom">
         <i class="fa-solid fa-user"></i>
-        <div class="notification-container">
+        <div *ngIf="numberOfNotifications>0" class="notification-container">
           <span class="notification-badge">{{ numberOfNotifications }}</span>
         </div>
         <span class="icon-tooltip tooltip-blue">Профил</span>

@@ -1,6 +1,6 @@
 <div class="container mt-4">
     <div *ngIf="comments?.length > 0">
-        <h2>Неодобрени коментари</h2>
+        <h2>Коментари без одговора</h2>
         <ul class="list-group">
             <li *ngFor="let comment of comments" class="list-group-item mb-3">
                 <div>
@@ -17,11 +17,8 @@
                                 comment.news?.title }}</a>
                         </div>
                         <div>
-                            <button class="btn btn-success" style="margin-right: 10px;" (click)="approveComment(comment.id)">
-                                <i class="fa-solid fa-check"></i>
-                            </button>
-                            <button class="btn btn-danger" style="margin-right: 10px;" (click)="deleteComment(comment.id)">
-                                <i class="fa-solid fa-circle-xmark"></i>
+                            <button class="btn btn-secondary btn-sm"(click)="replyToComment(comment.id)">
+                                Одговори
                             </button>
                         </div>
                     </div>
@@ -30,6 +27,6 @@
         </ul>
     </div>
     <div *ngIf="comments?.length === 0" class="alert alert-info mt-4">
-        <p>Нема неодобрених коментара.</p>
+        <p>Нема коментара без одговора.</p>
     </div>
 </div>

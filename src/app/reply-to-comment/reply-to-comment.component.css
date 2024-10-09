@@ -1,0 +1,30 @@
+/* Making the comment content larger */
+.comment-content {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .comment-text {
+    font-size: 1.5rem;
+    font-weight: normal;
+  }
+  
+  /* Underline for user and news */
+  u {
+    text-decoration: underline;
+  }
+  
+  /* Smaller text for user and news information */
+  p {
+    font-size: 0.9rem;
+  }
+  
+  h5 {
+    font-size: 1.1rem;
+  }
+  
+  /* Button for news */
+  .btn-light u {
+    font-size: 1rem;
+  }
+  

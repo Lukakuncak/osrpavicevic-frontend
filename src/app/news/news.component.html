@@ -43,28 +43,29 @@
     </div>
   </div>
   
-
   <div class="row mb-2">
-    <div *ngIf="isAdmin" class="col-md-4">
-      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm"
-        (input)="searchNews()">
+    <div class="col-12 col-sm-6 col-md-4 mb-2" *ngIf="isAdmin">
+      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm" (input)="searchNews()">
     </div>
-    <div *ngIf="!isAdmin" class="col-md-6">
-      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm"
-        (input)="searchNews()">
+  
+    <div class="col-12 col-sm-6 col-md-6 mb-2" *ngIf="!isAdmin">
+      <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm" (input)="searchNews()">
     </div>
-    <div *ngIf="!isAdmin" class="col-md-4"></div>
-    <div class="col-md-2">
+  
+    <div class="col-12 col-sm-6 col-md-2 mb-2">
       <select class="form-select" [(ngModel)]="selectedType" (change)="searchNews()">
         <option value="">Изаберите тип</option>
         <option *ngFor="let type of mappedNewsTypes" [value]="cyrilicToLatin(type)">{{ type }}</option>
       </select>
     </div>
-    <div *ngIf="isAdmin" class="col-md-6 text-end">
-      <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success" style="margin-right: 10px;">Ново обавештење</a>
-      <a [routerLink]="['/neodobreni-komentari']" class="btn btn-secondary">Неодобрени коментари</a>
+
+    <div class="col-12 col-md-6 text-md-end d-flex justify-content-md-end flex-wrap" *ngIf="isAdmin">
+      <a [routerLink]="['/neodobreni-komentari']" class="btn btn-secondary mb-2 me-2">Неодобрени коментари</a>
+      <a [routerLink]="['/neodgovoreni-komentari']" class="btn btn-secondary mb-2 me-2">Коментари без одговора</a>
+      <a [routerLink]="['/kreiraj-obavestenje']" class="btn btn-success mb-2">Ново обавештење</a>
     </div>
   </div>
+  
 
 
   <div class="row">

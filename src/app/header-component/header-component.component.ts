@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive, RouterOutlet, } from '@angular/router';
 import { UserService } from '../service/user.service';
 import { AuthService } from '../service/auth.service';
+import { NotificationService } from '../service/notification.service';
 
 @Component({
   selector: 'app-header-component',
@@ -28,7 +29,9 @@ export class HeaderComponentComponent implements OnInit {
   private readonly clickInterval = 500;
   showFlyBy: boolean;
 
-  constructor(private readonly authService: AuthService, private router: Router, private userService: UserService) {
+  constructor(private readonly authService: AuthService, private router: Router, private userService: UserService,
+    private notificationService: NotificationService
+  ) {
 
   }
   async ngOnInit() {
@@ -46,9 +49,10 @@ export class HeaderComponentComponent implements OnInit {
     )
     if (typeof localStorage !== 'undefined') {
       this.token = localStorage.getItem('token');
-      const response = await this.userService.getNotifications(this.token);
-      this.numberOfNotifications = response.length;
     }
+    this.notificationService.notificationCount$.subscribe(count => {
+      this.numberOfNotifications = count;
+    });
   }
 
   logOut(): void {

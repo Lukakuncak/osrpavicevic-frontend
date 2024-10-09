@@ -19,6 +19,7 @@ import { TicTacToeComponent } from './tic-tac-top/tic-tac-toe.component';
 import { OneNewsComponent } from './one-news/one-news.component';
 import { UnaprovedCommentsComponent } from './unaproved-comments/unaproved-comments.component';
 import { ReplyToCommentComponent } from './reply-to-comment/reply-to-comment.component';
+import { UnrepliedCommentsComponent } from './unreplied-comments/unreplied-comments.component';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent},
@@ -38,6 +39,7 @@ export const routes: Routes = [
     { path: 'promena-lozinke', component: PasswordChangeComponent},
     { path: 'kreiraj-obavestenje', component: CreateNewsComponent,  canActivate:[AdminGuard]},
     { path: 'neodobreni-komentari', component: UnaprovedCommentsComponent,  canActivate:[AdminGuard]},
+    { path: 'neodgovoreni-komentari', component: UnrepliedCommentsComponent,  canActivate:[AdminGuard]},
     { path: 'prestolonaslednikovica', component: TicTacToeComponent},
     { path: '', redirectTo: '/pocetna', pathMatch: 'full'},
     { path: '**', component: NotFoundComponent},

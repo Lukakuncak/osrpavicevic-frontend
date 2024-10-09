@@ -1,0 +1,39 @@
+.reply-section {
+    background-color: #f8f9fa; /* Light background */
+    border: 2px solid #007bff; /* Highlight border in a primary color */
+    color: #333; /* Text color */
+    font-size: 1.1em; /* Slightly increase font size */
+    font-weight: bold; /* Make reply text bold */
+}
+
+
+.list-group {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+}
+
+.list-group-item {
+    cursor: pointer; /* Change cursor to pointer to indicate it's clickable */
+    transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.list-group-item:hover {
+    background-color: #cbccce; /* Light gray on hover */
+}
+
+.reply-section {
+    background-color: #aab2bb; /* Light gray background for reply section */
+    border: 1px solid #ced4da; /* Border for better separation */
+}
+
+.reply-section p {
+    margin: 0; /* Remove margin from paragraphs inside the reply section */
+}
+
+.text-dark {
+    color: #212529 !important; /* Ensure dark text for better contrast */
+}
+
+.text-decoration-none {
+    text-decoration: none; /* Remove underline from links */
+}

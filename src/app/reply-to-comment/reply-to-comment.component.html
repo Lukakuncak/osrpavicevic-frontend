@@ -1,42 +1,45 @@
 <div class="container mt-5">
-    <div class="card" *ngIf="comment">
-      <div class="card-header">
-        <h5>Детаљи коментара:</h5>
-      </div>
-      <div class="card-body">
-        <!-- Comment Details -->
-        <p><strong>Садржај:</strong> {{ comment.content }}</p>
-        <p><span class="text-muted">Датум:</span> {{ comment.commentCreatedDate | date:'short' }}</p> 
-
-        <!-- User Information -->
-        <h5>Корисник</h5>
-        <p><strong>Корисничко име: </strong> <u>{{ comment.user?.username }}</u></p>
-        <p><strong>Име:</strong> {{ comment.user?.firstname }}</p>
-        <p><strong>Презиме:</strong> {{ comment.user?.lastname }}</p>
-  
-        <!-- News Information -->
-        <h5>Вест на којој је остављен коментар</h5>
-        <div><button class="btn btn-light" (click)="visitNews(comment.news.id)">{{ comment.news?.title }}</button></div>
-      </div>
+  <div class="card" *ngIf="comment">
+    <div class="card-header">
+      <h5>Детаљи коментара:</h5>
     </div>
-  
-    <div *ngIf="!comment" class="alert alert-info">Учитавамо детаље коментара...</div>
-  
-    <!-- Reply Form -->
-    <div class="card mt-4 mb-4" *ngIf="comment">
-      <div class="card-header">
-        <h5>Одговорите на коментар</h5>
-      </div>
-      <div class="card-body">
-        <form (submit)="submitReply()">
-          <div class="form-group mb-3">
-            <label for="replyContent">Одговор</label>
-            <textarea id="replyContent" [(ngModel)]="comment.reply" name="reply" rows="4" class="form-control" placeholder="Write your reply here"></textarea>
-          </div>
-  
-          <button type="submit" class="btn btn-primary">Пошаљите одговор</button>
-        </form>
+    <div class="card-body">
+      <!-- Comment Details -->
+      <p><span class="comment-text">{{ comment.content }}</span></p>
+      <p><span class="text-muted">Датум:</span> {{ comment.commentCreatedDate | date:'short' }}</p>
+
+      <!-- User Information -->
+      <hr>
+      <h5>Корисник</h5>
+      <p><strong>Корисничко име: </strong> <u>{{ comment.user?.username }}</u></p>
+      <p><strong>Име:</strong> {{ comment.user?.firstname }}</p>
+      <p><strong>Презиме:</strong> {{ comment.user?.lastname }}</p>
+
+      <!-- News Information -->
+      <hr>
+      <h5>Вест на којој је остављен коментар:</h5>
+      <div><button class="btn btn-light" (click)="visitNews(comment.news.id)">{{ comment.news?.title }}</button>
       </div>
     </div>
   </div>
-  
+
+  <div *ngIf="!comment" class="alert alert-info">Учитавамо детаље коментара...</div>
+
+  <!-- Reply Form -->
+  <div class="card mt-4 mb-4" *ngIf="comment">
+    <div class="card-header">
+      <h5>Одговорите на коментар</h5>
+    </div>
+    <div class="card-body">
+      <form (submit)="submitReply()">
+        <div class="form-group mb-3">
+          <label for="replyContent">Одговор</label>
+          <textarea id="replyContent" [(ngModel)]="comment.reply" name="reply" rows="4" class="form-control"
+            placeholder="Write your reply here"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Пошаљите одговор</button>
+      </form>
+    </div>
+  </div>
+</div>

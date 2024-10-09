@@ -120,23 +120,4 @@ export class UserService {
       })
     });
   }
-
-  async getNotifications(token: string):Promise<Notification[]> {
-    try {
-      const response = await axios.get(`${this.BASE_URL}/get-notifications`, {
-        headers: {
-          Authorization: `Bearer ${token}` 
-        },
-      });
-      if(response.data.statusCode === 200){
-        return response.data.notifications; 
-      } else {
-        console.log("Error fetching notifications:",response.data.error)
-      }
-      return null;
-    } catch (error) {
-      console.error("Error fetching notifications:", error);
-      throw error;
-    }
-  }
 }

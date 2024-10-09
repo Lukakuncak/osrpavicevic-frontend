@@ -3,6 +3,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { NotificationService } from '../service/notification.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-sing-up',
@@ -12,11 +14,12 @@ import { AuthService } from '../service/auth.service';
   styleUrl: './sing-up.component.css'
 })
 export class SignUpComponent {
-
+  token: string;
   signUpForm: FormGroup;
   errorMessage: string;
 
-  constructor(private fb: FormBuilder,private readonly authService: AuthService, private router:Router) {
+  constructor(private fb: FormBuilder,private readonly authService: AuthService, private router:Router, private notificationService: NotificationService
+  ) {
     this.signUpForm = this.fb.group({
       username: ['', Validators.required],
       password: ['', Validators.required]
@@ -29,10 +32,10 @@ export class SignUpComponent {
       try {
         const response = await this.authService.login(username, password);
         if(response.statusCode === 200){
+          this.token = response.token;
           this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role, response.id);
-          this.router.navigate(['/pocetna']).then(()=>{
-            window.location.reload();
-        });
+          await this.loadNotification();
+          this.router.navigate(['/pocetna']);
         } else {
           this.errorMessage = response.error
         }
@@ -40,5 +43,9 @@ export class SignUpComponent {
         console.error('Login error:', error);
       }
     }
+  }
+
+  async loadNotification(){
+    await this.notificationService.getNotificationWithComments(this.token);
   }
 }

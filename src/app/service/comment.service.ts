@@ -59,6 +59,26 @@ export class CommentService {
       })
     );
   }
+
+  getAllUnreplied(token: string): Observable<Comment[]> {
+    return from(
+      axios.get(`${this.BASE_URL}/get-all-unreplied`, {
+        headers: { Authorization: `Bearer ${token}` },
+      }).then(response => {
+        if (response.data.statusCode === 200) {
+          return response.data.comments;
+        } else {
+          console.error("Error while fetching unapproved comments:", response.data.error);
+          return [];
+        }
+      }).catch(error => {
+        console.error("Error while fetching unapproved comments:", error);
+        return [];
+      })
+    );
+  }
+
+
   async deleteComment(id: number, token: string) {
     try {
       const response = await axios.delete(`${this.BASE_URL}/delete-comment/${id}`, {
