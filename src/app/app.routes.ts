@@ -20,27 +20,37 @@ import { OneNewsComponent } from './one-news/one-news.component';
 import { UnaprovedCommentsComponent } from './unaproved-comments/unaproved-comments.component';
 import { ReplyToCommentComponent } from './reply-to-comment/reply-to-comment.component';
 import { UnrepliedCommentsComponent } from './unreplied-comments/unreplied-comments.component';
+import { NasiAUspesniComponent } from './nasi-a-uspesni/nasi-a-uspesni.component';
+import { NosiociVukoveDiplomeComponent } from './nosioci-vukove-diplome/nosioci-vukove-diplome.component';
+import { ZaposleniComponent } from './zaposleni/zaposleni.component';
+import { SkolskiOdborComponent } from './skolski-odbor/skolski-odbor.component';
+import { SavetRoditeljaComponent } from './savet-roditelja/savet-roditelja.component';
 
 export const routes: Routes = [
-    { path: 'pocetna', component: HomeComponent},
-    { path: 'istorija', component: HistoryComponent},
-    { path: 'raspored-casova-rajak', component: ClassScheduleComponentRajak},
-    { path: 'raspored-casova-pilica', component: ClassSchedulePilicaComponent},
-    { path: 'javne-nabavke', component: JavneNabavkeComponent},
-    { path: 'normativna-akta', component: NormativnaAktaComponent},
-    { path: 'dokumenta-skole', component: SchoolDocumentsComponent},
-    { path: 'obavestenja', component: NewsComponent},
-    { path: 'obavestenje/:id', component: OneNewsComponent},
-    { path: 'odgovori-na-komentar/:id', component: ReplyToCommentComponent, canActivate:[AdminGuard]},
-    { path: 'prijavi-se', component: SignUpComponent},
-    { path: 'registruj-se', component: RegisterComponent},
-    { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate:[AdminGuard]},
-    { path: 'upravljanje-profilom', component: MyProfileComponent},
-    { path: 'promena-lozinke', component: PasswordChangeComponent},
-    { path: 'kreiraj-obavestenje', component: CreateNewsComponent,  canActivate:[AdminGuard]},
-    { path: 'neodobreni-komentari', component: UnaprovedCommentsComponent,  canActivate:[AdminGuard]},
-    { path: 'neodgovoreni-komentari', component: UnrepliedCommentsComponent,  canActivate:[AdminGuard]},
-    { path: 'prestolonaslednikovica', component: TicTacToeComponent},
-    { path: '', redirectTo: '/pocetna', pathMatch: 'full'},
-    { path: '**', component: NotFoundComponent},
+    { path: 'pocetna', component: HomeComponent },
+    { path: 'istorija', component: HistoryComponent },
+    { path: 'raspored-casova-rajak', component: ClassScheduleComponentRajak },
+    { path: 'raspored-casova-pilica', component: ClassSchedulePilicaComponent },
+    { path: 'javne-nabavke', component: JavneNabavkeComponent },
+    { path: 'normativna-akta', component: NormativnaAktaComponent },
+    { path: 'dokumenta-skole', component: SchoolDocumentsComponent },
+    { path: 'obavestenja', component: NewsComponent },
+    { path: 'obavestenje/:id', component: OneNewsComponent },
+    { path: 'odgovori-na-komentar/:id', component: ReplyToCommentComponent, canActivate: [AdminGuard] },
+    { path: 'prijavi-se', component: SignUpComponent },
+    { path: 'registruj-se', component: RegisterComponent },
+    { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate: [AdminGuard] },
+    { path: 'upravljanje-profilom', component: MyProfileComponent },
+    { path: 'nasi-a-uspesni', component: NasiAUspesniComponent },
+    { path: 'nosioci-vukove-diplome', component: NosiociVukoveDiplomeComponent },
+    { path: 'zaposleni', component: ZaposleniComponent },
+    { path: 'skolski-odbor', component: SkolskiOdborComponent },
+    { path: 'savet-roditelja', component: SavetRoditeljaComponent },
+    { path: 'promena-lozinke', component: PasswordChangeComponent },
+    { path: 'kreiraj-obavestenje', component: CreateNewsComponent, canActivate: [AdminGuard] },
+    { path: 'neodobreni-komentari', component: UnaprovedCommentsComponent, canActivate: [AdminGuard] },
+    { path: 'neodgovoreni-komentari', component: UnrepliedCommentsComponent, canActivate: [AdminGuard] },
+    { path: 'prestolonaslednikovica', component: TicTacToeComponent },
+    { path: '', redirectTo: '/pocetna', pathMatch: 'full' },
+    { path: '**', component: NotFoundComponent },
 ];

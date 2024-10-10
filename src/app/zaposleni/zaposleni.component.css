@@ -1,0 +1,106 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-save {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .btn-reset {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-edit, .btn-delete {
+    margin-right: 5px;
+    padding: 5px 10px;
+  }
+  
+  .btn-edit {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .person-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  .person-table th, .person-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+  }
+  
+  .person-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+  }
+  
+  .person-table td {
+    text-align: center;
+  }
+
+  .profile-pic {
+    width: 50px; 
+    height: 50px;
+    border-radius: 50%; 
+}
+.director-section {
+  margin-bottom: 20px;
+}
+
+.director-pic {
+  width: 100px; 
+  height: 100px;
+  border-radius: 50%; 
+  object-fit: cover;
+}
+
+  
