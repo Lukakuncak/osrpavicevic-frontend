@@ -1,1 +1,87 @@
-<p>nosioci-vukove-diplome works!</p>
+<div class="container mt-5 mb-5">
+    <div #top></div>
+    <h2>Носиоци Вукове дипломе</h2>
+    <form *ngIf="isAdmin" [formGroup]="personForm" (ngSubmit)="savePerson()" class="mb-4">
+        <div class="row">
+            <div class="text-muted">Напомена: Да би распоред на овој страници био добар, молим вас поведите рачуна да
+                када стављате годину УВЕК ставите у формату 2024/2025</div>
+
+            <div class="col-md-4 mb-3">
+                <label for="firstname" class="form-label">Име</label>
+                <input id="firstname" formControlName="firstname" class="form-control" placeholder="Унесите име"
+                    required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="lastname" class="form-label">Презиме</label>
+                <input id="lastname" formControlName="lastname" class="form-control" placeholder="Унесите презиме"
+                    required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="position" class="form-label">Година</label>
+                <input id="position" formControlName="position" class="form-control"
+                    placeholder="Унесите годину освајања дипломе">
+            </div>
+        </div>
+
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Слика</label>
+            <input type="file" id="image" (change)="onImageSelected($event)" class="form-control">
+        </div>
+
+
+        <button type="submit" class="btn btn-success me-2" [disabled]="personForm.invalid">Сачувај</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Рестартуј</button>
+    </form>
+
+
+    <div class="person-list">
+        <div *ngFor="let group of groupedPersons | keyvalue: descOrder">
+            <h3 class="text-center group-key">{{ group.key }}</h3>
+            <div class="row justify-content-center">
+                <div class="col-md-8 mb-4" *ngFor="let person of group.value; let i = index">
+                    <div [ngClass]="{'person-card-left': i % 2 === 0, 'person-card-right': i % 2 !== 0}">
+                        <div *ngIf="i % 2 === 0" class="person-card">
+                            <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
+                                class="profile-pic rounded-circle">
+                            <h5>{{ person.firstname }} {{ person.lastname }}</h5>
+                            <div *ngIf="isAdmin" style="margin-left: 10px;">
+                                <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary me-2">
+                                    <i class="fas fa-edit"></i> Уреди
+                                </button>
+                                <button (click)="deletePerson(person)" class="btn btn-sm btn-outline-danger me-2">
+                                    <i class="fas fa-trash-alt"></i> Обриши
+                                </button>
+                                <button *ngIf="person.image" (click)="deletePicture(person.id)"
+                                    class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash-alt"></i> Обриши слику
+                                </button>
+                            </div>
+                        </div>
+                        <div *ngIf="i % 2 !== 0" class="person-card">
+                            <div *ngIf="isAdmin">
+                                <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary me-2">
+                                    <i class="fas fa-edit"></i> Уреди
+                                </button>
+                                <button (click)="deletePerson(person)" class="btn btn-sm btn-outline-danger me-2">
+                                    <i class="fas fa-trash-alt"></i> Обриши
+                                </button>
+                                <button *ngIf="person.image" (click)="deletePicture(person.id)"
+                                    class="btn btn-sm btn-outline-danger">
+                                    <i class="fas fa-trash-alt"></i> Обриши слику
+                                </button>
+                            </div>
+                            <h5>{{ person.firstname }} {{ person.lastname }}</h5>
+                            <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
+                                class="profile-pic rounded-circle">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

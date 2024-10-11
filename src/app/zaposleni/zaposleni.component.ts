@@ -16,18 +16,18 @@ import { response } from 'express';
   styleUrls: ['./zaposleni.component.css']
 })
 export class ZaposleniComponent implements OnInit {
-  @ViewChild('top') top!: ElementRef; // Use definite assignment assertion to avoid undefined reference
+  @ViewChild('top') top!: ElementRef; 
   personForm: FormGroup;
   personList: Person[] = [];
   professors: Person[] = [];
   nonProfessors: Person[] = [];
   selectedPerson: Person | null = null;
   type: PersonType = PersonType.ZAPOSLENI;
-  token: string | null = null; // Set to null initially
-  isAdmin: boolean = false; // Default to false
-  selectedFile: File | null = null; // Set to null initially
+  token: string | null = null;
+  isAdmin: boolean = false; 
+  selectedFile: File | null = null; 
 
-  // New property for director
+ 
   director: Person | null = null;
 
   constructor(

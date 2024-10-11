@@ -1,1 +1,69 @@
-<p>savet-roditelja works!</p>
+<div class="container mt-5 mb-5">
+    <div #top></div>
+    <h2>Савет родитеља</h2>
+
+    <form *ngIf="isAdmin" [formGroup]="personForm" (ngSubmit)="savePerson()" class="mb-4">
+        <div class="row">
+            <div class="col-md-4 mb-3">
+                <label for="firstname" class="form-label">Име</label>
+                <input id="firstname" formControlName="firstname" class="form-control" placeholder="Унесите име"
+                    required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="lastname" class="form-label">Презиме</label>
+                <input id="lastname" formControlName="lastname" class="form-control" placeholder="Унесите презиме"
+                    required>
+            </div>
+
+            <div class="col-md-4 mb-3">
+                <label for="position" class="form-label">Радно место</label>
+                <input id="position" formControlName="position" class="form-control" placeholder="Унесите радно место">
+            </div>
+        </div>
+
+        <div class="mb-3">
+            <label for="image" class="form-label">Слика</label>
+            <input type="file" id="image" (change)="onImageSelected($event)" class="form-control">
+        </div>
+
+        <button type="submit" class="btn btn-success me-2" [disabled]="personForm.invalid">Сачувај</button>
+        <button type="button" class="btn btn-secondary" (click)="resetForm()">Рестартуј</button>
+    </form>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Слика</th>
+                    <th>Име</th>
+                    <th>Презиме</th>
+                    <th>Радно место</th>
+                    <th *ngIf="isAdmin">Акција</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let person of personList">
+                    <td class="text-center">
+                        <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
+                            class="profile-pic img-fluid">
+                    </td>
+                    <td>{{ person.firstname }}</td>
+                    <td>{{ person.lastname }}</td>
+                    <td>{{ person.position || 'N/A' }}</td>
+                    <td *ngIf="isAdmin">
+                        <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-edit"></i> Уреди
+                        </button>
+                        <button (click)="deletePerson(person)" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Обриши
+                        </button>
+                        <button *ngIf="person.image!==null" (click)="deletePicture(person.id)" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Обриши слику
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

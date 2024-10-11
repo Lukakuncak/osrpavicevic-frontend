@@ -1,0 +1,166 @@
+.container {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 30px;
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+  }
+  
+  input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .btn-save {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 10px;
+  }
+  
+  .btn-reset {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .btn-edit, .btn-delete {
+    margin-right: 5px;
+    padding: 5px 10px;
+  }
+  
+  .btn-edit {
+    background-color: #2196F3;
+    color: white;
+  }
+  
+  .btn-delete {
+    background-color: #f44336;
+    color: white;
+  }
+
+  .group-key {
+    text-align: center; 
+    font-size: 2em; 
+    font-weight: bold; 
+    color: #333; 
+    margin: 20px 0; 
+    padding: 10px; 
+    background-color: #f9f9f9; /* Light background color */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.group-key:hover {
+    color: #0056b3; /* Change color on hover */
+    background-color: #e9ecef; /* Darker background on hover */
+    transform: translateY(-2px); /* Slight lift effect on hover */
+}
+  
+
+.person-list {
+  margin-top: 20px;
+}
+
+.person-card {
+  padding: 15px;
+  border-radius: 8px;
+  align-items: center;
+  display: flex;
+}
+
+.profile-pic {
+  width: 100px;  /* Larger size for profile picture */
+  height: 100px;
+  object-fit: cover;
+}
+
+.person-card h5 {
+  margin-top: 0; /* Remove top margin to center better */
+}
+
+.btn-outline-primary, .btn-outline-danger {
+  margin-bottom: 5px;
+}
+
+.person-card-left {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.person-card-right {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.person-card-left .profile-pic {
+    margin-right: 15px; /* Space between name and image */
+}
+
+.person-card-right .profile-pic {
+    margin-left: 15px; /* Space between name and image */
+}
+
+h2 {
+  text-align: center; /* Center align the text */
+  font-size: 2.5em; /* Increase font size */
+  font-weight: bold; /* Make the text bold */
+  color: #4a4a4a; /* Dark gray text color */
+  margin: 30px 0; /* Add vertical margin */
+  padding: 15px; /* Add padding around the text */
+  background: linear-gradient(90deg, #f8f9fa, #e9ecef); /* Gradient background */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  text-transform: uppercase; /* Make text uppercase for emphasis */
+  letter-spacing: 1px; /* Increase letter spacing */
+}
+
+h2:hover {
+  color: #007bff; /* Change text color on hover */
+  background-color: #e9ecef; /* Darker background on hover */
+  transform: translateY(-3px); /* Slight lift effect on hover */
+}
+
+
+.person-card{
+  display: flex; align-items: center;
+
+  transition: all 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.person-card:hover{
+  transform: translateY(-3px); /* Slight lift effect on hover */
+  
+  color: #007bff; /* Change text color on hover */
+}
