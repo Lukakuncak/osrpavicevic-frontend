@@ -19,4 +19,51 @@
     .home-slider{
         width: 100%;
     }
+
+
 }
+
+.statistics {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    text-align: center;
+  }
+  
+  .stat-item {
+    background-color:  rgb(109, 57, 9); /* White background for the box */
+    border-radius: 10px; /* Rounded corners */
+    padding: 80px; /* Inner padding */
+    margin: 15px; 
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Subtle shadow */
+    transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effect */
+    flex: 1; /* Allows the box to grow and shrink */
+    display: flex; /* Flexbox for centering */
+    align-items: center; /* Center items vertically */
+    justify-content: center; /* Center items horizontally */
+}
+
+.stat-item:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 20px 20px rgba(0, 0, 0, 0.3); /* Subtle shadow */
+}
+
+
+  .stat-item h2 {
+    font-size: 70px;
+    color:rgb(252, 221, 142);
+    margin: 0;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    font-family: 'Luckiest Guy', cursive;
+  }
+  
+  .stat-item p {
+    font-size: 25px;
+    text-decoration: solid;
+    color: #ffffff;
+    margin: 10px 0 0 0;
+    font-family: 'Luckiest Guy', cursive;
+  }
+
+  

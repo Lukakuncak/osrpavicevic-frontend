@@ -44,23 +44,22 @@ export class NosiociVukoveDiplomeComponent implements OnInit {
 
   ngOnInit(): void {
     if (typeof localStorage !== 'undefined') {
-      this.token = localStorage.getItem('token'); // Retrieve token from local storage
+      this.token = localStorage.getItem('token'); 
     }
     this.authService.isAdmin().subscribe(isAdmin => {
-      this.isAdmin = isAdmin; // Set if the user is an admin
+      this.isAdmin = isAdmin; 
     });
-    this.fetchPersons(); // Fetch the list of persons on component initialization
+    this.fetchPersons(); 
   }
 
   async fetchPersons() {
-    this.personList = await this.personService.getAllPersonType(this.type); // Get persons based on type
-    this.groupPersonsByYear(); // Group persons by year after fetching
+    this.personList = await this.personService.getAllPersonType(this.type); 
+    this.groupPersonsByYear(); 
   }
 
   groupPersonsByYear() {
-    // Group persons by the year (stored in the position field)
     this.groupedPersons = this.personList.reduce((acc: { [key: string]: Person[] }, person: Person) => {
-      const year = person.position || 'N/A'; // Default to 'N/A' if year is missing
+      const year = person.position || 'N/A';
       if (!acc[year]) {
         acc[year] = [];
       }
@@ -69,16 +68,13 @@ export class NosiociVukoveDiplomeComponent implements OnInit {
     }, {});
   }
 
-  // Sorting function to sort years in descending order
   descOrder = (a: { key: string }, b: { key: string }): number => {
     return b.key.localeCompare(a.key);
   };
 
-  // Save the new or edited person
   async savePerson() {
     const formValue = this.personForm.value;
     if (this.selectedPerson) {
-      // Edit existing person
       await this.personService.editPerson(this.selectedPerson.id, this.type, formValue.firstname, formValue.lastname, formValue.position, this.token);
       this.snackBar.open('Успешно сте ажурирали особу ' + formValue.firstname + ' ' + formValue.lastname + '!', 'Затвори', {
         duration: 2000,
@@ -87,7 +83,6 @@ export class NosiociVukoveDiplomeComponent implements OnInit {
         await this.personService.addPictureForPerson(this.selectedPerson.id, this.selectedFile, this.token);
       }
     } else {
-      // Create new person
       const response = await this.personService.createPerson(this.type, formValue.firstname, formValue.lastname, formValue.position, this.token);
       this.snackBar.open('Успешно сте креирали особу ' + formValue.firstname + ' ' + formValue.lastname + '!', 'Затвори', {
         duration: 2000,
@@ -97,7 +92,7 @@ export class NosiociVukoveDiplomeComponent implements OnInit {
       }
     }
     this.resetForm();
-    this.fetchPersons(); // Refresh the list of persons
+    this.fetchPersons(); 
   }
 
   editPerson(person: Person) {
