@@ -12,7 +12,7 @@ export class PersonService {
 
   constructor() { }
 
-  async createPerson(type: PersonType, firstname: string, lastname: string, position: string, token: string) {
+  async createPerson(type: PersonType, firstname: string, lastname: string, position: string, token: string): Promise<Person> {
     const personCreateRequest = {
       type: type,
       firstname: firstname,
@@ -27,29 +27,45 @@ export class PersonService {
       });
       if (response.data.statusCode !== 200) {
         console.log('error while inserting new person' + response.data.error);
+        return {
+          id: -1,
+          firstname: '',
+          lastname: '',
+          type: PersonType.NASI_A_USPESNI,
+          position: ''
+        }
+      } else {
+        return response.data.person;
       }
     } catch (error) {
       console.error('error while inserting new person' + error);
+      return {
+        id: -1,
+        firstname: '',
+        lastname: '',
+        type: PersonType.NASI_A_USPESNI,
+        position: ''
+      }
     }
   }
 
-  async getAllPersonType(type:PersonType):Promise<Person[]>{
-    try{
+  async getAllPersonType(type: PersonType): Promise<Person[]> {
+    try {
       const response = await axios.get(`${this.baseUrl}/public/person/get-all-for-type/${type}`);
-      if(response.data.statusCode===200){
+      if (response.data.statusCode === 200) {
         return response.data.personList;
-      } else{
+      } else {
         console.log('error while fetching all persons' + response.data.error);
         return [];
       }
 
-    } catch(error){
+    } catch (error) {
       console.error('error while fetching all persons' + error);
       return [];
     }
   }
 
-  async editPerson(id:number, type: PersonType, firstname: string, lastname: string, position: string, token: string) {
+  async editPerson(id: number, type: PersonType, firstname: string, lastname: string, position: string, token: string) {
     const personCreateRequest = {
       type: type,
       firstname: firstname,
@@ -70,7 +86,7 @@ export class PersonService {
     }
   }
 
-  async delete(id:number, token: string) {
+  async delete(id: number, token: string) {
     try {
       const response = await axios.delete(`${this.baseUrl}/person/delete-person/${id}`, {
         headers: {
@@ -82,6 +98,40 @@ export class PersonService {
       }
     } catch (error) {
       console.error('error while deleting person' + error);
+    }
+  }
+
+  async addPictureForPerson(id: number, file: File, token: string) {
+    const formData = new FormData();
+    formData.append('multipartFile', file);
+    try {
+      const response = await axios.put(`${this.baseUrl}/person/add-picture/${id}`, formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'multipart/form-data'
+        }
+      });
+      if (response.data.statusCode !== 200) {
+        console.log('Error while uploading picture: ' + response.data.error);
+      }
+    } catch (error) {
+      console.error('Error while uploading picture: ' + error);
+    }
+  }
+
+
+  async deletePictureForPerson(id: number, token: string) {
+    try {
+      const response = await axios.put(`${this.baseUrl}/person/delete-picture/${id}`, {}, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      });
+      if (response.data.statusCode !== 200) {
+        console.log('Error while deleting picture: ' + response.data.error);
+      }
+    } catch (error) {
+      console.error('Error while deleting picture: ' + error);
     }
   }
 }

@@ -1,26 +1,28 @@
 <div class="container mt-5 mb-5">
-    <div #top></div> 
+    <div #top></div>
     <h2>Запослени</h2>
 
     <form *ngIf="isAdmin" [formGroup]="personForm" (ngSubmit)="savePerson()" class="mb-4">
         <div class="row">
-            <div class="text-muted">Напомена:Да би распоред на овој страници био добар молим вас поведете рачуна да када стављате радно место за
-                наставни кадар УВЕК на почетак ставите "професор" или "наставник" и да директор на почетку УВЕК има реч "директор"</div>
+            <div class="text-muted">Напомена:Да би распоред на овој страници био добар молим вас поведете рачуна да када
+                стављате радно место за
+                наставни кадар УВЕК на почетак ставите "професор" или "наставник" и да директор на почетку УВЕК има реч
+                "директор"</div>
             <div class="col-md-4 mb-3">
                 <label for="firstname" class="form-label">Име</label>
-                <input id="firstname" formControlName="firstname" class="form-control" placeholder="Enter First Name"
+                <input id="firstname" formControlName="firstname" class="form-control" placeholder="Унесите име"
                     required>
             </div>
 
             <div class="col-md-4 mb-3">
                 <label for="lastname" class="form-label">Презиме</label>
-                <input id="lastname" formControlName="lastname" class="form-control" placeholder="Enter Last Name"
+                <input id="lastname" formControlName="lastname" class="form-control" placeholder="Унесите презиме"
                     required>
             </div>
 
             <div class="col-md-4 mb-3">
                 <label for="position" class="form-label">Радно место</label>
-                <input id="position" formControlName="position" class="form-control" placeholder="Enter Position">
+                <input id="position" formControlName="position" class="form-control" placeholder="Унесите радно место">
             </div>
         </div>
 
@@ -35,71 +37,96 @@
 
     <div *ngIf="director" class="director-section text-center mb-4">
         <h3>Директор</h3>
-        <img [src]="director.image?.imageUrl || 'default_profile.png'" alt="Director Profile Picture"
-            class="profile-pic director-pic">
+        <img [src]="director.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
+            class="director-pic img-fluid">
         <p>{{ director.firstname }} {{ director.lastname }}</p>
         <p>{{ director.position || 'N/A' }}</p>
-        
-        <div class="text-center mt-3"> 
-            <button *ngIf="isAdmin" (click)="editPerson(director)" class="btn-edit">Уреди</button>
-            <button *ngIf="isAdmin" (click)="deletePerson(director)" class="btn-delete">Обриши</button>
+
+        <div *ngIf="isAdmin" class="text-center mt-3">
+            <button (click)="editPerson(director)" class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-edit"></i> Уреди
+            </button>
+            <button (click)="deletePerson(director)" class="btn btn-sm btn-outline-danger">
+                <i class="fas fa-trash-alt"></i> Обриши
+            </button>
+            <button *ngIf="director.image!==null" (click)="deletePicture(director.id)" class="btn btn-sm btn-outline-danger">
+                <i class="fas fa-trash-alt"></i> Обриши слику
+            </button>
         </div>
     </div>
-    
 
     <h3>Наставни кадар</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Слика</th>
-                <th>Име</th>
-                <th>Презиме</th>
-                <th>Радно место</th>
-                <th *ngIf="isAdmin">Акција</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let person of professors">
-                <td class="text-center">
-                    <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
-                        class="profile-pic">
-                </td>
-                <td>{{ person.firstname }}</td>
-                <td>{{ person.lastname }}</td>
-                <td>{{ person.position || 'N/A' }}</td>
-                <td *ngIf="isAdmin">
-                    <button (click)="editPerson(person)" class="btn-edit">Уреди</button>
-                    <button (click)="deletePerson(person)" class="btn-delete">Обриши</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Слика</th>
+                    <th>Име</th>
+                    <th>Презиме</th>
+                    <th>Радно место</th>
+                    <th *ngIf="isAdmin">Акција</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let person of professors">
+                    <td class="text-center">
+                        <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
+                            class="profile-pic img-fluid">
+                    </td>
+                    <td>{{ person.firstname }}</td>
+                    <td>{{ person.lastname }}</td>
+                    <td>{{ person.position || 'N/A' }}</td>
+                    <td *ngIf="isAdmin">
+                        <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-edit"></i> Уреди
+                        </button>
+                        <button (click)="deletePerson(person)" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Обриши
+                        </button>
+                        <button *ngIf="person.image!==null" (click)="deletePicture(person.id)" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Обриши слику
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
     <h3>Ненаставни кадар</h3>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>Слика</th>
-                <th>Име</th>
-                <th>Презиме</th>
-                <th>Радно место</th>
-                <th *ngIf="isAdmin">Акција</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let person of nonProfessors">
-                <td class="text-center">
-                    <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
-                        class="profile-pic">
-                </td>
-                <td>{{ person.firstname }}</td>
-                <td>{{ person.lastname }}</td>
-                <td>{{ person.position || 'N/A' }}</td>
-                <td *ngIf="isAdmin">
-                    <button (click)="editPerson(person)" class="btn-edit">Уреди</button>
-                    <button (click)="deletePerson(person)" class="btn-delete">Обриши</button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Слика</th>
+                    <th>Име</th>
+                    <th>Презиме</th>
+                    <th>Радно место</th>
+                    <th *ngIf="isAdmin">Акција</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let person of nonProfessors">
+                    <td class="text-center">
+                        <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
+                            class="profile-pic img-fluid">
+                    </td>
+                    <td>{{ person.firstname }}</td>
+                    <td>{{ person.lastname }}</td>
+                    <td>{{ person.position || 'N/A' }}</td>
+                    <td *ngIf="isAdmin">
+                        <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary">
+                            <i class="fas fa-edit"></i> Уреди
+                        </button>
+                        <button (click)="deletePerson(person)" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Обриши
+                        </button>
+                        <button *ngIf="person.image!==null" (click)="deletePicture(person.id)" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Обриши слику
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>

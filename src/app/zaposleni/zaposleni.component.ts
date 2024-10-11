@@ -6,6 +6,7 @@ import { Person } from '../model/person';
 import { CommonModule } from '@angular/common';
 import { AuthService } from '../service/auth.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { response } from 'express';
 
 @Component({
   selector: 'app-zaposleni',
@@ -59,11 +60,17 @@ export class ZaposleniComponent implements OnInit {
       this.snackBar.open('Успешно сте ажурирали особу ' + formValue.firstname + ' ' + formValue.lastname + '!', 'Затвори', {
         duration: 2000,
       });
+      if (this.selectedFile) {
+        await this.personService.addPictureForPerson(this.selectedPerson.id, this.selectedFile, this.token);
+      }
     } else {
-      await this.personService.createPerson(this.type, formValue.firstname, formValue.lastname, formValue.position, this.token);
+      const reponse = await this.personService.createPerson(this.type, formValue.firstname, formValue.lastname, formValue.position, this.token);
       this.snackBar.open('Успешно сте креирали особу ' + formValue.firstname + ' ' + formValue.lastname + '!', 'Затвори', {
         duration: 2000,
       });
+      if (reponse.id >= 0) {
+        await this.personService.addPictureForPerson(reponse.id, this.selectedFile, this.token);
+      }
     }
     this.resetForm();
     this.fetchPersons();
@@ -112,5 +119,11 @@ export class ZaposleniComponent implements OnInit {
   onImageSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files[0];
     this.selectedFile = file;
+  }
+
+  async deletePicture(id: number) {
+    await this.personService.deletePictureForPerson(id, this.token);
+    this.resetForm();
+    this.fetchPersons();
   }
 }
