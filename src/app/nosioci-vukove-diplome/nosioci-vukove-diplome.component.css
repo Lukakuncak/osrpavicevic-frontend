@@ -73,16 +73,16 @@
     color: #333; 
     margin: 20px 0; 
     padding: 10px; 
-    background-color: #f9f9f9; /* Light background color */
-    border-radius: 10px; /* Rounded corners */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    transition: all 0.3s ease; /* Smooth transition for hover effect */
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
 }
 
 .group-key:hover {
-    color: #0056b3; /* Change color on hover */
-    background-color: #e9ecef; /* Darker background on hover */
-    transform: translateY(-2px); /* Slight lift effect on hover */
+    color: #0056b3;
+    background-color: #e9ecef;
+    transform: translateY(-2px);
 }
   
 
@@ -98,13 +98,14 @@
 }
 
 .profile-pic {
-  width: 100px;  /* Larger size for profile picture */
-  height: 100px;
+  width: 150px; 
+  height: 150px;
   object-fit: cover;
 }
 
 .person-card h5 {
-  margin-top: 0; /* Remove top margin to center better */
+  margin-top: 0;
+  font-size: 50px;
 }
 
 .btn-outline-primary, .btn-outline-danger {
@@ -124,43 +125,43 @@
 }
 
 .person-card-left .profile-pic {
-    margin-right: 15px; /* Space between name and image */
+    margin-right: 15px;
 }
 
 .person-card-right .profile-pic {
-    margin-left: 15px; /* Space between name and image */
+    margin-left: 15px;
 }
 
 h2 {
-  text-align: center; /* Center align the text */
-  font-size: 2.5em; /* Increase font size */
-  font-weight: bold; /* Make the text bold */
-  color: #4a4a4a; /* Dark gray text color */
-  margin: 30px 0; /* Add vertical margin */
-  padding: 15px; /* Add padding around the text */
-  background: linear-gradient(90deg, #f8f9fa, #e9ecef); /* Gradient background */
-  border-radius: 12px; /* Rounded corners */
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* More pronounced shadow */
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
-  text-transform: uppercase; /* Make text uppercase for emphasis */
-  letter-spacing: 1px; /* Increase letter spacing */
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: bold;
+  color: #4a4a4a;
+  margin: 30px 0;
+  padding: 15px;
+  background: linear-gradient(90deg, #f8f9fa, #e9ecef);
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  letter-spacing: 1px;
 }
 
 h2:hover {
-  color: #007bff; /* Change text color on hover */
-  background-color: #e9ecef; /* Darker background on hover */
-  transform: translateY(-3px); /* Slight lift effect on hover */
+  color: #007bff;
+  background-color: #e9ecef;
+  transform: translateY(-3px);
 }
 
 
 .person-card{
   display: flex; align-items: center;
 
-  transition: all 0.3s ease; /* Smooth transition for hover effect */
+  transition: all 0.3s ease;
 }
 
 .person-card:hover{
-  transform: translateY(-3px); /* Slight lift effect on hover */
+  transform: translateY(-3px);
   
-  color: #007bff; /* Change text color on hover */
+  color: #007bff;
 }

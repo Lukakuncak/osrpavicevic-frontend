@@ -1,4 +1,5 @@
 import { NewsType } from "../news/news-type.enum";
+import { Image } from "./image";
 
 export interface News {
     id: number;
@@ -9,6 +10,7 @@ export interface News {
     clicks: number;
     pinned: boolean;
     deleted: boolean;
+    image?: Image;
     comments?: Comment[];
   }
   

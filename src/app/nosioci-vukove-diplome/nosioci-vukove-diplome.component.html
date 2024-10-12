@@ -41,7 +41,7 @@
         <div *ngFor="let group of groupedPersons | keyvalue: descOrder">
             <h3 class="text-center group-key">{{ group.key }}</h3>
             <div class="row justify-content-center">
-                <div class="col-md-8 mb-4" *ngFor="let person of group.value; let i = index">
+                <div class="col-md-8 " *ngFor="let person of group.value; let i = index" style="width: 100%;">
                     <div [ngClass]="{'person-card-left': i % 2 === 0, 'person-card-right': i % 2 !== 0}">
                         <div *ngIf="i % 2 === 0" class="person-card">
                             <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"

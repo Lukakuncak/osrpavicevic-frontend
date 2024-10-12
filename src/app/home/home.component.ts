@@ -1,5 +1,6 @@
-import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
+import { Component, CUSTOM_ELEMENTS_SCHEMA, OnInit, AfterViewInit, ChangeDetectorRef, Inject, PLATFORM_ID } from '@angular/core';
 import { HomePageService } from '../service/home-page.service';
+import { isPlatformBrowser } from '@angular/common';
 
 @Component({
   selector: 'app-home',
@@ -17,17 +18,21 @@ export class HomeComponent implements OnInit, AfterViewInit {
 
   constructor(
     private homePageService: HomePageService,
-    private cdr: ChangeDetectorRef 
+    private cdr: ChangeDetectorRef,
+    @Inject(PLATFORM_ID) private platformId: Object
   ) {}
 
   async ngOnInit() {
     this.numberOfWorkers = await this.homePageService.numberOfWorkers();
     this.numberOfYearsWorking = await this.homePageService.numberOfYearsWorking();
-    this.cdr.detectChanges(); 
+    this.cdr.detectChanges();
   }
 
   ngAfterViewInit() {
-    this.initializeIntersectionObserver();
+    
+    if (isPlatformBrowser(this.platformId)) {
+      this.initializeIntersectionObserver();
+    }
   }
 
   initializeIntersectionObserver() {
@@ -39,10 +44,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
         if (entry.isIntersecting) {
           if (entry.target.id === 'workers' && !this.workersCounted) {
             this.animateCountUp('workers', this.numberOfWorkers);
-            this.workersCounted = true; 
+            this.workersCounted = true;
           } else if (entry.target.id === 'years' && !this.yearsCounted) {
             this.animateCountUp('years', this.numberOfYearsWorking);
-            this.yearsCounted = true; 
+            this.yearsCounted = true;
           }
         }
       });

@@ -29,8 +29,8 @@ export class NewsComponent implements OnInit {
   };
   isAdmin: boolean
   currentPage: number = 0;
-  pageSize: number = 9;
-  pageSizes: number[] = [9, 18, 36, 72];
+  pageSize: number = 8;
+  pageSizes: number[] = [8, 16, 32, 64];
   sortBy: string = 'dateTime';
   sortDir: string = 'desc';
   searchTerm: string = '';

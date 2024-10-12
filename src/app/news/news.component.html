@@ -11,33 +11,49 @@
         </div>
   
         <div *ngFor="let news of pinnedNews; let i = index" 
-             [ngClass]="{'col-md-12': pinnedNews.length === 1, 'col-md-6': pinnedNews.length === 2, 'col-md-4': pinnedNews.length >= 3}" 
+             [ngClass]="{'col-md-12': pinnedNews.length === 1, 'col-md-6': pinnedNews.length === 2}" 
              class="mb-4">
-          <div class="card h-100" style="background-color: #d1faff;">
-            <div *ngIf="isAdmin" class="position-absolute top-0 end-0 p-2 d-flex">
-              <i class="bi me-2" 
-                 [ngClass]="news.pinned ? 'bi-pin-angle-fill' : 'bi-pin-angle'" 
-                 (click)="togglePin(news.id)"
-                 style="cursor: pointer; font-size: 1.5rem; color: #f39c12;">
-              </i>
-              <i class="bi bi-trash" 
-                 (click)="deleteNews(news.id)" 
-                 style="cursor: pointer; font-size: 1.5rem; color: #dc3545;">
-              </i>
-            </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">{{ news.title }}</h5>
-              <p class="card-text text-muted mb-2">{{ mapNewsTypes([news.type]) }}</p>
-              <p class="card-text flex-grow-1">{{ news.content | slice:0:150 }}...</p>
-              <a (click)="goToNewsAndUpdateClick(news.id)" class="btn btn-info">Прочитајте још</a>
-            </div>
-            <div class="card-footer text-muted d-flex justify-content-between">
-              <small>{{ news.dateTime | date: 'short' }}</small>
-              <div>
-                <small><i class="bi bi-eye"></i> {{ news.clicks }} </small>
+             <div class="card h-100 d-flex flex-column" style="background-color: #d1faff;">
+              <!-- Admin controls for pinning and deleting -->
+              <div *ngIf="isAdmin" class="position-absolute top-0 end-0 p-2 d-flex">
+                <i class="bi me-2" 
+                   [ngClass]="news.pinned ? 'bi-pin-angle-fill' : 'bi-pin-angle'" 
+                   (click)="togglePin(news.id)"
+                   style="cursor: pointer; font-size: 1.5rem; color: #f39c12;">
+                </i>
+                <i class="bi bi-trash" 
+                   (click)="deleteNews(news.id)" 
+                   style="cursor: pointer; font-size: 1.5rem; color: #dc3545;">
+                </i>
+              </div>
+            
+              <div class="row g-0 flex-grow-1">
+                <!-- Image column (if available) -->
+                <div class="col-md-4" *ngIf="news.image">
+                  <img [src]="news.image.imageUrl" alt="News Image" class="img-fluid rounded-start h-100" style="object-fit: cover;">
+                </div>
+            
+                <!-- Content column -->
+                <div [ngClass]="news.image ? 'col-md-8' : 'col-12'">
+                  <div class="card-body d-flex flex-column h-100">
+                    <h5 class="card-title">{{ news.title }}</h5>
+                    <p class="card-text text-muted mb-2">{{ mapNewsTypes([news.type]) }}</p>
+                    <p class="card-text flex-grow-1">{{ news.content | slice: 0:150 }}...</p>
+                    <a (click)="goToNewsAndUpdateClick(news.id)" class="btn btn-info mt-auto">Прочитајте још</a>
+                  </div>
+                </div>
+              </div>
+            
+              <!-- Footer with date and views -->
+              <div class="card-footer text-muted d-flex justify-content-between">
+                <small>{{ news.dateTime | date: 'short' }}</small>
+                <div>
+                  <small><i class="bi bi-eye"></i> {{ news.clicks }} </small>
+                </div>
               </div>
             </div>
-          </div>
+            
+            
         </div>
       </div>
     </div>
@@ -89,8 +105,9 @@
           </div>
         </div>
 
-        <div *ngFor="let news of filteredNews" class="col-md-4 mb-4">
-          <div class="card h-100">
+        <div *ngFor="let news of filteredNews" class="col-md-6 mb-4">
+          <div class="card h-100 d-flex flex-column">
+            <!-- Admin tools -->
             <div *ngIf="isAdmin" class="position-absolute top-0 end-0 p-2 d-flex">
               <i class="bi me-2" 
                  [ngClass]="news.pinned ? 'bi-pin-angle-fill' : 'bi-pin-angle'" 
@@ -102,20 +119,35 @@
                  style="cursor: pointer; font-size: 1.5rem; color: #dc3545;">
               </i>
             </div>
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">{{ news.title }}</h5>
-              <p class="card-text text-muted mb-2">{{mapNewsTypes( [news.type]) }}</p>
-              <p class="card-text flex-grow-1">{{ news.content | slice:0:150 }}...</p>
-              <a (click)="goToNewsAndUpdateClick(news.id)" class="btn btn-info">Прочитајте још</a>
+          
+            <!-- Row with Image and Content -->
+            <div class="row g-0 flex-grow-1">
+              <!-- Image column -->
+              <div class="col-md-4" *ngIf="news.image">
+                <img [src]="news.image.imageUrl" alt="News Image" class="img-fluid rounded-start h-100" style="object-fit: cover;">
+              </div>
+          
+              <!-- Content column -->
+              <div [ngClass]="news.image ? 'col-md-8' : 'col-12'" class="d-flex flex-column">
+                <div class="card-body d-flex flex-column">
+                  <!-- Title and other details -->
+                  <h5 class="card-title">{{ news.title }}</h5>
+                  <p class="card-text text-muted mb-2">{{ mapNewsTypes([news.type]) }}</p>
+                  <p class="card-text flex-grow-1">{{ news.content | slice: 0:150 }}...</p>
+                  <a (click)="goToNewsAndUpdateClick(news.id)" class="btn btn-info mt-auto">Прочитајте још</a>
+                </div>
+              </div>
             </div>
-            <div class="card-footer text-muted d-flex justify-content-between">
+          
+            <!-- Footer -->
+            <div class="card-footer text-muted d-flex justify-content-between mt-auto">
               <small>{{ news.dateTime | date: 'short' }}</small>
               <div>
                 <small><i class="bi bi-eye"></i> {{ news.clicks }} </small>
               </div>
             </div>
           </div>
-        </div>
+          
       </div>
       <div *ngIf="newsPage?.empty" class="d-flex justify-content-center align-items-center min-vh-100"><span
           class=" alert alert-info">Није пронађено ниједно обавештење.</span></div>
