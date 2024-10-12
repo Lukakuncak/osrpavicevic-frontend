@@ -39,7 +39,10 @@ export class AuthService {
     const url = `${this.BASE_URL}/login`;
     try {
       const response = await axios.post(url, { username, password })
-      return response.data;
+      if(response.data.statusCode===200){
+        this.saveToLocalStorageAndUpdateFlags(response.data.token, response.data.role, response.data.id);
+        return response.data;
+      }
     } catch (error) {
       throw error;
     }

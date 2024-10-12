@@ -36,10 +36,12 @@ export class OneNewsComponent implements OnInit {
   newComment: string = '';
   private token: string;
   private userId: number;
-
+  isEditing: boolean = false; 
+  selectedImage?: File; 
 
   constructor(private route: ActivatedRoute, private newsService: NewsService, private authService: AuthService, private commentService: CommentService,
     private snackBar: MatSnackBar, private router: Router) { }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
       const idParam = params.get('id');
@@ -73,9 +75,16 @@ export class OneNewsComponent implements OnInit {
     }
   }
 
+  loadNewsWithNews(news:News){
+      this.news = news;
+      const tempComments = news?.comments as unknown as Comment[] || [];
+      this.comments = tempComments.filter(item => item.approved);
+      this.unapprovedComments = tempComments.filter(item => !item.approved);
+  }
+
   submitComment(): void {
     if (this.newComment.trim()) {
-      this.commentService.createComment(this.userId,this.newsId,this.newComment,this.token);
+      this.commentService.createComment(this.userId, this.newsId, this.newComment, this.token);
       this.snackBar.open('Успешно сте послали коментар, чека се одобрење администратора.', 'Затвори', {
         duration: 3000,
       });
@@ -96,7 +105,54 @@ export class OneNewsComponent implements OnInit {
     this.loadNews();
   }
 
-  async replyToComment(id:number) {
-    this.router.navigate([`odgovori-na-komentar/${id}`])
+  async replyToComment(id: number) {
+    this.router.navigate([`odgovori-na-komentar/${id}`]);
+  }
+
+  
+  enableEdit() {
+    this.isEditing = true;
+  }
+
+  
+  onImageSelected(event: Event) {
+    const target = event.target as HTMLInputElement;
+    if (target.files && target.files.length > 0) {
+      this.selectedImage = target.files[0];
+    }
+  }
+
+  
+  async saveChanges() {
+    try {
+      var news = await this.newsService.updateNewsContent(this.newsId, this.news.content, this.token);
+      this.snackBar.open('Успешно сте изменили садржај вести.', 'Затвори', {
+        duration: 3000,
+      });
+
+      
+      if (this.selectedImage) {
+        const formData = new FormData();
+        formData.append('multipartFile', this.selectedImage);
+
+        news = await this.newsService.uploadNewsImage(this.newsId, formData, this.token);
+        this.snackBar.open('Успешно сте изменили слику вести.', 'Затвори', {
+          duration: 3000,
+        });
+      }
+
+      this.isEditing = false; 
+      this.loadNewsWithNews(news); 
+    } catch (error) {
+      console.error('Error saving changes: ', error);
+      this.snackBar.open('Дошло је до грешке при чувању измена.', 'Затвори', {
+        duration: 3000,
+      });
+    }
+  }
+
+  async deletePicture(){
+    const news = await this.newsService.deletePicture(this.newsId,this.token);
+    this.loadNewsWithNews(news);
   }
 }

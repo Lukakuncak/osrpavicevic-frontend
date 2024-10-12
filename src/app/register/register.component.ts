@@ -24,7 +24,7 @@ export class RegisterComponent implements OnInit {
       lastname: new FormControl('', Validators.required),
       username: new FormControl('', Validators.required),
       password: new FormControl('', [Validators.required, Validators.minLength(8)]),
-      repeatPassword:new FormControl('', Validators.required)
+      repeatPassword: new FormControl('', Validators.required)
     }, {
       validators: this.passwordMatchValidator
     });
@@ -47,8 +47,8 @@ export class RegisterComponent implements OnInit {
       const userdata = { firstname, lastname, username, password };
       try {
         const response = await this.authService.register(userdata);
-        if(response.statusCode === 200){
-          this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role, response.id)
+        if (response.statusCode === 200) {
+          this.authService.login(username, password);
           this.router.navigate(['/pocetna'])
         } else {
           this.errorMessage = response.error

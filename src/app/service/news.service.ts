@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Observable, from } from 'rxjs';
 import { News, NewsPage } from '../model/news';
 import { error } from 'console';
+import { NewsType } from '../news/news-type.enum';
 
 @Injectable({
   providedIn: 'root'
@@ -39,7 +40,7 @@ export class NewsService {
     );
   }
 
-  getAllPinnedNews():Observable<News[]>{
+  getAllPinnedNews(): Observable<News[]> {
     return from(
       axios.get(`${this.baseUrl}/public/news/get-all-pinned`).then(response => response.data.newsList)
     );
@@ -79,27 +80,132 @@ export class NewsService {
         throw error;
       });
   }
-  
 
-  updateClickCounter(id:number){
+
+  updateClickCounter(id: number) {
     axios.put(`${this.baseUrl}/public/news/update-click/${id}`)
-    .catch(error=> console.error("Error happened while updating click count",error));
+      .catch(error => console.error("Error happened while updating click count", error));
   }
 
-  async togglePin(id: number, token:string){
-    
-      await axios.put(`${this.baseUrl}/news/pin-unpin-news/${id}`, {},{
+  async togglePin(id: number, token: string) {
+
+    await axios.put(`${this.baseUrl}/news/pin-unpin-news/${id}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
   }
 
-  async deleteNews(id:number,token:string){
-    await axios.put(`${this.baseUrl}/news/delete/${id}`, {},{
+  async deleteNews(id: number, token: string) {
+    await axios.put(`${this.baseUrl}/news/delete/${id}`, {}, {
       headers: {
         Authorization: `Bearer ${token}`
       }
     });
+  }
+
+  async updateNewsContent(id: number, content: string, token: string) {
+    try {
+      const response = await axios.put(`${this.baseUrl}/news/edit-content/${id}`, {content: content}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.data.statusCode === 200) {
+        return response.data.news;
+      } else {
+        console.log(response.data.error);
+        return {
+          id: 0,
+          title: "",
+          content: "",
+          type: NewsType.TAKMICENJA,
+          dateTime: "9/20/24 00:00",
+          clicks: 0,
+          deleted: false,
+          pinned: false
+        };
+      }
+    } catch(error){
+      console.log(error);
+      return {
+        id: 0,
+        title: "",
+        content: "",
+        type: NewsType.TAKMICENJA,
+        dateTime: "9/20/24 00:00",
+        clicks: 0,
+        deleted: false,
+        pinned: false
+      };
+    }
+  }
+
+  async uploadNewsImage(id: number, formData: FormData, token: string): Promise<News> {
+    try {
+      const response = await axios.put(`${this.baseUrl}/news/add-picture/${id}`, formData, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.data.statusCode === 200) {
+        return response.data.news;
+      } else {
+        console.log(response.data.error);
+        return {
+          id: 0,
+          title: "",
+          content: "",
+          type: NewsType.TAKMICENJA,
+          dateTime: "9/20/24 00:00",
+          clicks: 0,
+          deleted: false,
+          pinned: false
+        };
+      }
+    } catch(error){
+      console.log(error);
+      return {
+        id: 0,
+        title: "",
+        content: "",
+        type: NewsType.TAKMICENJA,
+        dateTime: "9/20/24 00:00",
+        clicks: 0,
+        deleted: false,
+        pinned: false
+      };
+    }
+  }
+
+  async deletePicture(id: number, token: string):Promise<News>{
+    try {
+      const response = await axios.put(`${this.baseUrl}/news/remove-picture/${id}`, {}, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      if (response.data.statusCode === 200) {
+        return response.data.news;
+      } else {
+        console.log(response.data.error);
+        return {
+          id: 0,
+          title: "",
+          content: "",
+          type: NewsType.TAKMICENJA,
+          dateTime: "9/20/24 00:00",
+          clicks: 0,
+          deleted: false,
+          pinned: false
+        };
+      }
+    } catch(error){
+      console.log(error);
+      return {
+        id: 0,
+        title: "",
+        content: "",
+        type: NewsType.TAKMICENJA,
+        dateTime: "9/20/24 00:00",
+        clicks: 0,
+        deleted: false,
+        pinned: false
+      };
+    }
   }
 }

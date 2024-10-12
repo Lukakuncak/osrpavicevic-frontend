@@ -33,7 +33,6 @@ export class SignUpComponent {
         const response = await this.authService.login(username, password);
         if(response.statusCode === 200){
           this.token = response.token;
-          this.authService.saveToLocalStorageAndUpdateFlags(response.token, response.role, response.id);
           await this.loadNotification();
           this.router.navigate(['/pocetna']);
         } else {
