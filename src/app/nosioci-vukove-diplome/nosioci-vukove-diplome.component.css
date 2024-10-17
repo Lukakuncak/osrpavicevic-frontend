@@ -165,3 +165,14 @@ h2:hover {
   
   color: #007bff;
 }
+
+@media (max-width: 768px) {
+  .profile-pic {
+      max-width: 60px;
+      height: auto;
+  }
+
+  .person-name{
+    font-size: 10px;
+  }
+}

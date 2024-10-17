@@ -30,7 +30,6 @@ export class HomeComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit() {
-    console.log('After View Init Called');
     
     if (isPlatformBrowser(this.platformId)) {
       this.initializeIntersectionObserver();

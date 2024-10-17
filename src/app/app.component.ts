@@ -23,7 +23,6 @@ export class AppComponent implements OnInit{
   constructor (private classScheduleService: ClassScheduleService){ }
   ngOnInit(): void {    
     this.classScheduleService.loadUrls().then(() => {
-    console.log('Class schedules loaded');
   });
   }
   

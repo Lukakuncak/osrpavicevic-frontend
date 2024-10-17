@@ -67,6 +67,17 @@
   object-fit: cover;
 }
 
+@media (max-width: 768px) {
+  .profile-pic {
+      max-width: 150px;
+      height: auto;
+  }
+
+  .person-description{
+    font-size: 12px;
+  }
+}
+
 .person-card h5 {
   margin-top: 0;
 }

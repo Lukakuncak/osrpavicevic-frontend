@@ -3,67 +3,56 @@
     <h2>Наши а успешни</h2>
     <form *ngIf="isAdmin" [formGroup]="personForm" (ngSubmit)="savePerson()" class="mb-4">
         <div class="row">
-            <div class="col-md-6 mb-3">
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="firstname" class="form-label">Име</label>
-                <input id="firstname" formControlName="firstname" class="form-control" placeholder="Унесите име"
-                    required>
+                <input id="firstname" formControlName="firstname" class="form-control" placeholder="Унесите име" required>
             </div>
 
-            <div class="col-md-6 mb-3">
+            <div class="col-sm-12 col-md-6 mb-3">
                 <label for="lastname" class="form-label">Презиме</label>
-                <input id="lastname" formControlName="lastname" class="form-control" placeholder="Унесите презиме"
-                    required>
+                <input id="lastname" formControlName="lastname" class="form-control" placeholder="Унесите презиме" required>
             </div>
 
-            <div class="col-md-12 mb-3">
+            <div class="col-12 mb-3">
                 <label for="position" class="form-label">Биографија</label>
                 <textarea id="position" formControlName="position" class="form-control" placeholder="Унесите годину освајања дипломе" rows="4"></textarea>
             </div>
         </div>
-
 
         <div class="mb-3">
             <label for="image" class="form-label">Слика</label>
             <input type="file" id="image" (change)="onImageSelected($event)" class="form-control">
         </div>
 
-
         <button type="submit" class="btn btn-success me-2" [disabled]="personForm.invalid">Сачувај</button>
         <button type="button" class="btn btn-secondary" (click)="resetForm()">Рестартуј</button>
     </form>
 
-
     <div class="person-list">
         <div class="row justify-content-center">
-            <div class="col-md-8 mb-4" *ngFor="let person of personList" style="width: 100%;">
-                <div>
-                    <div class="person-card">
-                        <div>
-                            <h5>{{ person.firstname }} {{ person.lastname }}</h5>
-                        </div>
-                        <div style="display: flex; align-items: center;">
-                            <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
-                            class="profile-pic">
-                            <p>{{person.position}}</p>
-                        </div>
-                        <div *ngIf="isAdmin" style="margin-left: 10px;">
-                            <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary me-2">
-                                <i class="fas fa-edit"></i> Уреди
-                            </button>
-                            <button (click)="deletePerson(person)" class="btn btn-sm btn-outline-danger me-2">
-                                <i class="fas fa-trash-alt"></i> Обриши
-                            </button>
-                            <button *ngIf="person.image" (click)="deletePicture(person.id)"
-                                class="btn btn-sm btn-outline-danger">
-                                <i class="fas fa-trash-alt"></i> Обриши слику
-                            </button>
-                        </div>
+            <div class="col-sm-12 col-md-8 mb-4" *ngFor="let person of personList" style="width: 100%;">
+                <div class="person-card">
+                    <div>
+                        <h5>{{ person.firstname }} {{ person.lastname }}</h5>
                     </div>
-                    <hr>
+                    <div class="d-flex align-items-center">
+                        <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture" class="profile-pic">
+                        <p class="person-description">{{ person.position }}</p>
+                    </div>
+                    <div *ngIf="isAdmin" class="mt-2">
+                        <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary me-2">
+                            <i class="fas fa-edit"></i> Уреди
+                        </button>
+                        <button (click)="deletePerson(person)" class="btn btn-sm btn-outline-danger me-2">
+                            <i class="fas fa-trash-alt"></i> Обриши
+                        </button>
+                        <button *ngIf="person.image" (click)="deletePicture(person.id)" class="btn btn-sm btn-outline-danger">
+                            <i class="fas fa-trash-alt"></i> Обриши слику
+                        </button>
+                    </div>
                 </div>
+                <hr>
             </div>
         </div>
     </div>
-
-
 </div>

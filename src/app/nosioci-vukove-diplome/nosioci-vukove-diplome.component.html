@@ -46,7 +46,7 @@
                         <div *ngIf="i % 2 === 0" class="person-card">
                             <img [src]="person.image?.imageUrl || 'default_profile.png'" alt="Profile Picture"
                                 class="profile-pic rounded-circle">
-                            <h5>{{ person.firstname }} {{ person.lastname }}</h5>
+                            <h5 class="person-name">{{ person.firstname }} {{ person.lastname }}</h5>
                             <div *ngIf="isAdmin" style="margin-left: 10px;">
                                 <button (click)="editPerson(person)" class="btn btn-sm btn-outline-primary me-2">
                                     <i class="fas fa-edit"></i> Уреди
