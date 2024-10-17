@@ -25,6 +25,11 @@ import { NosiociVukoveDiplomeComponent } from './nosioci-vukove-diplome/nosioci-
 import { ZaposleniComponent } from './zaposleni/zaposleni.component';
 import { SkolskiOdborComponent } from './skolski-odbor/skolski-odbor.component';
 import { SavetRoditeljaComponent } from './savet-roditelja/savet-roditelja.component';
+import { PedagoskiKutakUceniciComponent } from './pedagoski-kutak-ucenici/pedagoski-kutak-ucenici.component';
+import { PedagoskiKutakRoditeljiComponent } from './pedagoski-kutak-roditelji/pedagoski-kutak-roditelji.component';
+import { TestScheduleComponent } from './test-schedule/test-schedule.component';
+import { CreatePostComponent } from './create-post/create-post.component';
+import { SinglePostComponent } from './single-post/single-post.component';
 
 export const routes: Routes = [
     { path: 'pocetna', component: HomeComponent },
@@ -41,6 +46,9 @@ export const routes: Routes = [
     { path: 'registruj-se', component: RegisterComponent },
     { path: 'upravljanje-korisnicima', component: UserManagementComponent, canActivate: [AdminGuard] },
     { path: 'upravljanje-profilom', component: MyProfileComponent },
+    { path: 'pedagosko-psiholoski-kutak/ucenici', component: PedagoskiKutakUceniciComponent },
+    { path: 'pedagosko-psiholoski-kutak/roditelji', component: PedagoskiKutakRoditeljiComponent },
+    { path: 'raspored-pismenih', component: TestScheduleComponent },
     { path: 'nasi-a-uspesni', component: NasiAUspesniComponent },
     { path: 'nosioci-vukove-diplome', component: NosiociVukoveDiplomeComponent },
     { path: 'zaposleni', component: ZaposleniComponent },
@@ -48,6 +56,8 @@ export const routes: Routes = [
     { path: 'savet-roditelja', component: SavetRoditeljaComponent },
     { path: 'promena-lozinke', component: PasswordChangeComponent },
     { path: 'kreiraj-obavestenje', component: CreateNewsComponent, canActivate: [AdminGuard] },
+    { path: 'kreiraj-pp-objavu', component: CreatePostComponent, canActivate: [AdminGuard] },
+    { path: 'objava/:id', component: SinglePostComponent },
     { path: 'neodobreni-komentari', component: UnaprovedCommentsComponent, canActivate: [AdminGuard] },
     { path: 'neodgovoreni-komentari', component: UnrepliedCommentsComponent, canActivate: [AdminGuard] },
     { path: 'prestolonaslednikovica', component: TicTacToeComponent },

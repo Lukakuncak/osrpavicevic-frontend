@@ -1,0 +1,59 @@
+<div class="container mt-5">
+    <!-- Post Image -->
+    <div *ngIf="post?.image" class="post-image mb-4 text-center">
+        <img [src]="post.image.imageUrl" alt="News Image" class="img-fluid rounded" style="width: 100%; max-height: 60vh; object-fit: cover;">
+    </div>
+    <div *ngIf="!post?.image" class="post-image mb-4 text-center">
+        <img [src]="'post-default-parents.jpg'" alt="News Image" class="img-fluid rounded" style="width: 100%; max-height: 60vh; object-fit: cover;">
+    </div>
+
+    <!-- Post Content -->
+    <div class="post-content p-4 bg-white shadow-sm rounded mb-4">
+        <div class="post-header">
+            <h2 class="fw-bold">{{ post?.title }}</h2>
+            <p class="text-muted">Објављено: {{ post?.dateTime | date: 'short' }}</p>
+            <!-- Edit Button -->
+            <button *ngIf="isAdmin && !isEditing" class="btn btn-warning btn-sm float-end" (click)="enableEdit()">
+                Измени
+            </button>
+        </div>
+
+        <!-- Editable Content -->
+        <div *ngIf="isEditing; else contentTemplate" class="editable-content">
+            <textarea [(ngModel)]="post.content" class="form-control mb-3" rows="5"></textarea>
+
+            <div class="mb-3">
+                <label for="imageInput" class="form-label">Изаберите нову слику</label>
+                <input type="file" id="imageInput" (change)="onImageSelected($event)" class="form-control" />
+            </div>
+
+            <div>
+                <h4>Додајте нови фајл:</h4>
+                <input type="file" (change)="onFileSelected($event)" class="form-control mb-3 w-75 mx-auto">
+            </div>
+
+            <button (click)="saveChanges()" class="btn btn-primary">Сачувај промене</button>
+            <button (click)="deletePicture()" class="btn btn-danger ms-2">Обриши слику</button>
+            <button (click)="isEditing = false" class="btn btn-secondary ms-2">Откажи</button>
+        </div>
+
+        <!-- Display Non-Editable Content -->
+        <ng-template #contentTemplate>
+            <div *ngIf="post" class="non-editable-content">
+                <div [innerHTML]="post.content | newlineToBr"></div>
+            </div>
+        </ng-template>
+    </div>
+
+    <div class="file-preview mt-4 text-center mb-4" *ngIf="post.file">
+        <h4>Преузмите презентацију</h4>
+        <i class="fas fa-file-powerpoint fa-3x text-warning mb-3"></i>
+        <h5 class="file-name">{{ post.title }}.pptx</h5>
+
+        <div class="btn-group mt-3" role="group" aria-label="File actions">
+            <button class="btn btn-primary btn-sm" (click)="downloadFile()">Преузмите</button>
+            <button *ngIf="isAdmin" class="btn btn-danger btn-sm" (click)="deleteFile()">Обришите</button>
+        </div>
+    </div>
+    
+</div>

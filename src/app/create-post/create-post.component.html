@@ -1,0 +1,35 @@
+<div class="container mt-4">
+    <h2 class="mb-4">Направите нову објаву</h2>
+  
+    <form [formGroup]="newsForm" (ngSubmit)="createNews()">
+      <div class="form-group mb-3">
+        <label for="title">Наслов</label>
+        <input id="title" formControlName="title" type="text" class="form-control" placeholder="Унесите наслов вести">
+        <div *ngIf="newsForm.get('title').invalid && newsForm.get('title').touched" class="text-danger">
+          Наслов је обавезан.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="content">Садржај</label>
+        <textarea id="content" formControlName="content" rows="5" class="form-control" placeholder="Унесите садржај вести"></textarea>
+        <div *ngIf="newsForm.get('content').invalid && newsForm.get('content').touched" class="text-danger">
+          Садржај је обавезан.
+        </div>
+      </div>
+  
+      <div class="form-group mb-3">
+        <label for="type">Тип</label>
+        <select id="type" formControlName="type" class="form-control">
+          <option value="">Одаберите тип</option>
+          <option *ngFor="let type of newsTypes" [value]="type">{{ type }}</option>
+        </select>
+        <div *ngIf="newsForm.get('type').invalid && newsForm.get('type').touched" class="text-danger">
+          Тип је обавезан.
+        </div>
+      </div>
+      
+      <button type="submit" class="btn btn-primary" [disabled]="newsForm.invalid">Креирајте вест</button>
+    </form>
+  </div>
+  

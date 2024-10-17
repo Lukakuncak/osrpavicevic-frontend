@@ -1,0 +1,100 @@
+<div class="container mt-4">
+    
+    <div class="row mb-1">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 text-center">
+            <h4 class="fw-bold">Кутак за родитеље</h4>
+        </div>
+        <div class="col-md-4"></div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-12 col-sm-6 col-md-6 mb-2">
+            <input type="text" class="form-control" placeholder="Претражи по наслову" [(ngModel)]="searchTerm"
+                (input)="searchNews()">
+        </div>
+
+        <div class="col-12 col-md-6 text-md-end d-flex justify-content-md-end flex-wrap" *ngIf="isAdmin">
+            <a [routerLink]="['/kreiraj-pp-objavu']" class="btn btn-success mb-2">Нова објава</a>
+        </div>
+    </div>
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-12">
+                <!-- Post Grid -->
+                <div class="row" *ngIf="allPosts?.length > 0">
+                    <div *ngFor="let post of allPosts" class="col-md-6 mb-4">
+                        <div class="post-box">
+                            <div class="post-img-container">
+                                <img *ngIf="post.image" [src]="post.image.imageUrl" alt="News Image" class="post-img">
+                                <img *ngIf="!post.image" [src]="'post-default-parents.jpg'" alt="News Image" class="post-img">
+                            </div>
+                            <div class="post-content">
+                                <h5 class="post-title">{{ post.title }}</h5>
+                                <p class="post-snippet">{{ post.content | slice: 0:150 }}...</p>
+                                <a (click)="goToPost(post.id)" class="btn btn-outline-info">Прочитајте још</a>
+                            </div>
+                            <small class="post-date">{{ post.dateTime | date: 'short' }}</small>
+    
+                            <!-- Admin Tools -->
+                            <div *ngIf="isAdmin" class="admin-tools">
+                                <i class="fa-solid fa-trash" (click)="deleteNews(post.id)" style="cursor: pointer; background-color: white; padding: 3px; border-radius: 20%;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    
+                <!-- No posts found message -->
+                <div *ngIf="postPage?.empty" class="d-flex justify-content-center align-items-center min-vh-100">
+                    <span class="alert alert-info">Није пронађено ниједно обавештење.</span>
+                </div>
+        </div>
+
+
+        <nav class="d-flex justify-content-between align-items-center mb-3">
+            <div class="d-flex align-items-center">
+                <div class="d-flex align-items-center ms-3">
+                    <label for="pageSizeSelect" class="me-1 mb-0">
+                        <span class="text-label">Величина <br>странице:</span>
+                    </label>
+                    <select id="pageSizeSelect" class="form-select-sm me-3" [(ngModel)]="pageSize"
+                        (change)="updatePageSize($event)">
+                        <option *ngFor="let size of pageSizes" [value]="size">{{ size }}</option>
+                    </select>
+                </div>
+                <ul class="pagination mb-0">
+                    <li class="page-item" [class.disabled]="postPage?.first">
+                        <a class="page-link" (click)="changePage(currentPage - 1)">
+                            <i class="fa-solid fa-arrow-left"></i>
+                        </a>
+                    </li>
+                    <li class="page-item number-of-pages-big"
+                        *ngFor="let page of getPagesArray(postPage?.totalPages); let i = index"
+                        [class.active]="i === currentPage">
+                        <a class="page-link" (click)="changePage(i)">{{ i + 1 }}</a>
+                    </li>
+
+                    <li class="page-item number-of-pages-small" [class.active]="true">
+                        <a class="page-link">{{currentPage}}</a>
+                    </li>
+                    <li class="page-item" [class.disabled]="postPage?.last">
+                        <a class="page-link" (click)="changePage(currentPage + 1)">
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="text-end">
+                <button class="btn btn-light" (click)="sortNewsByDate()">
+                    <span class="text-label">По датуму</span>
+                    <span [ngClass]="{ 'text-success': sortDir === 'asc', 'text-danger': sortDir === 'desc' }">
+                        <i class="bi" [ngClass]="sortDir === 'asc' ? 'bi-arrow-up' : 'bi-arrow-down'"></i>
+                    </span>
+                </button>
+            </div>
+        </nav>
+
+    </div>

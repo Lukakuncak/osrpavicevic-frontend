@@ -1,0 +1,100 @@
+.card {
+    border: 1px solid #e0e0e0;
+    border-radius: 0.5rem;
+  }
+  
+  .card-body {
+    padding: 1.25rem;
+  }
+  
+  .card-title {
+    font-size: 1.25rem;
+    font-weight: 500;
+  }
+  
+  .card-text {
+    font-size: 0.875rem;
+  }
+  
+  .card-footer {
+    background-color: #f8f9fa;
+  }
+  
+  .number-of-pages-small {
+    display: none;
+  }
+  
+  @media (max-width: 768px) {
+    .text-label {
+      display: none;
+    }
+  
+    .number-of-pages-big {
+      display: none;
+    }
+  
+    .number-of-pages-small {
+      display: contents;
+    }
+  }
+
+  .post-box {
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+    position: relative;
+    padding: 1rem;
+}
+
+.post-box:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.post-img-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+}
+
+.post-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s;
+}
+
+.post-box:hover .post-img {
+    transform: scale(1.05);
+}
+
+.post-content {
+    padding: 0.5rem 0;
+}
+
+.post-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.post-snippet {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.post-date {
+    font-size: 0.75rem;
+    color: #6c757d;
+}
+
+.admin-tools {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 1.5rem;
+    color: #dc3545;
+    cursor: pointer;
+}
